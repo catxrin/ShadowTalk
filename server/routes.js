@@ -4,6 +4,6 @@ import { isAuth } from './middlewares/auth.js';
 
 const routes = Router();
 
-routes.use('/auth', isAuth, auth);
+routes.use('/auth', auth);
 
 export default routes;

@@ -1,0 +1,25 @@
+import ErrorMessage from '../ErrorMessage';
+import ConnectForm from './ConnectForm';
+
+export default function Input({ name, rules, label, placeholder, error, styles, ...rest }) {
+  return (
+    <ConnectForm>
+      {({ register, formState: { errors } }) => (
+        <div className='flex flex-col'>
+          <label className='text-gray-400 text-sm font-semibold' htmlFor={name}>
+            {label}
+          </label>
+          <input
+            placeholder={placeholder}
+            className={`border p-1 rounded-md ${!errors[name] ? 'border-gray-500' : 'border-red-600'} ${
+              styles && styles
+            }`}
+            {...register(name, rules)}
+            {...rest}
+          />
+          {errors[name] && <ErrorMessage error={errors[name].message} />}
+        </div>
+      )}
+    </ConnectForm>
+  );
+}

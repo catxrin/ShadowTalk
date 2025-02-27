@@ -8,8 +8,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/server': {
-        target: `http://localhost:${process.env.PORT}/`,
-        rewrite: (path) => path.replace(/^\/server/, ''),
+        target: 'http://localhost:3000/',
+        rewrite: path => path.replace(/^\/server/, ''),
         changeOrigin: true,
         secure: false,
       },
