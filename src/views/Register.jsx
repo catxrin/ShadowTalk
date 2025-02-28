@@ -13,16 +13,16 @@ export default function Register() {
       userRegister({ username, email, password });
     });
   return (
-    <div className='min-h-screen relative bg-black/95 overflow-hidden gap-4 flex justify-center flex-col items-center text-white'>
-      <Shape position='-top-40 -right-20 blur-[100px]' />
-      <Shape position='-bottom-40 -left-30 blur-[300px]' />
+    <div className='min-h-screen relative bg-[#0a0f13] overflow-hidden gap-4 flex justify-center flex-col items-center text-white'>
+      <Shape position='-top-40 -right-20 blur-[100px] xl:max-h-full xl:max-w-full max-h-40 max-w-40' />
+      <Shape position='xl:-bottom-40 xl:-left-32 -bottom-20 -left-52 blur-[100px] xl:max-h-full xl:max-w-full max-h-40 max-w-40' />
       <div className='flex h-full flex-col justify-center items-center gap-3'>
-        <img className='h-20 w-24' src='logo.png' alt='logo' />
+        <img className='xl:h-20 xl:w-24 h-16 w-20' src='logo.png' alt='logo' />
         <div className='flex flex-col gap-1 text-center'>
-          <p className='font-semibold text-3xl'>New here? Let’s go!</p>
+          <p className='font-semibold text-xl xl:text-3xl'>New here? Let’s go!</p>
           <div className='flex flex-row gap-2 justify-center'>
-            <p className='text-gray-400'>Already a member?</p>
-            <NavLink to='/login' className='text-white hover:underline hover:cursor-pointer'>
+            <p className='text-gray-400 xl:text-base text-sm'>Already a member?</p>
+            <NavLink to='/login' className='text-white xl:text-base text-sm hover:underline hover:cursor-pointer'>
               Sign in here
             </NavLink>
           </div>
@@ -30,7 +30,10 @@ export default function Register() {
       </div>
 
       <FormProvider {...methods}>
-        <form className='max-w-[24rem] min-w-[20rem] w-full flex flex-col text-white gap-4' onSubmit={submitData()}>
+        <form
+          className='xl:max-w-[24rem] max-w-40 min-w-[20rem] xl:w-full flex flex-col text-white gap-4'
+          onSubmit={submitData()}
+        >
           <Input
             placeholder='Username'
             rules={{

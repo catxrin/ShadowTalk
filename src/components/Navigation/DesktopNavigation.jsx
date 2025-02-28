@@ -1,7 +1,7 @@
-export default function Header() {
+export default function DesktopNavigation() {
   return (
-    <nav className='fixed top-0 z-50 bg-black/10 w-full py-3 px-92 backdrop-blur-2xl'>
-      <ul className='flex lex-row items-center gap-20 bg-transparent text-white w-full justify-between'>
+    <nav className='fixed xl:block hidden top-0 z-50 bg-black/10 w-full py-3 px-92 backdrop-blur-2xl'>
+      <ul className='flex lex-row items-center gap-20 text-white w-full justify-between'>
         <div className='flex flex-row items-center gap-1'>
           <img className='h-9 w-10' src='logo.png' alt='logo' />
           <p className='font-semibold'>ShadowTalk</p>

@@ -11,9 +11,9 @@ export default function Input({ name, rules, label, placeholder, error, styles, 
           </label>
           <input
             placeholder={placeholder}
-            className={`border p-1 rounded-md ${!errors[name] ? 'border-gray-500' : 'border-red-600'} ${
-              styles && styles
-            }`}
+            className={`border p-1 xl:text-base text-sm rounded-md ${
+              !errors[name] ? 'border-gray-500' : 'border-red-600'
+            } ${styles && styles}`}
             {...register(name, rules)}
             {...rest}
           />
