@@ -20,7 +20,7 @@ export default function MobileNavigation() {
             onClick={e => {
               e.stopPropagation();
             }}
-            className='rounded-l-3xl absolute bg-[#171718] text-gray-300 h-screen min-w-88 right-0'
+            className='rounded-l-3xl absolute bg-[#1E1F22] text-gray-300 h-screen sm:min-w-88 min-w-80 right-0'
           >
             <div className='size-full flex flex-col py-5 px-6 gap-3'>
               <div className='flex w-full justify-between'>
@@ -28,7 +28,7 @@ export default function MobileNavigation() {
                   <img className='h-6 w-7' src='logo.png' alt='logo' />
                   <p className='font-semibold text-sm'>ShadowTalk</p>
                 </div>
-                <Icon styles='bg-white/10 text-sm p-1 rounded-lg' onClick={changeVisibility} icon='close' />
+                <Icon styles='bg-white/10 !text-lg py-0.5 px-1.5 rounded-lg' onClick={changeVisibility} icon='close' />
               </div>
               <div className='flex flex-col gap-4 px-2'>
                 <div className='border-b-[1px] cursor-pointer border-gray-600 py-3'>Home</div>
