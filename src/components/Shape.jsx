@@ -6,8 +6,8 @@ export default function Shape({ position }) {
       <svg
         xmlns='http://www.w3.org/2000/svg'
         id='SvgjsSvg3429'
-        width='400'
-        height='400'
+        width='500'
+        height='500'
         viewBox='0 0 200 200'
         version='1.1'
         xmlnsXlink='http://www.w3.org/1999/xlink'
@@ -20,9 +20,9 @@ export default function Shape({ position }) {
         ></path>
         <defs>
           <linearGradient gradientTransform='rotate(0 0.5 0.5)' id='SvgjsLinearGradient3430'>
-            <stop stopOpacity=' 1' stopColor='#1c2a34' offset='0'></stop>
-            <stop stopOpacity=' 1' stopColor='#253745' offset='0.483499755859375'></stop>
-            <stop stopOpacity=' 1' stopColor='#9BABAB' offset='1'></stop>
+            <stop stopOpacity=' 1' stopColor='#1f2124' offset='0'></stop>
+            <stop stopOpacity=' 1' stopColor='#393d42' offset='0.483499755859375'></stop>
+            <stop stopOpacity=' 1' stopColor='#6a6e73' offset='1'></stop>
           </linearGradient>
         </defs>
       </svg>

@@ -13,7 +13,7 @@ export default function Register() {
       userRegister({ username, email, password });
     });
   return (
-    <div className='min-h-screen relative bg-[#0a0f13] overflow-hidden gap-4 flex justify-center flex-col items-center text-white'>
+    <div className='min-h-screen relative bg-[#0c0c0c] overflow-hidden gap-4 flex justify-center flex-col items-center text-white'>
       <Shape position='-top-40 -right-20 blur-[100px] xl:max-h-full xl:max-w-full max-h-40 max-w-40' />
       <Shape position='xl:-bottom-40 xl:-left-32 -bottom-20 -left-52 blur-[100px] xl:max-h-full xl:max-w-full max-h-40 max-w-40' />
       <div className='flex h-full flex-col justify-center items-center gap-3'>

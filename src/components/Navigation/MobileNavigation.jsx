@@ -1,5 +1,5 @@
 import Icon from '../Icon';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function MobileNavigation() {
   const [visible, setVisible] = useState(false);
@@ -7,7 +7,7 @@ export default function MobileNavigation() {
 
   return (
     <div className='xl:hidden flex'>
-      <nav className='fixed flex justify-between top-0 z-50 bg-black/10 w-full py-2 px-4 text-white backdrop-blur-2xl'>
+      <nav className='fixed flex justify-between shadow-sm shadow-white/1 top-0 z-50 bg-black/10 w-full py-2.5 px-4 text-white backdrop-blur-2xl'>
         <div className='flex flex-row items-center gap-1'>
           <img className='h-6 w-7' src='logo.png' alt='logo' />
           <p className='font-semibold text-sm'>ShadowTalk</p>
@@ -20,7 +20,7 @@ export default function MobileNavigation() {
             onClick={e => {
               e.stopPropagation();
             }}
-            className='rounded-l-3xl absolute bg-[#131d23] text-gray-300 h-screen min-w-88 right-0'
+            className='rounded-l-3xl absolute bg-[#171718] text-gray-300 h-screen min-w-88 right-0'
           >
             <div className='size-full flex flex-col py-5 px-6 gap-3'>
               <div className='flex w-full justify-between'>
