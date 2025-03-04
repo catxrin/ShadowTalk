@@ -8,9 +8,9 @@ export default function MobileNavigation() {
   return (
     <div className='xl:hidden flex'>
       <nav className='fixed flex justify-between shadow-sm shadow-white/1 top-0 z-50 bg-black/10 w-full py-2.5 px-4 text-white backdrop-blur-2xl'>
-        <div className='flex flex-row items-center gap-1'>
-          <img className='h-6 w-7' src='logo.png' alt='logo' />
-          <p className='font-semibold text-sm'>ShadowTalk</p>
+        <div className='flex flex-row items-center gap-2'>
+          <img className='h-7 w-8 p-1 bg-white/80 rounded' src='logoSVG.svg' alt='logo' />
+          <p className='font-semibold'>ShadowTalk</p>
         </div>
         <Icon onClick={changeVisibility} icon='menu' />
       </nav>
@@ -24,9 +24,9 @@ export default function MobileNavigation() {
           >
             <div className='size-full flex flex-col py-5 px-6 gap-3'>
               <div className='flex w-full justify-between'>
-                <div className='flex flex-row items-center gap-1'>
-                  <img className='h-6 w-7' src='logo.png' alt='logo' />
-                  <p className='font-semibold text-sm'>ShadowTalk</p>
+                <div className='flex flex-row items-center gap-2'>
+                  <img className='h-7 w-8 p-1 bg-white/80 rounded' src='logoSVG.svg' alt='logo' />
+                  <p className='font-semibold'>ShadowTalk</p>
                 </div>
                 <Icon styles='bg-white/10 !text-lg py-0.5 px-1.5 rounded-lg' onClick={changeVisibility} icon='close' />
               </div>
