@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Icon from '../Icon';
 import { useState } from 'react';
 
@@ -31,9 +32,29 @@ export default function MobileNavigation() {
                 <Icon styles='bg-white/10 !text-lg py-0.5 px-1.5 rounded-lg' onClick={changeVisibility} icon='close' />
               </div>
               <div className='flex flex-col gap-4 px-2'>
-                <div className='border-b-[1px] cursor-pointer border-gray-600 py-3'>Home</div>
-                <div className='border-b-[1px] cursor-pointer border-gray-600 py-3'>About</div>
-                <div className='border-b-[1px] cursor-pointer border-gray-600 py-3'>Contacts</div>
+                <Link to='#' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
+                  Home
+                </Link>
+                <Link to='#about' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
+                  About
+                </Link>
+                <Link to='#contacts' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
+                  Contacts
+                </Link>
+                <div className='flex flex-row py-3 justify-between gap-5 text-center w-full'>
+                  <Link
+                    to='/login'
+                    className='rounded-3xl w-full text-[15px] bg-white font-semibold border border-white text-black px-3 py-1.5'
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to='/register'
+                    className='rounded-3xl w-full text-[15px] bg-white font-semibold border text-black border-white px-3 py-1.5'
+                  >
+                    Register
+                  </Link>
+                </div>
               </div>
             </div>
           </div>

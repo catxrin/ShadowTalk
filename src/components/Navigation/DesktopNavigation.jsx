@@ -1,3 +1,5 @@
+import { Link, NavLink } from 'react-router-dom';
+
 export default function DesktopNavigation() {
   return (
     <nav className='fixed xl:block hidden top-0 z-50 shadow-sm shadow-white/1 bg-black/10 w-full py-3 px-92 backdrop-blur-2xl'>
@@ -8,17 +10,17 @@ export default function DesktopNavigation() {
         </div>
 
         <div className='flex flex-row gap-10 items-center'>
-          <li className='text-[15px] font-semibold'>Home</li>
-          <li className='text-[15px] font-semibold'>About</li>
-          <li className='text-[15px] font-semibold'>Contacts</li>
+          <NavLink className='text-[15px] font-semibold'>Home</NavLink>
+          <NavLink className='text-[15px] font-semibold'>About</NavLink>
+          <NavLink className='text-[15px] font-semibold'>Contacts</NavLink>
         </div>
         <div className='flex flex-row gap-5'>
-          <li className='rounded-3xl text-[15px] bg-white font-semibold border border-white text-black px-3 py-1.5'>
+          <Link className='rounded-3xl text-[15px] bg-white font-semibold border border-white text-black px-3 py-1.5'>
             Login
-          </li>
-          <li className='rounded-3xl text-[15px] bg-white font-semibold border text-black border-white px-3 py-1.5'>
+          </Link>
+          <Link className='rounded-3xl text-[15px] bg-white font-semibold border text-black border-white px-3 py-1.5'>
             Register
-          </li>
+          </Link>
         </div>
       </ul>
     </nav>
