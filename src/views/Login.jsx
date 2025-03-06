@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Shape from '../components/Shape';
 import PasswordInput from '../components/Forms/PasswordInput';
 import { NavLink } from 'react-router-dom';
+import Logo from '../components/Logo';
 
 export default function Login() {
   const methods = useForm();
@@ -18,7 +19,7 @@ export default function Login() {
       <Shape position='-top-40 -right-20 blur-[100px] xl:max-h-full xl:max-w-full max-h-40 max-w-40' />
       <Shape position='xl:-bottom-40 xl:-left-32 -bottom-20 -left-52 blur-[100px] xl:max-h-full xl:max-w-full max-h-40 max-w-40' />
       <div className='flex h-full flex-col justify-center items-center gap-3'>
-        <img className='xl:h-20 xl:w-20 h-16 w-16 xl:px-4 px-3.5 bg-white/80 rounded' src='logoSVG.svg' alt='logo' />
+        <Logo />
         <div className='flex flex-col gap-1 text-center'>
           <p className='font-semibold text-xl xl:text-3xl'>Yooo, welcome back!</p>
           <div className='flex flex-row gap-2 justify-center'>
