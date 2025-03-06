@@ -29,12 +29,6 @@ export default function PasswordInput() {
                     minLength: { value: 8, message: 'Password must contain at least 8 characters' },
                   })}
                 />
-                <span
-                  onClick={() => setVisible(prev => !prev)}
-                  className='material-symbols-outlined cursor-pointer absolute right-3 bottom-1'
-                >
-                  {visibilityIcon()}
-                </span>
                 <Icon
                   icon={visibilityIcon()}
                   onClick={() => setVisible(prev => !prev)}
