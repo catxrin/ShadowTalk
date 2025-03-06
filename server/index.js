@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import routes from './routes.js';
+import { isAuth } from './middlewares/auth.js';
 
 dotenv.config({ path: './../.env' });
 
@@ -15,15 +16,13 @@ try {
   console.error(error.message);
 }
 
-
 // Express Configurations
 const app = express();
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
+app.use(isAuth);
 
 app.use(routes);
 
-app.listen(process.env.PORT, () =>
-  console.log(`🍵 Server is listening on http://localhost:${process.env.PORT}`)
-);
+app.listen(process.env.PORT, () => console.log(`🍵 Server is listening on http://localhost:${process.env.PORT}`));
