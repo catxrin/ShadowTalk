@@ -11,7 +11,7 @@ export default function MobileNavigation() {
       <nav className='fixed flex justify-between shadow-sm shadow-white/1 top-0 z-50 bg-black/10 w-full py-2.5 px-4 text-white backdrop-blur-2xl'>
         <div className='flex flex-row items-center gap-2'>
           <img className='h-7 w-8 p-1 bg-white/80 rounded' src='logoSVG.svg' alt='logo' />
-          <p className='font-semibold'>ShadowTalk</p>
+          <p className='font-[nuosu] text-lg'>ShadowTalk</p>
         </div>
         <Icon onClick={changeVisibility} icon='menu' />
       </nav>
@@ -27,12 +27,12 @@ export default function MobileNavigation() {
               <div className='flex w-full justify-between'>
                 <div className='flex flex-row items-center gap-2'>
                   <img className='h-7 w-8 p-1 bg-white/80 rounded' src='logoSVG.svg' alt='logo' />
-                  <p className='font-semibold'>ShadowTalk</p>
+                  <p className='font-[nuosu] text-lg'>ShadowTalk</p>
                 </div>
                 <Icon styles='bg-white/10 !text-lg py-0.5 px-1.5 rounded-lg' onClick={changeVisibility} icon='close' />
               </div>
               <div className='flex flex-col gap-4 px-2'>
-                <Link to='#' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
+                <Link to='/' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
                   Home
                 </Link>
                 <Link to='#about' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
