@@ -2,7 +2,10 @@ import Shape from '../components/Shape';
 
 export default function Home() {
   return (
-    <div className='w-full flex p-6 flex-row justify-center items-center gap-20 overflow-hidden relative xl:min-h-[99vh] min-h-[92vh]'>
+    <section
+      id='home'
+      className='w-full flex p-6 flex-row justify-center items-center gap-20 overflow-hidden relative xl:min-h-[99vh] min-h-[92vh]'
+    >
       <Shape position='-top-40 -right-20 blur-[100px] xl:max-h-full xl:max-w-full max-h-40 max-w-40' />
       <Shape position='xl:-bottom-40 xl:-left-32 -bottom-20 -left-52 blur-[100px] xl:max-h-full xl:max-w-full max-h-40 max-w-40' />
 
@@ -30,6 +33,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,6 +1,7 @@
 import Separator from '../components/Separator';
 import About from './About';
 import Home from './Home';
+import Contacts from './Contacts';
 
 export default function Landing() {
   return (
@@ -9,6 +10,7 @@ export default function Landing() {
       <Separator />
       <About />
       <Separator />
+      <Contacts />
     </div>
   );
 }

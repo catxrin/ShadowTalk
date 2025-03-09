@@ -1,20 +1,25 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 export default function DesktopNavigation() {
   return (
     <nav className='fixed xl:block hidden top-0 z-50 shadow-sm shadow-white/1 bg-black/10 w-full py-3 px-92 backdrop-blur-2xl'>
       <ul className='flex lex-row items-center gap-20 text-white w-full justify-between'>
-        <div className='flex flex-row items-center gap-2'>
+        <Link to='/' className='flex flex-row items-center gap-2'>
           <img className='h-7 w-8 p-1 bg-white/80 rounded' src='logoSVG.svg' alt='logo' />
           <p className='font-[nuosu] text-lg'>ShadowTalk</p>
-        </div>
+        </Link>
 
         <div className='flex flex-row gap-10 items-center'>
-          <NavLink to='/' className='text-[15px] font-semibold'>
+          <HashLink smooth to='#home' className='text-[15px] font-semibold'>
             Home
-          </NavLink>
-          <NavLink className='text-[15px] font-semibold'>About</NavLink>
-          <NavLink className='text-[15px] font-semibold'>Contacts</NavLink>
+          </HashLink>
+          <HashLink smooth to='#about' className='text-[15px] font-semibold'>
+            About
+          </HashLink>
+          <HashLink smooth to='#contacts' className='text-[15px] font-semibold'>
+            Contacts
+          </HashLink>
         </div>
         <div className='flex flex-row gap-5'>
           <Link
