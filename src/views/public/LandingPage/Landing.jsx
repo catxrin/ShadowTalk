@@ -1,4 +1,4 @@
-import Separator from '../components/Separator';
+import Separator from '../../../components/Separator';
 import About from './About';
 import Home from './Home';
 import Contacts from './Contacts';

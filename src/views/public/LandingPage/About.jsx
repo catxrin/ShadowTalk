@@ -1,5 +1,5 @@
-import HeroSection from '../components/HeroSection';
-import Shape from '../components/Shape';
+import HeroSection from '../../../components/HeroSection';
+import Shape from '../../../components/Shape';
 
 export default function About() {
   return (

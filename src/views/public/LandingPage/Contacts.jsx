@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import Icon from '../components/Icon';
+import Icon from '../../../components/Icon';
 
 export default function Contacts() {
   return (
@@ -29,9 +29,9 @@ export default function Contacts() {
         <img className='invert grayscale xl:h-10 h-6' src='githubIcon.svg' alt='github' />
       </Link>
       <div className='absolute flex gap-1 flex-row items-center bottom-2 right-4 xl:text-sm text-[10px] font-semibold'>
-        <p className='flex flex-row items-center gap-1'>
+        <div className='flex flex-row items-center gap-1'>
           Made with <Icon styles='xl:!text-lg !text-sm' icon='favorite' /> by
-        </p>
+        </div>
         <Link to='https://github.com/catxrin' className='underline italic'>
           catxrin
         </Link>

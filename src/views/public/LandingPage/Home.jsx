@@ -1,4 +1,4 @@
-import Shape from '../components/Shape';
+import Shape from '../../../components/Shape';
 
 export default function Home() {
   return (
