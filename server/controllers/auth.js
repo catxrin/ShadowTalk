@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import jwt from 'jsonwebtoken';
 import { loginUser, registerUser } from '../services/authService.js';
 
 const auth = Router();

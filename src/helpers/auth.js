@@ -8,7 +8,8 @@ export const userRegister = data => {
 };
 
 export const userLogin = data => {
-  return useFetch({ url: 'auth/login', body: data, method: 'POST' }).then(() => {
+  return useFetch({ url: 'auth/login', body: data, method: 'POST' }).then(res => {
     enqueueSnackbar('Login successful.', { variant: 'success', autoHideDuration: 2000 });
+    return res;
   });
 };

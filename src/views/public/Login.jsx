@@ -8,14 +8,22 @@ import Logo from '../../components/Logo';
 import Shape from '../../components/Shape';
 import Input from '../../components/Forms/Input';
 import PasswordInput from '../../components/Forms/PasswordInput';
+import { useContext } from 'react';
+import { UserContext } from '../../UserProvider';
 
 export default function Login() {
   const methods = useForm();
   const navigate = useNavigate();
+  const { setUserAuth } = useContext(UserContext);
+
   const submitData = () =>
     methods.handleSubmit(({ email, password }) => {
-      userLogin({ email, password }).then(() => navigate('/'));
+      userLogin({ email, password }).then(res => {
+        setUserAuth(res);
+        navigate('/');
+      });
     });
+
   return (
     <div className='min-h-screen relative bg-[#0c0c0c] overflow-hidden gap-4 flex justify-center flex-col items-center text-white'>
       <Shape position='-top-40 -right-20 blur-[100px] xl:max-h-full xl:max-w-full max-h-40 max-w-40' />

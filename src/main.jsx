@@ -1,11 +1,16 @@
 import { createRoot } from 'react-dom/client';
-import { SnackbarProvider } from 'notistack';
 import { RouterProvider } from 'react-router-dom';
+
+import { SnackbarProvider } from 'notistack';
 import { router } from './router/router';
+
+import UserProvider from './UserProvider';
 import './index.css';
 
 createRoot(document.getElementById('root')).render(
   <SnackbarProvider>
-    <RouterProvider router={router} />
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
   </SnackbarProvider>
 );

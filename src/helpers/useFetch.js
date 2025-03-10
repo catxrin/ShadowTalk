@@ -9,8 +9,7 @@ export default function useFetch({ url, body, method = 'GET' }) {
     .then(async res => {
       const text = await res.text();
       const response = text ? JSON.parse(text) : {};
-
-      if (!response.ok) {
+      if (!res.ok) {
         throw new Error(response?.message || `Error ${response?.status}`);
       }
       return response;
