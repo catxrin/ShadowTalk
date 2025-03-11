@@ -1,19 +1,13 @@
-import { createContext, useEffect, useState } from 'react';
-import useFetch from './helpers/useFetch';
+import { createContext, useState } from 'react';
 
 export const UserContext = createContext(null);
 
 export default function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  const setUserAuth = userId => {
-    setUser(userId);
+  const setUserAuth = userData => {
+    setUser(userData);
   };
-  useEffect(() => {
-    useFetch({ url: 'auth' }).then(res => {
-      setUser(res);
-    });
-  }, []);
 
   return <UserContext.Provider value={{ user, setUserAuth }}>{children}</UserContext.Provider>;
 }

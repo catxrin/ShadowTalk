@@ -1,5 +1,4 @@
-import { useNavigate } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { userLogin } from '../../helpers/auth';
@@ -8,19 +7,15 @@ import Logo from '../../components/Logo';
 import Shape from '../../components/Shape';
 import Input from '../../components/Forms/Input';
 import PasswordInput from '../../components/Forms/PasswordInput';
-import { useContext } from 'react';
-import { UserContext } from '../../UserProvider';
 
 export default function Login() {
   const methods = useForm();
   const navigate = useNavigate();
-  const { setUserAuth } = useContext(UserContext);
-
+  console.log("i'm in login!");
   const submitData = () =>
     methods.handleSubmit(({ email, password }) => {
-      userLogin({ email, password }).then(res => {
-        setUserAuth(res);
-        navigate('/');
+      userLogin({ email, password }).then(() => {
+        navigate('/chat');
       });
     });
 

@@ -1,6 +1,5 @@
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
-import { generateToken } from '../helpers.js';
 
 export const registerUser = async data => {
   const isExistingUser = await User.findOne({ email: data.email });
@@ -9,7 +8,7 @@ export const registerUser = async data => {
   }
 
   const user = await User.create(data);
-  return await generateToken(user._id);
+  return user._id;
 };
 
 export const loginUser = async data => {
@@ -19,7 +18,7 @@ export const loginUser = async data => {
   }
   const isPasswordCorrect = await bcrypt.compare(data.password, user.password);
   if (isPasswordCorrect) {
-    return await generateToken(user._id);
+    return user._id;
   } else {
     throw new Error('Wrong credentials!');
   }

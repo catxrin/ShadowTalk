@@ -22,7 +22,12 @@ export const router = createBrowserRouter([
   {
     path: '/chat',
     element: <Private />,
-    children: [],
+    children: [
+      {
+        path: ':id',
+        element: <p>Chat</p>,
+      },
+    ],
   },
   { path: '*', element: <>Not found</> },
 ]);
