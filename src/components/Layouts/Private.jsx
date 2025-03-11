@@ -1,13 +1,22 @@
 import { useEffect, useState, useContext } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate } from 'react-router-dom';
 
 import { UserContext } from '../../UserProvider';
 import useFetch from '../../helpers/useFetch';
 import Icon from '../Icon';
+import { logout } from '../../helpers/auth';
 
 export default function Private() {
   const { user, setUserAuth } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const logoutUser = () => {
+    logout().then(() => {
+      setUserAuth(null);
+      navigate('/');
+    });
+  };
 
   useEffect(() => {
     useFetch({ url: 'user' })
@@ -36,7 +45,7 @@ export default function Private() {
               </div>
               <div className='flex flex-row items-center gap-4 text-gray-300'>
                 <Icon styles='!text-2xl' icon='settings' />
-                <Icon styles='!text-2xl' icon='logout' />
+                <Icon onClick={logoutUser} styles='!text-2xl' icon='logout' />
               </div>
             </div>
           </div>

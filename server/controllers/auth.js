@@ -22,4 +22,13 @@ auth.post('/login', async (req, res) => {
   }
 });
 
+auth.get('/logout', async (req, res) => {
+  try {
+    res.clearCookie('auth');
+    res.status(200).end();
+  } catch (error) {
+    res.status(403).json({ message: error.message });
+  }
+});
+
 export default auth;

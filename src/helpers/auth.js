@@ -13,3 +13,9 @@ export const userLogin = data => {
     return res;
   });
 };
+
+export const logout = () => {
+  return useFetch({ url: 'auth/logout' }).then(() => {
+    enqueueSnackbar('Logout successful.', { variant: 'success', autoHideDuration: 2000 });
+  });
+};

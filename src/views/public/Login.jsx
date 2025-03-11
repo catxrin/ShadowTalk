@@ -11,7 +11,7 @@ import PasswordInput from '../../components/Forms/PasswordInput';
 export default function Login() {
   const methods = useForm();
   const navigate = useNavigate();
-  console.log("i'm in login!");
+
   const submitData = () =>
     methods.handleSubmit(({ email, password }) => {
       userLogin({ email, password }).then(() => {
