@@ -5,6 +5,7 @@ import Register from '../views/public/Register';
 import Landing from '../views/public/LandingPage/Landing';
 import Public from '../components/Layouts/Public';
 import Private from '../components/Layouts/Private';
+import NotFound from '../components/NotFound';
 
 export const router = createBrowserRouter([
   {
@@ -29,5 +30,5 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  { path: '*', element: <>Not found</> },
+  { path: '*', element: <NotFound /> },
 ]);
