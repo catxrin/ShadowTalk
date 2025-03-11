@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import Loading from '../Loading';
 
 import { UserContext } from '../../UserProvider';
 import useFetch from '../../helpers/useFetch';
@@ -26,7 +27,7 @@ export default function Private() {
       .finally(() => setIsLoading(false));
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Loading />;
   return (
     <>
       {!user ? (
