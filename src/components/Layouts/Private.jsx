@@ -1,15 +1,19 @@
 import { useEffect, useState, useContext } from 'react';
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, useNavigate, useOutlet } from 'react-router-dom';
 import Loading from '../Loading';
 
 import { UserContext } from '../../UserProvider';
-import useFetch from '../../helpers/useFetch';
 import Icon from '../Icon';
+
+import useFetch from '../../helpers/useFetch';
 import { logout } from '../../helpers/auth';
+import Placeholder from '../Placeholder';
 
 export default function Private() {
   const { user, setUserAuth } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(true);
+
+  const outlet = useOutlet();
   const navigate = useNavigate();
 
   const logoutUser = () => {
@@ -42,7 +46,7 @@ export default function Private() {
             <div className='bg-[#1C1D22] text-white p-4 -mx-4 flex flex-row justify-between'>
               <div className='flex flex-row items-center gap-2 font-semibold'>
                 <img className='rounded-full border border-gray-500 w-10 object-cover' src='/pfp.jpeg' alt='pfp' />
-                <p className='  text-sm'>{user?.username}</p>
+                <p className='text-sm'>{user?.username}</p>
               </div>
               <div className='flex flex-row items-center gap-4 text-gray-300'>
                 <Icon styles='!text-2xl' icon='settings' />
@@ -50,7 +54,7 @@ export default function Private() {
               </div>
             </div>
           </div>
-          <Outlet />
+          {outlet ? <Outlet /> : <Placeholder />}
         </div>
       )}
     </>
