@@ -19,6 +19,8 @@ export default function Private() {
   const outlet = useOutlet();
   const navigate = useNavigate();
 
+  const username = user?.username.length > 10 ? `${user?.username.substring(0, 10)}...` : user?.username;
+
   const logoutUser = () => {
     logout().then(() => {
       setUserAuth(null);
@@ -54,9 +56,7 @@ export default function Private() {
                   src={`/server/${user?.image}`}
                   alt='pfp'
                 />
-                <p className='text-sm'>
-                  {user?.username.length > 10 ? `${user?.username.substring(0, 10)}...` : user?.username}
-                </p>
+                <p className='text-sm'>{username}</p>
               </div>
               <div className='flex flex-row items-center gap-4 text-gray-300'>
                 <Icon onClick={() => setShow(true)} styles='!text-2xl' icon='settings' />
