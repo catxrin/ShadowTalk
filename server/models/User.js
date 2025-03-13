@@ -11,6 +11,11 @@ const UserSchema = new Schema({
     required: [true, 'Username is required'],
     match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Fill a valid email address'],
   },
+  image: {
+    type: String,
+    required: false,
+    default: 'uploads/8287b87f305d095b81c6da4957c896c0.jpg',
+  },
   password: {
     type: String,
     required: [true, 'Password is required'],

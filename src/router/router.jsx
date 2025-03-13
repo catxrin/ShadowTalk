@@ -1,14 +1,17 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import App from '../App';
-import Login from '../views/Login';
-import Register from '../views/Register';
-import Landing from '../views/Landing';
+import Login from '../views/public/Login';
+import Register from '../views/public/Register';
+import Landing from '../views/public/LandingPage/Landing';
+import Public from '../components/Layouts/Public';
+import Private from '../components/Layouts/Private';
+import NotFound from '../components/NotFound';
+import Settings from '../views/private/Settings';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Public />,
     children: [
       {
         path: '',
@@ -18,5 +21,16 @@ export const router = createBrowserRouter([
       { path: '/login', element: <Login /> },
     ],
   },
-  { path: '*', element: <>Not found</> },
+  {
+    path: '/chat',
+    element: <Private />,
+    children: [
+      {
+        path: ':id',
+        element: <p>Chat</p>,
+      },
+    ],
+  },
+
+  { path: '*', element: <NotFound /> },
 ]);

@@ -1,19 +1,24 @@
+import { useNavigate, NavLink } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
-import { userLogin } from '../helpers/auth';
-import Input from '../components/Forms/Input';
-import { useNavigate } from 'react-router-dom';
-import Shape from '../components/Shape';
-import PasswordInput from '../components/Forms/PasswordInput';
-import { NavLink } from 'react-router-dom';
-import Logo from '../components/Logo';
+
+import { userLogin } from '../../helpers/auth';
+
+import Logo from '../../components/Logo';
+import Shape from '../../components/Shape';
+import Input from '../../components/Forms/Input';
+import PasswordInput from '../../components/Forms/PasswordInput';
 
 export default function Login() {
   const methods = useForm();
   const navigate = useNavigate();
+
   const submitData = () =>
     methods.handleSubmit(({ email, password }) => {
-      userLogin({ email, password }).then(() => navigate('/'));
+      userLogin({ email, password }).then(() => {
+        navigate('/chat');
+      });
     });
+
   return (
     <div className='min-h-screen relative bg-[#0c0c0c] overflow-hidden gap-4 flex justify-center flex-col items-center text-white'>
       <Shape position='-top-40 -right-20 blur-[100px] xl:max-h-full xl:max-w-full max-h-40 max-w-40' />

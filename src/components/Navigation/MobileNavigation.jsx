@@ -20,9 +20,7 @@ export default function MobileNavigation() {
       {visible && (
         <div onClick={changeVisibility} className='z-50 min-h-screen min-w-screen top-0 absolute backdrop-blur-lg'>
           <div
-            onClick={e => {
-              e.stopPropagation();
-            }}
+            onClick={e => e.stopPropagation()}
             className='rounded-l-3xl absolute bg-[#1E1F22] text-gray-300 h-screen sm:min-w-88 min-w-80 right-0'
           >
             <div className='size-full flex flex-col py-5 px-6 gap-3'>

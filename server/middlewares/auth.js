@@ -8,8 +8,8 @@ export const isAuth = async (req, res, next) => {
 
   if (token) {
     const decoded = await jwt.verify(token, process.env.SECRET);
-    res.json({ id: decoded.id });
+    res.locals.user = { id: decoded.id };
     return next();
   }
-  res.json({ message: 'Not authorized!' });
+  res.status(400).json({ message: 'Not authorized!' });
 };
