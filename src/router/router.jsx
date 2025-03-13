@@ -6,6 +6,7 @@ import Landing from '../views/public/LandingPage/Landing';
 import Public from '../components/Layouts/Public';
 import Private from '../components/Layouts/Private';
 import NotFound from '../components/NotFound';
+import Settings from '../views/private/Settings';
 
 export const router = createBrowserRouter([
   {
@@ -30,5 +31,6 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
   { path: '*', element: <NotFound /> },
 ]);

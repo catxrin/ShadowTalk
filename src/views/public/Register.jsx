@@ -5,13 +5,15 @@ import Input from '../../components/Forms/Input';
 
 import Shape from '../../components/Shape';
 import PasswordInput from '../../components/Forms/PasswordInput';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const methods = useForm();
+  const navigate = useNavigate();
+
   const submitData = () =>
     methods.handleSubmit(({ username, email, password }) => {
-      userRegister({ username, email, password });
+      userRegister({ username, email, password }).then(() => navigate('/chat'));
     });
 
   return (

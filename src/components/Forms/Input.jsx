@@ -1,7 +1,7 @@
 import ErrorMessage from '../ErrorMessage';
 import ConnectForm from './ConnectForm';
 
-export default function Input({ name, rules, label, placeholder, error, styles, ...rest }) {
+export default function Input({ name, rules, label, placeholder, styles, ...rest }) {
   return (
     <ConnectForm>
       {({ register, formState: { errors } }) => (
@@ -14,8 +14,8 @@ export default function Input({ name, rules, label, placeholder, error, styles, 
             className={`border p-1 xl:text-base text-sm rounded-md ${
               !errors[name] ? 'border-gray-500' : 'border-red-600'
             } ${styles && styles}`}
-            {...register(name, rules)}
             {...rest}
+            {...register(name, rules)}
           />
           {errors[name] && <ErrorMessage error={errors[name].message} />}
         </div>

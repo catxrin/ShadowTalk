@@ -18,6 +18,8 @@ try {
 
 // Express Configurations
 const app = express();
+app.use('/uploads', express.static('uploads'));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
