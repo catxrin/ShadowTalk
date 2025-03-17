@@ -31,7 +31,7 @@ export default function Settings({ setShow }) {
   return (
     <div
       onClick={() => setShow(false)}
-      className='bg-black/50 absolute backdrop-blur-sm w-screen h-screen flex justify-center items-center'
+      className='bg-black/50 absolute backdrop-blur-sm w-full h-full flex justify-center items-center'
     >
       <div
         onClick={e => e.stopPropagation()}

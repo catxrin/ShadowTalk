@@ -40,4 +40,10 @@ user.post('/upload', upload.single('file'), async (req, res) => {
   res.json(userData);
 });
 
+user.get('/search/:key', upload.single('file'), async (req, res) => {
+  const regex = new RegExp(req.params.key, 'i');
+  const userData = await User.find({ username: { $regex: regex } });
+  res.json(userData);
+});
+
 export default user;
