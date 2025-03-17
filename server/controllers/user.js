@@ -19,6 +19,11 @@ user.get('', async (req, res) => {
   res.json(userData);
 });
 
+user.get('/:id', async (req, res) => {
+  const userData = await User.findById(req.params.id);
+  res.json(userData);
+});
+
 user.patch('/:id', upload.single('file'), async (req, res) => {
   const { file, ...neededData } = req.body;
   let data;

@@ -6,7 +6,7 @@ import Landing from '../views/public/LandingPage/Landing';
 import Public from '../components/Layouts/Public';
 import Private from '../components/Layouts/Private';
 import NotFound from '../components/NotFound';
-import Settings from '../views/private/Settings';
+import Chat from '../components/Chat/Chat';
 
 export const router = createBrowserRouter([
   {
@@ -27,7 +27,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: ':id',
-        element: <p>Chat</p>,
+        element: <Chat />,
       },
     ],
   },
