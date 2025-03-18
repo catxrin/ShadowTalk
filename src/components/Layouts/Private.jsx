@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { Navigate, Outlet, useOutlet } from 'react-router-dom';
 import Loading from '../Loading';
+import { io } from 'socket.io-client';
 
 import { UserContext } from '../../UserProvider';
 
