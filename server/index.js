@@ -4,9 +4,12 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import routes from './routes.js';
+import { Conversation } from './models/Conversation.js';
+import { Message } from './models/Messages.js';
 import { isAuth } from './middlewares/auth.js';
 import { createServer } from 'node:http';
 import { Server } from 'socket.io';
+import { socketAuth } from './middlewares/socketAuth.js';
 
 dotenv.config({ path: './../.env' });
 
@@ -22,29 +25,55 @@ try {
 const app = express();
 app.use(cors());
 const server = createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: `http://localhost:5173`,
-    methods: ['GET', 'POST'],
-  },
-});
-
-io.on('connection', socket => {
-  socket.on('join_chat', userId => {
-    socket.join(userId);
-  });
-
-  socket.on('send_message', data => {
-    socket.to(data.userId).emit('receive_message', data);
-  });
-});
 
 app.use('/uploads', express.static('uploads'));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.json());
 app.use(isAuth);
-
 app.use(routes);
+
+const io = new Server(server, {
+  cors: {
+    origin: `http://localhost:5173`,
+    methods: ['GET', 'POST'],
+    credentials: true,
+  },
+});
+
+io.use(socketAuth);
+
+io.on('connection', socket => {
+  // console.log(socket?.userId);
+  socket.on('join_chat', chatId => {
+    socket.join('nice');
+  });
+
+  socket.on('send_message', async newMessage => {
+    const user = socket?.userId;
+
+    const conversation = await Conversation.findOne({
+      participants: { $all: [user, newMessage.partnerId] },
+    }).populate('messages');
+
+    const message = new Message({ author: user, body: newMessage.message });
+    await message.save();
+
+    if (!conversation) {
+      const newConversation = new Conversation({ participants: [user, newMessage.partnerId] });
+      await newConversation.save();
+      const populatedConversation = await newConversation.populate('messages');
+
+      populatedConversation?.messages?.push(message._id);
+      await populatedConversation.save();
+      return io.to(newMessage.chatId).emit('messages', populatedConversation.messages);
+    } else {
+      conversation?.messages?.push(message._id);
+      const populated = await conversation.populate({ path: 'messages', populate: 'author' });
+      await conversation.save();
+      return io.to(newMessage.chatId).emit('messages', populated.messages);
+    }
+  });
+});
 
 server.listen(process.env.PORT, () => console.log(`🍵 Server is listening on http://localhost:${process.env.PORT}`));

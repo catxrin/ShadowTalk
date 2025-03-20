@@ -13,7 +13,13 @@ export default function UserItem({ user, styles }) {
         />
         <p className='text-sm'>{user?.username}</p>
       </div>
-      <Icon onMouseDown={() => navigate(`/chat/${user._id}`)} styles='!text-lg !flex items-center' icon='chat' />
+      <Icon
+        onMouseDown={() => {
+          navigate(`/chat/${user._id}`);
+        }}
+        styles='!text-lg !flex items-center'
+        icon='chat'
+      />
     </div>
   );
 }

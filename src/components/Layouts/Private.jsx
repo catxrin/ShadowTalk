@@ -1,15 +1,15 @@
 import { useEffect, useState, useContext } from 'react';
 import { Navigate, Outlet, useOutlet } from 'react-router-dom';
 import Loading from '../Loading';
-import { io } from 'socket.io-client';
 
 import { UserContext } from '../../UserProvider';
 
 import useFetch from '../../helpers/useFetch';
-
 import Placeholder from '../Placeholder';
 import Search from '../UserSearch/Search';
 import ProfileHeader from '../ProfileHeader';
+import { io } from 'socket.io-client';
+export const socket = io('http://localhost:3000', { withCredentials: true });
 
 export default function Private() {
   const { user, setUserAuth } = useContext(UserContext);
