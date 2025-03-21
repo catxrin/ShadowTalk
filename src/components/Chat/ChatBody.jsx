@@ -13,7 +13,6 @@ export default function ChatBody({ messages, messageReceived }) {
     const minutes = date.getMinutes();
     return ` ${date.toLocaleDateString('en-GB')}, ${hour}:${minutes <= 9 ? `0${minutes}` : minutes}`;
   };
-  console.log(messages);
   return (
     <div className='bg-white/5 h-full mb-5 px-5 py-5 flex flex-col gap-6 max-h-[51rem] overflow-y-auto'>
       {messages?.map((m, i) => (

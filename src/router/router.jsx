@@ -1,12 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { lazy } from 'react';
 
-import Login from '../views/public/Login';
-import Register from '../views/public/Register';
-import Landing from '../views/public/LandingPage/Landing';
-import Public from '../components/Layouts/Public';
-import Private from '../components/Layouts/Private';
+const Login = lazy(() => import('../views/public/Login'));
+const Register = lazy(() => import('../views/public/Register'));
+const Landing = lazy(() => import('../views/public/LandingPage/Landing'));
+const Public = lazy(() => import('../components/Layouts/Public'));
+const Private = lazy(() => import('../components/Layouts/Private'));
+const Chat = lazy(() => import('../components/Chat/Chat'));
 import NotFound from '../components/NotFound';
-import Chat from '../components/Chat/Chat';
 
 export const router = createBrowserRouter([
   {

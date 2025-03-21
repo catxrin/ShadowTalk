@@ -8,8 +8,6 @@ import useFetch from '../../helpers/useFetch';
 import Placeholder from '../Placeholder';
 import Search from '../UserSearch/Search';
 import ProfileHeader from '../ProfileHeader';
-import { io } from 'socket.io-client';
-export const socket = io('http://localhost:3000', { withCredentials: true });
 
 export default function Private() {
   const { user, setUserAuth } = useContext(UserContext);

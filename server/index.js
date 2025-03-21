@@ -44,15 +44,10 @@ const io = new Server(server, {
 io.use(socketAuth);
 
 io.on('connection', socket => {
-  // console.log(socket?.userId);
-  socket.on('join_chat', chatId => {
-    socket.join('nice');
-  });
-
   socket.on('send_message', async newMessage => {
     const user = socket?.userId;
 
-    const conversation = await Conversation.findOne({
+    let conversation = await Conversation.findOne({
       participants: { $all: [user, newMessage.partnerId] },
     }).populate('messages');
 
@@ -60,19 +55,13 @@ io.on('connection', socket => {
     await message.save();
 
     if (!conversation) {
-      const newConversation = new Conversation({ participants: [user, newMessage.partnerId] });
-      await newConversation.save();
-      const populatedConversation = await newConversation.populate('messages');
-
-      populatedConversation?.messages?.push(message._id);
-      await populatedConversation.save();
-      return io.to(newMessage.chatId).emit('messages', populatedConversation.messages);
-    } else {
-      conversation?.messages?.push(message._id);
-      const populated = await conversation.populate({ path: 'messages', populate: 'author' });
-      await conversation.save();
-      return io.to(newMessage.chatId).emit('messages', populated.messages);
+      conversation = new Conversation({ participants: [user, newMessage.partnerId] });
     }
+
+    conversation?.messages?.push(message._id);
+    const populated = await conversation.populate({ path: 'messages', populate: 'author' });
+    await conversation.save();
+    return io.to([newMessage.partnerId, user]).emit('messages', populated.messages);
   });
 });
 

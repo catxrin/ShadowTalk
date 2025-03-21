@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { socket } from '../Layouts/Private';
+import { socket } from '../../helpers/socket';
 import useFetch from '../../helpers/useFetch';
 
 import ChatBar from './ChatBar';
@@ -17,15 +17,17 @@ export default function Chat() {
     useFetch({ url: 'user/' + partnerId }).then(res => {
       setChatPartner(res);
     });
-    // useFetch({ url: 'conversation/' + partnerId }).then(res => {
-    socket.emit('join_chat', 'nice');
-
-    //   setMessages(res.messages);
-    // });
+    useFetch({ url: 'conversation/' + partnerId }).then(res => {
+      setMessages(res.messages);
+    });
   }, [partnerId]);
 
   useEffect(() => {
     socket.on('messages', data => setMessages(data));
+
+    return () => {
+      socket.off('messages');
+    };
   }, [messages]);
 
   return (
