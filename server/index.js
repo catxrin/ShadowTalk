@@ -63,6 +63,18 @@ io.on('connection', socket => {
     await conversation.save();
     return io.to([newMessage.partnerId, user]).emit('messages', populated.messages);
   });
+
+  socket.on('save_conversation', async partnerId => {
+    const user = socket?.userId;
+    const conversation = await Conversation.findOne({
+      participants: { $all: [user, partnerId] },
+    });
+
+    conversation.saved = !conversation.saved;
+    conversation.save();
+
+    return io.to([partnerId, user]).emit('saved', conversation.saved);
+  });
 });
 
 server.listen(process.env.PORT, () => console.log(`🍵 Server is listening on http://localhost:${process.env.PORT}`));

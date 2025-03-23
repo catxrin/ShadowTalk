@@ -12,8 +12,6 @@ export default function ProfileHeader() {
 
   const navigate = useNavigate();
 
-  const username = user?.username.length > 10 ? `${user?.username.substring(0, 10)}...` : user?.username;
-
   const logoutUser = () => {
     logout().then(() => {
       setUserAuth(null);
@@ -23,14 +21,14 @@ export default function ProfileHeader() {
   return (
     <>
       {show && <Settings setShow={setShow} />}
-      <div className='bg-[#1C1D22] text-white p-4 flex flex-row justify-between'>
+      <div className='bg-[#1C1D22] text-white px-4 h-19 flex flex-row justify-between'>
         <div className='flex flex-row items-center gap-2 font-semibold'>
           <img
             className='rounded-full border border-gray-500 w-10 object-cover'
             src={`/server/${user?.image}`}
             alt='pfp'
           />
-          <p className='text-sm'>{username}</p>
+          <p className='text-sm truncate'>{user?.username}</p>
         </div>
         <div className='flex flex-row items-center gap-4 text-gray-300'>
           <Icon onClick={() => setShow(true)} styles='!text-2xl' icon='settings' />

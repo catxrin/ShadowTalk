@@ -15,4 +15,13 @@ conversation.get('/:id', async (req, res) => {
   res.json([]);
 });
 
+conversation.get('', async (req, res) => {
+  const convs = await Conversation.find({
+    participants: res.locals.user.id,
+  }).populate('participants');
+
+  console.log(convs);
+  res.json(convs);
+});
+
 export default conversation;

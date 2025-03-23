@@ -19,6 +19,10 @@ const ConversationSchema = new Schema({
     default: [],
     select: false,
   },
+  saved: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export const Conversation = model('Conversation', ConversationSchema);

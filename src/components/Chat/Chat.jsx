@@ -11,6 +11,7 @@ import ChatInput from './ChatInput';
 export default function Chat() {
   const partnerId = useParams()?.id;
   const [chatPartner, setChatPartner] = useState(null);
+  const [conversation, setConversation] = useState({});
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -18,21 +19,25 @@ export default function Chat() {
       setChatPartner(res);
     });
     useFetch({ url: 'conversation/' + partnerId }).then(res => {
-      setMessages(res.messages);
+      const msg = res.messages ? res.messages : [];
+      setMessages(msg);
+      setConversation(res);
     });
   }, [partnerId]);
 
   useEffect(() => {
     socket.on('messages', data => setMessages(data));
+    socket.on('saved', isSaved => setConversation(prev => ({ ...prev, saved: isSaved })));
 
     return () => {
       socket.off('messages');
+      socket.off('saved');
     };
-  }, [messages]);
+  }, []);
 
   return (
     <div className='w-full h-full justify-between flex flex-col'>
-      <ChatBar partner={chatPartner} />
+      <ChatBar partner={chatPartner} chatSaved={conversation?.saved} />
       <ChatBody messages={messages} />
       <ChatInput socket={socket} />
     </div>

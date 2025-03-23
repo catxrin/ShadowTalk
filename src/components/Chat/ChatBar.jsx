@@ -1,9 +1,15 @@
 import { useState } from 'react';
+import { socket } from '../../helpers/socket';
+
 import Icon from '../Icon';
 import Settings from './ChatSettings/Settings';
 
-export default function ChatBar({ partner }) {
+export default function ChatBar({ partner, chatSaved }) {
   const [show, setShow] = useState(false);
+
+  const saveConversation = () => {
+    socket.emit('save_conversation', partner?._id);
+  };
 
   return (
     <>
@@ -18,7 +24,7 @@ export default function ChatBar({ partner }) {
           <p className='text-sm'>{partner?.username}</p>
         </div>
         <div className='flex flex-row  gap-2 items-center text-gray-200'>
-          <Icon icon='bookmark' />
+          <Icon onClick={saveConversation} fill={chatSaved} icon='bookmark' />
           <Icon icon='more_vert' onClick={() => setShow(true)} />
         </div>
       </div>

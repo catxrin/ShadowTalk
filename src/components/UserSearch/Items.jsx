@@ -5,9 +5,9 @@ import UserItem from './UserItem';
 export default function Items({ items }) {
   const { user } = useContext(UserContext);
   return (
-    <div>
+    <div className='relative'>
       {items.length > 0 && (
-        <div className='flex flex-col rounded  bg-gray-500 gap-[1px] overflow-y-auto max-h-96'>
+        <div className='flex flex-col rounded absolute w-full bg-gray-500 gap-[1px] overflow-y-auto max-h-96'>
           {items.map(chat => chat._id !== user._id && <UserItem key={chat._id} user={chat} />)}
         </div>
       )}

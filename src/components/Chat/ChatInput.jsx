@@ -23,17 +23,17 @@ export default function ChatInput({ socket }) {
   };
 
   return (
-    <div className='flex flex-row relative w-full'>
+    <div className='flex flex-row h-20 items-center mx-5'>
       <input
         onChange={e => setMessage(e.target.value)}
-        className='bg-[#404048] text-gray-300 pr-20 w-full relative text-base px-3 py-2 outline-hidden mx-5 mb-5 rounded'
+        className='bg-[#404048] text-gray-300 w-full relative text-base px-3 py-2 outline-hidden my-auto rounded'
         placeholder='Send a message'
         value={message}
       />
       <Icon
         icon='send'
         onClick={sendMessage}
-        styles='absolute right-5 top-0 py-2 px-4 hover:bg-white/5 bg-[#25262D] rounded-r text-gray-300'
+        styles='py-2 px-4 hover:bg-white/5 bg-[#25262D] rounded-r text-gray-300'
       />
     </div>
   );
