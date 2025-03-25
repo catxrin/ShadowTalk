@@ -1,14 +1,22 @@
-import { useState } from 'react';
-import { socket } from '../../helpers/socket';
+import { useState, useContext } from 'react';
+
+import { ChatContext } from '../../context/ChatProvider';
+import { saveChat } from '../../helpers/actions/chat';
 
 import Icon from '../Icon';
 import Settings from './ChatSettings/Settings';
 
-export default function ChatBar({ partner, chatSaved }) {
+export default function ChatBar({ partner }) {
   const [show, setShow] = useState(false);
+  const { chat, saveConversation, unsaveConversation } = useContext(ChatContext);
 
-  const saveConversation = () => {
-    socket.emit('save_conversation', partner?._id);
+  const saveCurrentConversation = () => {
+    saveChat(partner._id).then(() => {
+      if (chat.saved) {
+        return unsaveConversation(chat.participants.filter(x => x._id === partner._id)[0]);
+      }
+      return saveConversation(chat.participants.filter(x => x._id === partner._id)[0]);
+    });
   };
 
   return (
@@ -24,7 +32,7 @@ export default function ChatBar({ partner, chatSaved }) {
           <p className='text-sm'>{partner?.username}</p>
         </div>
         <div className='flex flex-row  gap-2 items-center text-gray-200'>
-          <Icon onClick={saveConversation} fill={chatSaved} icon='bookmark' />
+          <Icon onClick={saveCurrentConversation} fill={chat?.saved} icon='bookmark' />
           <Icon icon='more_vert' onClick={() => setShow(true)} />
         </div>
       </div>

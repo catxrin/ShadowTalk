@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Input from '../../components/Forms/Input';
-import { UserContext } from '../../UserProvider';
+import { UserContext } from '../../context/UserProvider';
 import MediaInput from '../../components/Forms/MediaInput';
 import Modal from '../../components/Modal';
 

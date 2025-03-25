@@ -8,6 +8,7 @@ const Public = lazy(() => import('../components/Layouts/Public'));
 const Private = lazy(() => import('../components/Layouts/Private'));
 const Chat = lazy(() => import('../components/Chat/Chat'));
 import NotFound from '../components/NotFound';
+import ChatProvider from '../context/ChatProvider';
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/chat',
-    element: <Private />,
+    element: (
+      <ChatProvider>
+        <Private />
+      </ChatProvider>
+    ),
     children: [
       {
         path: ':id',

@@ -10,6 +10,7 @@ import { isAuth } from './middlewares/auth.js';
 import { createServer } from 'node:http';
 import { Server } from 'socket.io';
 import { socketAuth } from './middlewares/socketAuth.js';
+import message from './controllers/messages.js';
 
 dotenv.config({ path: './../.env' });
 
@@ -74,6 +75,20 @@ io.on('connection', socket => {
     conversation.save();
 
     return io.to([partnerId, user]).emit('saved', conversation.saved);
+  });
+
+  socket.on('delete_message', async data => {
+    await Message.findOneAndDelete({ _id: data.messageId });
+    console.log(data);
+    let conversation = await Conversation.findOne({
+      participants: { $all: [socket?.userId, data.partnerId] },
+    }).populate('messages');
+
+    const populated = await conversation.populate({ path: 'messages', populate: 'author' });
+    return io.to([data.partnerId, socket?.userId]).emit('messages', populated.messages);
+  });
+  io.engine.on('connection_error', err => {
+    console.log(err.message);
   });
 });
 

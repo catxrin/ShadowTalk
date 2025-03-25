@@ -8,10 +8,12 @@ conversation.get('/:id', async (req, res) => {
     participants: { $all: [res.locals.user.id, req.params.id] },
   })
     .populate('messages')
+    .populate('participants')
     .populate({ path: 'messages', populate: 'author' });
   if (conv) {
     return res.json(conv);
   }
+
   res.json([]);
 });
 
@@ -20,8 +22,22 @@ conversation.get('', async (req, res) => {
     participants: res.locals.user.id,
   }).populate('participants');
 
-  console.log(convs);
   res.json(convs);
 });
+
+conversation.patch('/:id/save', async (req, res) => {
+  const conv = await Conversation.findOne({
+    participants: { $all: [res.locals.user.id, req.params.id] },
+  }).populate('participants');
+
+  conv.saved = !conv.saved;
+  conv.save();
+
+  const filtered = conv.participants.filter(x => x._id !== res.locals.user.id);
+  console.log(filtered);
+  res.json(filtered);
+});
+
+// query parameter saved from the BE
 
 export default conversation;

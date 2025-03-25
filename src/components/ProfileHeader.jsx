@@ -1,6 +1,6 @@
 import Icon from './Icon';
 import { useContext } from 'react';
-import { UserContext } from '../UserProvider';
+import { UserContext } from '../context/UserProvider';
 import { useState } from 'react';
 import Settings from '../views/private/Settings';
 import { useNavigate } from 'react-router-dom';
@@ -32,7 +32,7 @@ export default function ProfileHeader() {
         </div>
         <div className='flex flex-row items-center gap-4 text-gray-300'>
           <Icon onClick={() => setShow(true)} styles='!text-2xl' icon='settings' />
-          <Icon onClick={logoutUser} styles='!text-2xl' icon='logout' />
+          <Icon onClick={logoutUser} styles='!text-2xl text-red-600' icon='logout' />
         </div>
       </div>
     </>

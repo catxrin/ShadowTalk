@@ -2,16 +2,18 @@ import { useEffect, useState, useContext } from 'react';
 import { Navigate, Outlet, useOutlet } from 'react-router-dom';
 import Loading from '../Loading';
 
-import { UserContext } from '../../UserProvider';
+import { UserContext } from '../../context/UserProvider';
 
 import useFetch from '../../helpers/useFetch';
 import Placeholder from '../Placeholder';
 import Search from '../UserSearch/Search';
 import ProfileHeader from '../ProfileHeader';
+import { ChatContext } from '../../context/ChatProvider';
 import Conversations from '../Conversations/Conversations';
 
 export default function Private() {
   const { user, setUserAuth } = useContext(UserContext);
+
   const [isLoading, setIsLoading] = useState(true);
   const outlet = useOutlet();
 

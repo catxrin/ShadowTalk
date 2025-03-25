@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { UserContext } from '../../UserProvider';
+import { UserContext } from '../../context/UserProvider';
 import UserItem from './UserItem';
 
 export default function Items({ items }) {

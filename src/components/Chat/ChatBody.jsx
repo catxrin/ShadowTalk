@@ -1,28 +1,19 @@
+import { useParams } from 'react-router-dom';
 import Message from './Message';
 import { useRef, useEffect } from 'react';
 
 export default function ChatBody({ messages, messageReceived }) {
   const messagesEndRef = useRef(null);
+  const { id } = useParams();
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView();
   }, [messages, messageReceived]);
 
-  const formatDateAndTime = timestamp => {
-    const date = new Date(timestamp);
-    const hour = date.getHours();
-    const minutes = date.getMinutes();
-    return ` ${date.toLocaleDateString('en-GB')}, ${hour}:${minutes <= 9 ? `0${minutes}` : minutes}`;
-  };
   return (
-    <div className='bg-white/5 h-full px-5 py-5 flex flex-col gap-6 overflow-y-auto'>
-      {messages?.map((m, i) => (
-        <Message
-          key={i}
-          image={m?.author?.image}
-          createdAt={formatDateAndTime(m?.createdAt)}
-          body={m?.body}
-          username={m?.author?.username}
-        />
+    <div className='bg-white/5 h-full py-5 flex flex-col gap-2 overflow-y-auto'>
+      {messages?.map(m => (
+        <Message key={m._id} partner={id} author={m.author} message={m} />
       ))}
       {messages?.length < 1 && (
         <p className='xl:text-base text-sm flex justify-center items-center min-h-full w-full text-gray-300 font-semibold'>
