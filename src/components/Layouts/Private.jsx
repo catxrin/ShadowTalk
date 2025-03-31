@@ -1,18 +1,18 @@
 import { useEffect, useState, useContext } from 'react';
 import { Navigate, Outlet, useOutlet } from 'react-router-dom';
-import Loading from '../Loading';
+import { socket } from '../../helpers/socket';
 
 import { UserContext } from '../../context/UserProvider';
-
 import useFetch from '../../helpers/useFetch';
+
+import Loading from '../Loading';
 import Placeholder from '../Placeholder';
 import Search from '../UserSearch/Search';
 import ProfileHeader from '../ProfileHeader';
-import { ChatContext } from '../../context/ChatProvider';
 import Conversations from '../Conversations/Conversations';
 
 export default function Private() {
-  const { user, setUserAuth } = useContext(UserContext);
+  const { user, setUserAuth, setOnlineUsers, setOnline } = useContext(UserContext);
 
   const [isLoading, setIsLoading] = useState(true);
   const outlet = useOutlet();
@@ -21,8 +21,18 @@ export default function Private() {
     useFetch({ url: 'user' })
       .then(res => {
         setUserAuth(res);
+        socket.emit('new-user-online', res?._id);
+        setOnline(true);
       })
       .finally(() => setIsLoading(false));
+
+    socket.on('get-online-users', users => {
+      setOnlineUsers(users);
+    });
+
+    return () => {
+      socket.off('get-online-users');
+    };
   }, []);
 
   if (isLoading) return <Loading />;

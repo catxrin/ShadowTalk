@@ -1,28 +1,31 @@
 import { Schema, model } from 'mongoose';
 import mongoose from 'mongoose';
 
-const ConversationSchema = new Schema({
-  participants: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
-  ],
-  messages: {
-    type: [
+const ConversationSchema = new Schema(
+  {
+    participants: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Message',
+        ref: 'User',
+        required: true,
       },
     ],
-    default: [],
-    select: false,
+    messages: {
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Message',
+        },
+      ],
+      default: [],
+      select: false,
+    },
+    saved: {
+      type: Boolean,
+      default: false,
+    },
   },
-  saved: {
-    type: Boolean,
-    default: false,
-  },
-});
+  { timestamps: true }
+);
 
 export const Conversation = model('Conversation', ConversationSchema);

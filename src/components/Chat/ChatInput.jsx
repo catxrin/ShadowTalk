@@ -1,22 +1,24 @@
 import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Icon from '../Icon';
+import { socket } from '../../helpers/socket';
 import { UserContext } from '../../context/UserProvider';
 
-export default function ChatInput({ socket }) {
+import Icon from '../Icon';
+
+export default function ChatInput() {
   const { user } = useContext(UserContext);
-  const partnerId = useParams()?.id;
+  const { id } = useParams();
+
   const [message, setMessage] = useState('');
 
   const sendMessage = () => {
     socket.emit('send_message', {
       message: message,
-      partnerId: partnerId,
+      partnerId: id,
       author: user._id,
-      username: user?.username,
+      username: user.username,
       image: user.image,
-      chatId: 'nice',
       timestamp: new Date().toLocaleDateString(),
     });
     setMessage('');
@@ -26,7 +28,7 @@ export default function ChatInput({ socket }) {
     <div className='flex flex-row h-20 items-center mx-5'>
       <input
         onChange={e => setMessage(e.target.value)}
-        className='bg-[#404048] text-gray-300 w-full relative text-base px-3 py-2 outline-hidden my-auto rounded'
+        className='bg-[#404048] text-gray-300 w-full text-base px-3 py-2 outline-hidden rounded-l'
         placeholder='Send a message'
         value={message}
       />

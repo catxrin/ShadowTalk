@@ -1,5 +1,5 @@
-import { createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
+import { createBrowserRouter } from 'react-router-dom';
 
 const Login = lazy(() => import('../views/public/Login'));
 const Register = lazy(() => import('../views/public/Register'));
@@ -7,6 +7,7 @@ const Landing = lazy(() => import('../views/public/LandingPage/Landing'));
 const Public = lazy(() => import('../components/Layouts/Public'));
 const Private = lazy(() => import('../components/Layouts/Private'));
 const Chat = lazy(() => import('../components/Chat/Chat'));
+
 import NotFound from '../components/NotFound';
 import ChatProvider from '../context/ChatProvider';
 

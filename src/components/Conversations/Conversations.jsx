@@ -1,24 +1,30 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useMemo } from 'react';
 
 import useFetch from '../../helpers/useFetch';
-import { UserContext } from '../../context/UserProvider';
 import { ChatContext } from '../../context/ChatProvider';
 
 import Icon from '../Icon';
-import Participants from './Participans';
+import Participants from './Participants';
 
 export default function Conversations() {
-  const { user } = useContext(UserContext);
-  const { directConversations, setAllConversations, savedConversations } = useContext(ChatContext);
+  const { conversations, setConversations } = useContext(ChatContext);
 
   const [showSaved, setShowSaved] = useState(false);
   const [showDirect, setShowDirect] = useState(true);
 
   useEffect(() => {
     useFetch({ url: 'conversation/' }).then(res => {
-      setAllConversations(res, user._id);
+      setConversations(res);
     });
   }, []);
+
+  const savedConversations = useMemo(() => {
+    return conversations.filter(conversation => conversation?.saved);
+  }, [conversations]);
+
+  const directConversations = useMemo(() => {
+    return conversations.filter(conversation => !conversation?.saved);
+  }, [conversations]);
 
   const showMessages = type => {
     setShowDirect(type === 'direct' ? true : false);
@@ -44,7 +50,7 @@ export default function Conversations() {
           } w-full font-semibold p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
         >
           <Icon styles='!text-lg' icon='bookmark_added' />
-          <button className='text-sm cursor-pointer '>Saved</button>
+          <button className='text-sm cursor-pointer'>Saved</button>
         </div>
       </div>
       <div className='flex flex-col gap-0.5'>

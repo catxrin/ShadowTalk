@@ -1,32 +1,46 @@
 import { createContext, useState } from 'react';
-import { getDirectChats, getSavedChats } from '../helpers/actions/chat';
 
 export const ChatContext = createContext(null);
 
 export default function ChatProvider({ children }) {
   const [chat, setChat] = useState(null);
-  const [savedConversations, setSavedConversations] = useState(null);
-  const [directConversations, setDirectConversations] = useState(null);
+  const [conversations, setConversations] = useState([]);
 
   const setCurrentChat = chatData => {
     setChat(chatData);
   };
 
   const saveConversation = conversation => {
-    setSavedConversations([conversation, ...savedConversations]);
-    setDirectConversations(directConversations.filter(x => x._id !== conversation._id));
+    setConversations(prev =>
+      prev.map(conv => {
+        if (conv._id === conversation._id) return { ...conv, saved: true };
+
+        return conv;
+      })
+    );
     setChat({ ...chat, saved: !chat.saved });
   };
 
   const unsaveConversation = conversation => {
-    setDirectConversations([conversation, ...directConversations]);
-    setSavedConversations(savedConversations.filter(x => x._id !== conversation._id));
+    setConversations(prev =>
+      prev.map(conv => {
+        if (conv._id === conversation._id) return { ...conv, saved: false };
+
+        return conv;
+      })
+    );
     setChat({ ...chat, saved: !chat.saved });
   };
 
-  const setAllConversations = (conversations, userId) => {
-    setSavedConversations(getSavedChats(conversations, userId));
-    setDirectConversations(getDirectChats(conversations, userId));
+  const bumpConversation = conversationId => {
+    setConversations(prev => {
+      const index = prev.findIndex(conv => conv._id === conversationId);
+
+      if (index === -1) return prev;
+      const [movedConversation] = prev.splice(index, 1);
+
+      return [movedConversation, ...prev];
+    });
   };
 
   return (
@@ -34,11 +48,11 @@ export default function ChatProvider({ children }) {
       value={{
         chat,
         setCurrentChat,
-        savedConversations,
+        setConversations,
         saveConversation,
-        directConversations,
         unsaveConversation,
-        setAllConversations,
+        conversations,
+        bumpConversation,
       }}
     >
       {children}

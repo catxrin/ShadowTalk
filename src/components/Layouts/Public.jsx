@@ -5,8 +5,7 @@ import { UserContext } from '../../context/UserProvider';
 import Navigation from '../Navigation/Navigation';
 
 export default function Public() {
-  const { user, isLoading } = useContext(UserContext);
-  if (isLoading) return <p>Loading...</p>;
+  const { user } = useContext(UserContext);
   return (
     <>
       {user ? (

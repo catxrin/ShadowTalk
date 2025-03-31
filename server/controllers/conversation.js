@@ -20,8 +20,9 @@ conversation.get('/:id', async (req, res) => {
 conversation.get('', async (req, res) => {
   const convs = await Conversation.find({
     participants: res.locals.user.id,
-  }).populate('participants');
-
+  })
+    .populate('participants')
+    .sort({ updatedAt: -1 });
   res.json(convs);
 });
 
@@ -34,7 +35,6 @@ conversation.patch('/:id/save', async (req, res) => {
   conv.save();
 
   const filtered = conv.participants.filter(x => x._id !== res.locals.user.id);
-  console.log(filtered);
   res.json(filtered);
 });
 

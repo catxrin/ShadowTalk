@@ -4,34 +4,52 @@ import { useParams } from 'react-router-dom';
 import { socket } from '../../helpers/socket';
 import useFetch from '../../helpers/useFetch';
 
+import { ChatContext } from '../../context/ChatProvider';
+import { UserContext } from '../../context/UserProvider';
+
 import ChatBar from './ChatBar';
 import ChatBody from './ChatBody';
 import ChatInput from './ChatInput';
-import { ChatContext } from '../../context/ChatProvider';
 
 export default function Chat() {
-  const partnerId = useParams()?.id;
+  const { user } = useContext(UserContext);
+  const { id } = useParams();
+
   const [chatPartner, setChatPartner] = useState(null);
   const [messages, setMessages] = useState([]);
 
-  const { setCurrentChat } = useContext(ChatContext);
+  const { setCurrentChat, bumpConversation } = useContext(ChatContext);
 
   useEffect(() => {
-    useFetch({ url: 'user/' + partnerId }).then(res => {
+    useFetch({ url: 'user/' + id }).then(res => {
       setChatPartner(res);
     });
-    useFetch({ url: 'conversation/' + partnerId }).then(res => {
+
+    useFetch({ url: 'conversation/' + id }).then(res => {
       const msg = res.messages ? res.messages : [];
       setCurrentChat(res);
       setMessages(msg);
     });
-  }, [partnerId]);
+  }, [id]);
 
   useEffect(() => {
-    socket.on('messages', data => setMessages(data));
-
+    socket.on('messages', data => {
+      bumpConversation(data.conversationId);
+      if ([id, user._id].includes(data.message.author?._id)) {
+        setMessages(prev => [...prev, data.message]);
+      }
+    });
+    socket.on('deleted_message', data => {
+      if ([id, user._id].includes(data.author)) setMessages(prev => prev.filter(m => m._id !== data.messageId));
+    });
+    socket.on('edit_message', updatedMessage => {
+      if ([id, user._id].includes(updatedMessage.author._id))
+        setMessages(prev => prev.map(m => (m._id === updatedMessage._id ? updatedMessage : m)));
+    });
     return () => {
       socket.off('messages');
+      socket.off('deleted_message');
+      socket.off('edit_message');
     };
   }, []);
 
@@ -39,7 +57,7 @@ export default function Chat() {
     <div className='w-full h-full justify-between flex flex-col'>
       <ChatBar partner={chatPartner} />
       <ChatBody messages={messages} />
-      <ChatInput socket={socket} />
+      <ChatInput />
     </div>
   );
 }
