@@ -2,9 +2,10 @@ import { useContext } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Input from '../../components/Forms/Input';
-import { UserContext } from '../../UserProvider';
+import { UserContext } from '../../context/UserProvider';
 import MediaInput from '../../components/Forms/MediaInput';
 import Modal from '../../components/Modal';
+import { updateUserProfile } from '../../helpers/actions/settings';
 
 export default function Settings({ setShow }) {
   const { user, setUserAuth } = useContext(UserContext);
@@ -13,19 +14,10 @@ export default function Settings({ setShow }) {
 
   const submitData = () =>
     methods.handleSubmit(data => {
-      const formData = new FormData();
-      formData.append('file', data.file[0]);
-      formData.append('username', data.username);
-      formData.append('email', data.email);
-      fetch('/server/user/' + user?._id, {
-        method: 'PATCH',
-        body: formData,
-      })
-        .then(res => res.json())
-        .then(data => {
-          setUserAuth(data);
-          setShow(false);
-        });
+      updateUserProfile(data, user?._id).then(data => {
+        setUserAuth(data);
+        setShow(false);
+      });
     });
 
   return (
@@ -55,7 +47,7 @@ export default function Settings({ setShow }) {
               },
             }}
           />
-          <button type='submit' className='text-black bg-white py-1 font-semibold rounded'>
+          <button type='submit' className='text-black  bg-white py-1 font-semibold rounded'>
             Submit
           </button>
         </form>

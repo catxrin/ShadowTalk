@@ -13,7 +13,7 @@ export default function MediaInput({ defaultImage, name }) {
             alt='pfp'
           />
           <label htmlFor={name}>
-            <p className='bg-black/30 text-sm text-gray-200 p-2 rounded'>Change</p>
+            <p className='bg-black/30 text-sm text-gray-200 p-2 rounded cursor-pointer'>Change</p>
           </label>
           <input
             id={name}

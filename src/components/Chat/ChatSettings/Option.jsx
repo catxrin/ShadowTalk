@@ -1,4 +1,5 @@
 import Icon from '../../Icon';
+
 export default function Option({ label, icon, description }) {
   return (
     <div className='flex flex-row gap-2 hover:bg-white/5 hover:cursor-pointer py-3 px-2 rounded'>
