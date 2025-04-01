@@ -5,7 +5,7 @@ import Contacts from './Contacts';
 
 export default function Landing() {
   return (
-    <div className='min-w-screen overflow-hidden min-h-screen flex-col bg-[#0c0c0c] text-white flex justify-center items-center'>
+    <div className='overflow-hidden min-h-screen flex-col bg-[#0c0c0c] text-white flex justify-center items-center'>
       <Home />
       <Separator />
       <About />
