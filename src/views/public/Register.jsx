@@ -13,7 +13,9 @@ export default function Register() {
 
   const submitData = () =>
     methods.handleSubmit(({ username, email, password }) => {
-      userRegister({ username, email, password }).then(() => navigate('/chat'));
+      userRegister({ username: username.trim(), email: email.trim(), password: password.trim() }).then(() =>
+        navigate('/chat')
+      );
     });
 
   return (

@@ -1,4 +1,5 @@
 import Shape from '../../../components/Shape';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   return (
@@ -27,9 +28,12 @@ export default function Home() {
                 interface. Stay connected with friends and groups in style.
               </p>
             </div>
-            <button className='rounded-3xl hover:bg-black/10 cursor-pointer transition duration-700 hover:border-[1px] hover:text-white flex flex-row justify-center items-center gap-2 xl:text-base text-sm bg-white font-semibold border text-black border-white px-3 xl:py-1.5 py-1'>
+            <Link
+              to='/login'
+              className='rounded-3xl hover:bg-black/10 cursor-pointer transition duration-700 hover:border-[1px] hover:text-white flex flex-row justify-center items-center gap-2 xl:text-base text-sm bg-white font-semibold border text-black border-white px-3 xl:py-1.5 py-1'
+            >
               Start Chatting
-            </button>
+            </Link>
           </div>
         </div>
       </div>

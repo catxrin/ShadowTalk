@@ -3,7 +3,7 @@ import { HashLink } from 'react-router-hash-link';
 
 export default function DesktopNavigation() {
   return (
-    <nav className='fixed xl:block hidden top-0 z-50 shadow-sm shadow-white/1 bg-black/10 w-full py-3 px-92 backdrop-blur-2xl'>
+    <nav className='fixed xl:block hidden top-0 items-center z-50 shadow-sm shadow-white/1 bg-black/10 w-full py-3 px-84 backdrop-blur-2xl'>
       <ul className='flex lex-row items-center gap-20 text-white w-full justify-between'>
         <Link to='/' className='flex flex-row items-center gap-2'>
           <img className='h-7 w-8 p-1 bg-white/80 rounded' src='logoSVG.svg' alt='logo' />
@@ -11,13 +11,13 @@ export default function DesktopNavigation() {
         </Link>
 
         <div className='flex flex-row gap-10 items-center'>
-          <HashLink smooth to='#home' className='text-[15px] font-semibold'>
+          <HashLink smooth to='/#home' className='text-[15px] font-semibold'>
             Home
           </HashLink>
-          <HashLink smooth to='#about' className='text-[15px] font-semibold'>
+          <HashLink smooth to='/#about' className='text-[15px] font-semibold'>
             About
           </HashLink>
-          <HashLink smooth to='#contacts' className='text-[15px] font-semibold'>
+          <HashLink smooth to='/#contacts' className='text-[15px] font-semibold'>
             Contacts
           </HashLink>
         </div>

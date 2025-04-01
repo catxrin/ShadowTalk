@@ -14,7 +14,7 @@ export default function Login() {
 
   const submitData = () =>
     methods.handleSubmit(({ email, password }) => {
-      userLogin({ email, password }).then(() => {
+      userLogin({ email: email.trim(), password: password.trim() }).then(() => {
         navigate('/chat');
       });
     });
