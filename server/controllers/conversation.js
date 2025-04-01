@@ -5,10 +5,12 @@ const conversation = Router();
 
 conversation.get('/:id', async (req, res) => {
   const conv = await Conversation.findOne({
-    participants: { $all: [res.locals.user.id, req.params.id] },
+    participants: {
+      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
+    },
   })
     .populate('messages')
-    .populate('participants')
+    .populate('participants.user')
     .populate({ path: 'messages', populate: 'author' });
   if (conv) {
     return res.json(conv);
@@ -19,17 +21,19 @@ conversation.get('/:id', async (req, res) => {
 
 conversation.get('', async (req, res) => {
   const convs = await Conversation.find({
-    participants: res.locals.user.id,
+    participants: { $elemMatch: { user: res.locals.user.id } },
   })
-    .populate('participants')
+    .populate('participants.user')
     .sort({ updatedAt: -1 });
   res.json(convs);
 });
 
 conversation.patch('/:id/save', async (req, res) => {
   const conv = await Conversation.findOne({
-    participants: { $all: [res.locals.user.id, req.params.id] },
-  }).populate('participants');
+    participants: {
+      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
+    },
+  }).populate('participants.user');
 
   conv.saved = !conv.saved;
   conv.save();

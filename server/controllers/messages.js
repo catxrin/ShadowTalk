@@ -8,7 +8,9 @@ message.post('/:id', async (req, res) => {
   const user = res.locals.user.id;
 
   const conversation = await Conversation.findOne({
-    participants: { $all: [user, req.params.id] },
+    participants: {
+      $all: [{ $elemMatch: { user: user } }, { $elemMatch: { user: req.params.id } }],
+    },
   }).populate('messages');
   if (!conversation) {
     return res.status(404).json({ message: 'Conversation not found' });

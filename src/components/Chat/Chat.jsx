@@ -21,13 +21,15 @@ export default function Chat() {
   const { setCurrentChat, bumpConversation } = useContext(ChatContext);
 
   useEffect(() => {
-    useFetch({ url: 'user/' + id }).then(res => {
-      setChatPartner(res);
-    });
+    // useFetch({ url: 'user/' + id }).then(res => {
+    //   setChatPartner(res);
+    // });
 
     useFetch({ url: 'conversation/' + id }).then(res => {
       const msg = res.messages ? res.messages : [];
       setCurrentChat(res);
+      const [mate] = res.participants.filter(m => m.user._id === id);
+      setChatPartner(mate);
       setMessages(msg);
     });
   }, [id]);

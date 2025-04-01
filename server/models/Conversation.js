@@ -5,9 +5,12 @@ const ConversationSchema = new Schema(
   {
     participants: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
+        nickname: String,
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+          required: true,
+        },
       },
     ],
     messages: {

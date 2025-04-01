@@ -15,7 +15,7 @@ export default function ChatBar({ partner }) {
   const isPartnerOnline = onlineUsers?.find(x => x.userId === partner?._id);
 
   const saveCurrentConversation = () => {
-    saveChat(partner._id).then(() => {
+    saveChat(partner?.user._id).then(() => {
       if (chat.saved) {
         return unsaveConversation(chat);
       }
@@ -31,7 +31,7 @@ export default function ChatBar({ partner }) {
           <div className='relative'>
             <img
               className='rounded-full border border-black w-10 object-cover'
-              src={`/server/${partner?.image}`}
+              src={`/server/${partner?.user.image}`}
               alt='pfp'
             />
             <div
@@ -40,7 +40,7 @@ export default function ChatBar({ partner }) {
               }`}
             ></div>
           </div>
-          <p className='text-sm'>{partner?.username}</p>
+          <p className='text-sm'>{partner?.nickname.length > 0 ? partner?.nickname : partner?.user.username}</p>
         </div>
         <div className='flex flex-row  gap-2 items-center text-gray-200'>
           <Icon onClick={saveCurrentConversation} fill={chat?.saved} icon='bookmark' />

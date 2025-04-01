@@ -1,4 +1,5 @@
 import { Conversation } from './models/Conversation.js';
+import mongoose from 'mongoose';
 import { Message } from './models/Messages.js';
 
 let onlineUsers = [];
@@ -15,7 +16,9 @@ export const sockets = (io, socket) => {
     const user = socket?.userId;
 
     let conversation = await Conversation.findOne({
-      participants: { $all: [user, newMessage.partnerId] },
+      participants: {
+        $all: [{ $elemMatch: { user: user } }, { $elemMatch: { user: newMessage.partnerId } }],
+      },
     }).populate('messages');
 
     const message = new Message({ author: user, body: newMessage.message });
@@ -23,7 +26,12 @@ export const sockets = (io, socket) => {
     await message.save();
 
     if (!conversation) {
-      conversation = new Conversation({ participants: [user, newMessage.partnerId] });
+      conversation = new Conversation({
+        participants: [
+          { user: user, nickname: '' },
+          { user: newMessage.partnerId, nickname: '' },
+        ],
+      });
     }
 
     conversation?.messages?.push(message._id);
@@ -31,18 +39,6 @@ export const sockets = (io, socket) => {
     await conversation.save();
 
     return io.to([newMessage.partnerId, user]).emit('messages', { message: message, conversationId: conversation._id });
-  });
-
-  socket.on('save_conversation', async partnerId => {
-    const user = socket?.userId;
-    const conversation = await Conversation.findOne({
-      participants: { $all: [user, partnerId] },
-    });
-
-    conversation.saved = !conversation.saved;
-    conversation.save();
-
-    return io.to([partnerId, user]).emit('saved', conversation.saved);
   });
 
   socket.on('delete_message', async data => {
