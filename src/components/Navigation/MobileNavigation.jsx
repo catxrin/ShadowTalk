@@ -32,13 +32,13 @@ export default function MobileNavigation() {
                 <Icon styles='bg-white/10 !text-lg py-0.5 px-1.5 rounded-lg' onClick={changeVisibility} icon='close' />
               </div>
               <div className='flex flex-col gap-4 px-2'>
-                <HashLink smooth to='#home' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
+                <HashLink smooth to='/#home' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
                   Home
                 </HashLink>
-                <HashLink smooth to='#about' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
+                <HashLink smooth to='/#about' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
                   About
                 </HashLink>
-                <HashLink smooth to='#contacts' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
+                <HashLink smooth to='/#contacts' className='border-b-[1px] cursor-pointer border-gray-600 py-3'>
                   Contacts
                 </HashLink>
                 <div className='flex flex-row py-3 justify-between gap-5 text-center w-full'>

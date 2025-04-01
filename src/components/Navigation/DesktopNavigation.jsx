@@ -11,13 +11,13 @@ export default function DesktopNavigation() {
         </Link>
 
         <div className='flex flex-row gap-10 items-center'>
-          <HashLink smooth to='#home' className='text-[15px] font-semibold'>
+          <HashLink smooth to='/#home' className='text-[15px] font-semibold'>
             Home
           </HashLink>
-          <HashLink smooth to='#about' className='text-[15px] font-semibold'>
+          <HashLink smooth to='/#about' className='text-[15px] font-semibold'>
             About
           </HashLink>
-          <HashLink smooth to='#contacts' className='text-[15px] font-semibold'>
+          <HashLink smooth to='/#contacts' className='text-[15px] font-semibold'>
             Contacts
           </HashLink>
         </div>
