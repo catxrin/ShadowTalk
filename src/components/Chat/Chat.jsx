@@ -15,21 +15,14 @@ export default function Chat() {
   const { user } = useContext(UserContext);
   const { id } = useParams();
 
-  const [chatPartner, setChatPartner] = useState(null);
   const [messages, setMessages] = useState([]);
 
   const { setCurrentChat, bumpConversation } = useContext(ChatContext);
 
   useEffect(() => {
-    // useFetch({ url: 'user/' + id }).then(res => {
-    //   setChatPartner(res);
-    // });
-
     useFetch({ url: 'conversation/' + id }).then(res => {
       const msg = res.messages ? res.messages : [];
       setCurrentChat(res);
-      const [mate] = res.participants.filter(m => m.user._id === id);
-      setChatPartner(mate);
       setMessages(msg);
     });
   }, [id]);
@@ -37,13 +30,13 @@ export default function Chat() {
   useEffect(() => {
     socket.on('messages', data => {
       bumpConversation(data.conversationId);
-      if ([id, user._id].includes(data.message.author?._id)) {
-        setMessages(prev => [...prev, data.message]);
-      }
+      if ([id, user._id].includes(data.message.author?._id)) setMessages(prev => [...prev, data.message]);
     });
+
     socket.on('deleted_message', data => {
       if ([id, user._id].includes(data.author)) setMessages(prev => prev.filter(m => m._id !== data.messageId));
     });
+
     socket.on('edit_message', updatedMessage => {
       if ([id, user._id].includes(updatedMessage.author._id))
         setMessages(prev => prev.map(m => (m._id === updatedMessage._id ? updatedMessage : m)));
@@ -57,7 +50,7 @@ export default function Chat() {
 
   return (
     <div className='w-full h-full justify-between flex flex-col'>
-      <ChatBar partner={chatPartner} />
+      <ChatBar />
       <ChatBody messages={messages} />
       <ChatInput />
     </div>

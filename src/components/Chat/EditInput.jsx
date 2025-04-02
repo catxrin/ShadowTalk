@@ -17,7 +17,7 @@ export default function EditInput({ message, setEditMode }) {
   };
 
   return (
-    <div className='flex flex-col items-end gap-1'>
+    <div className='flex flex-col items-end gap-1 w-full'>
       <input
         onChange={e => {
           setEditValue(e.target.value);

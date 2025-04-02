@@ -13,15 +13,17 @@ export default function ChatInput() {
   const [message, setMessage] = useState('');
 
   const sendMessage = () => {
-    socket.emit('send_message', {
-      message: message,
-      partnerId: id,
-      author: user._id,
-      username: user.username,
-      image: user.image,
-      timestamp: new Date().toLocaleDateString(),
-    });
-    setMessage('');
+    if (message.trim().length > 0) {
+      socket.emit('send_message', {
+        message: message,
+        partnerId: id,
+        author: user._id,
+        username: user.username,
+        image: user.image,
+        timestamp: new Date().toLocaleDateString(),
+      });
+      setMessage('');
+    }
   };
 
   return (

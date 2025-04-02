@@ -1,6 +1,6 @@
 import Icon from './Icon';
 
-export default function Modal({ children, setShow, label }) {
+export default function Modal({ children, setShow, label, styles }) {
   return (
     <div
       onClick={() => setShow(false)}
@@ -8,7 +8,7 @@ export default function Modal({ children, setShow, label }) {
     >
       <div
         onClick={e => e.stopPropagation()}
-        className='bg-[#2E2F38] sm:w-[30rem] sm:h-auto w-screen h-screen rounded text-white sm:px-8 px-4 pt-6 pb-12 flex flex-col gap-2'
+        className={`${styles} bg-[#2E2F38] sm:w-[30rem] sm:h-auto w-screen h-screen rounded text-white sm:px-8 px-4 pt-6 pb-12 flex flex-col gap-2`}
       >
         <div className='flex flex-row w-full justify-between'>
           <h1 className='text-xl font-semibold'>{label}</h1>

@@ -41,8 +41,8 @@ export default function Private() {
       {!user ? (
         <Navigate to='/login' />
       ) : (
-        <div className='w-full h-screen bg-[#2E2F38] flex flex-row'>
-          <div className='sm:w-84 w-screen h-screen bg-[#25262D] flex flex-col justify-between'>
+        <div className='w-screen h-screen bg-[#2E2F38] flex flex-row'>
+          <div className='w-84 h-screen bg-[#25262D] flex flex-col justify-between'>
             <div className='flex pt-4 px-3 h-full overflow-x-auto flex-col gap-4'>
               <div className='flex flex-row items-center gap-2'>
                 <img className='h-7 w-8 p-1 bg-white/80 rounded' src='/logoSVG.svg' alt='logo' />

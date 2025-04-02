@@ -42,6 +42,20 @@ conversation.patch('/:id/save', async (req, res) => {
   res.json(filtered);
 });
 
+conversation.patch('/:id', async (req, res) => {
+  const conv = await Conversation.findOne({
+    participants: {
+      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
+    },
+  }).populate('participants.user');
+
+  const paricipant = conv.participants.find(participant => participant.user._id == req.params.id);
+  paricipant.nickname = req.body.nickname;
+
+  await conv.save();
+  res.json(conv);
+});
+
 // query parameter saved from the BE
 
 export default conversation;

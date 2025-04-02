@@ -29,7 +29,11 @@ export default function Message({ message }) {
 
   const displayMessageBody = () => {
     if (!editMode) {
-      return <p className='text-sm font-medium text-gray-300'>{message.body}</p>;
+      return (
+        <p className='text-sm font-medium text-gray-300 break-words overflow-hidden lg:max-w-[80rem] max-w-30'>
+          {message.body}
+        </p>
+      );
     }
     return <EditInput message={message} setEditMode={setEditMode} />;
   };
@@ -42,17 +46,17 @@ export default function Message({ message }) {
         setHover(false);
         setCopied(false);
       }}
-      className={`font-semibold hover:bg-black/15 rounded py-3 px-6 flex flex-row justify-between ${
-        editMode && 'bg-black/15'
-      }`}
+      className={`font-semibold 
+      
+       hover:bg-black/15 rounded py-3 px-6 w-full flex flex-row justify-between ${editMode && 'bg-black/15'}`}
     >
-      <div className='flex flex-row items-center gap-2 w-full'>
+      <div className='flex items-start flex-row gap-2 max-w-md w-full'>
         <img
           className='rounded-full border border-gray-500 w-12 object-cover'
           src={`/server/${message.author.image}`}
           alt='pfp'
         />
-        <div className='w-full flex flex-col'>
+        <div className='flex flex-col'>
           <div className='flex flex-row gap-2 items-center'>
             <p className='text-sm font-semibold text-white'>{message.author.username}</p>
             <p className='text-[10px] text-gray-400'>{formatDateAndTime(message.createdAt)}</p>
