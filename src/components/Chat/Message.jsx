@@ -29,11 +29,7 @@ export default function Message({ message }) {
 
   const displayMessageBody = () => {
     if (!editMode) {
-      return (
-        <p className='text-sm font-medium text-gray-300 break-words overflow-hidden lg:max-w-[80rem] max-w-30'>
-          {message.body}
-        </p>
-      );
+      return <p className='text-sm font-medium text-gray-300 break-all'>{message.body}</p>;
     }
     return <EditInput message={message} setEditMode={setEditMode} />;
   };
@@ -48,15 +44,17 @@ export default function Message({ message }) {
       }}
       className={`font-semibold 
       
-       hover:bg-black/15 rounded py-3 px-6 w-full flex flex-row justify-between ${editMode && 'bg-black/15'}`}
+       hover:bg-black/15 rounded items-start py-3 px-6 w-full flex flex-row justify-between ${
+         editMode && 'bg-black/15'
+       }`}
     >
-      <div className='flex items-start flex-row gap-2 max-w-md w-full'>
+      <div className='flex items-start flex-row gap-2 w-full'>
         <img
           className='rounded-full border border-gray-500 w-12 object-cover'
           src={`/server/${message.author.image}`}
           alt='pfp'
         />
-        <div className='flex flex-col'>
+        <div className='flex flex-col w-full'>
           <div className='flex flex-row gap-2 items-center'>
             <p className='text-sm font-semibold text-white'>{message.author.username}</p>
             <p className='text-[10px] text-gray-400'>{formatDateAndTime(message.createdAt)}</p>
@@ -64,19 +62,17 @@ export default function Message({ message }) {
           {displayMessageBody()}
         </div>
       </div>
-      {hover && !editMode && (
-        <div className='flex flex-row gap-1.5 text-gray-400 items-center'>
-          <Icon
-            onClick={copyMessage}
-            styles={`${copied ? 'text-green-600' : 'hover:text-gray-200'} !text-2xl`}
-            icon={clipboardIcon()}
-          />
-          {isOwner && (
-            <Icon onClick={() => setEditMode(true)} styles='!text-2xl hover:text-gray-200' icon='edit_square' />
-          )}
-          {isOwner && <Icon onClick={deleteMessage} styles='!text-2xl hover:text-red-500' icon='delete' />}
-        </div>
-      )}
+      <div className={`flex pt-4 flex-row gap-1.5 text-gray-400 items-center ${(!hover || editMode) && 'invisible'}`}>
+        <Icon
+          onClick={copyMessage}
+          styles={`${copied ? 'text-green-600' : 'hover:text-gray-200'} !text-2xl`}
+          icon={clipboardIcon()}
+        />
+        {isOwner && (
+          <Icon onClick={() => setEditMode(true)} styles='!text-2xl hover:text-gray-200' icon='edit_square' />
+        )}
+        {isOwner && <Icon onClick={deleteMessage} styles='!text-2xl hover:text-red-500' icon='delete' />}
+      </div>
     </div>
   );
 }

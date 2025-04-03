@@ -10,10 +10,17 @@ export default function Settings({ setShow }) {
   const [mateName, setMateName] = useState('');
   const { id } = useParams();
   const { chat, setCurrentChat } = useContext(ChatContext);
-  const partner = chat?.participants.find(participant => participant.user._id === id);
+  const partner = chat?.participants?.find(participant => participant.user._id === id);
+
+  const handleBlock = () => {
+    useFetch({ url: `/conversation/${id}/block`, method: 'PATCH' }).then(res => {
+      setCurrentChat(res);
+      setShow(false);
+    });
+  };
 
   useEffect(() => {
-    setMateName(partner.nickname);
+    setMateName(partner?.nickname);
   }, []);
   return (
     <Modal setShow={setShow} label='Chat Settings'>
@@ -21,7 +28,7 @@ export default function Settings({ setShow }) {
         <div className='flex flex-col'>
           <label className='text-sm text-gray-300'>Set a nickname to your chat mate!</label>
           <div className='flex flex-row items-center h-full'>
-            <img className='rounded-l w-10 object-cover' src={`/server/${partner.user.image}`} alt='pfp' />
+            <img className='rounded-l w-10 object-cover' src={`/server/${partner?.user.image}`} alt='pfp' />
             <input
               value={mateName}
               onChange={e => setMateName(e.target.value)}
@@ -40,11 +47,22 @@ export default function Settings({ setShow }) {
           </div>
         </div>
         <div>
-          <Option
-            icon='block'
-            label='Block user'
-            description='By clicking here sending or receiving messages from this user will be forbidden unless you unblock the user'
-          />
+          {chat?.blocked ? (
+            <Option
+              color='bg-green-700'
+              icon='block'
+              label='Unblock user'
+              description='By clicking here, you will restore the ability to send and receive messages with this user.'
+              onClick={handleBlock}
+            />
+          ) : (
+            <Option
+              onClick={handleBlock}
+              icon='block'
+              label='Block user'
+              description='By clicking here sending or receiving messages from this user will be forbidden unless you unblock the user'
+            />
+          )}
           <div className='min-w-full h-[1px] bg-gray-500'></div>
           <Option
             icon='delete'

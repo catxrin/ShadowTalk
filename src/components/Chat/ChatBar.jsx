@@ -16,7 +16,7 @@ export default function ChatBar() {
   const { onlineUsers } = useContext(UserContext);
   const { chat, saveConversation, unsaveConversation } = useContext(ChatContext);
 
-  const partner = chat?.participants.find(participant => participant.user._id === id);
+  const partner = chat?.participants?.find(participant => participant.user._id === id);
   const isPartnerOnline = onlineUsers?.find(x => x.userId === partner?._id);
 
   const saveCurrentConversation = () => {
@@ -52,13 +52,15 @@ export default function ChatBar() {
             ></div>
           </div>
           <div>
-            <p className='text-sm'>{partner?.nickname.length > 0 ? partner?.nickname : partner?.user.username}</p>
+            <p className='text-sm truncate max-w-96'>
+              {partner?.nickname.length > 0 ? partner?.nickname : partner?.user.username}
+            </p>
             {partner?.nickname.length > 0 && <p className='text-[12px] text-gray-400'>@{partner?.user.username}</p>}
           </div>
         </div>
         <div className='flex flex-row  gap-2 items-center text-gray-200'>
           <Icon onClick={saveCurrentConversation} fill={chat?.saved} icon='bookmark' />
-          <Icon icon='more_vert' onClick={() => setShow(true)} />
+          <Icon icon='settings' onClick={() => setShow(true)} />
         </div>
       </div>
     </>

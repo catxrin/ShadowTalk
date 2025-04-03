@@ -12,6 +12,7 @@ conversation.get('/:id', async (req, res) => {
     .populate('messages')
     .populate('participants.user')
     .populate({ path: 'messages', populate: 'author' });
+
   if (conv) {
     return res.json(conv);
   }
@@ -40,6 +41,19 @@ conversation.patch('/:id/save', async (req, res) => {
 
   const filtered = conv.participants.filter(x => x._id !== res.locals.user.id);
   res.json(filtered);
+});
+
+conversation.patch('/:id/block', async (req, res) => {
+  const conv = await Conversation.findOne({
+    participants: {
+      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
+    },
+  }).populate('participants.user');
+
+  conv.blocked = !conv.blocked;
+  conv.save();
+
+  res.json(conv);
 });
 
 conversation.patch('/:id', async (req, res) => {

@@ -18,14 +18,16 @@ export default function Private() {
   const outlet = useOutlet();
 
   useEffect(() => {
-    useFetch({ url: 'user' })
-      .then(res => {
-        setUserAuth(res);
-        socket.emit('new-user-online', res?._id);
-        setOnline(true);
-      })
-      .finally(() => setIsLoading(false));
-
+    if (!user) {
+      useFetch({ url: 'user' })
+        .then(res => {
+          setUserAuth(res);
+          socket.emit('new-user-online', res?._id);
+          setOnline(true);
+        })
+        .finally(() => setIsLoading(false));
+    }
+    setIsLoading(false);
     socket.on('get-online-users', users => {
       setOnlineUsers(users);
     });

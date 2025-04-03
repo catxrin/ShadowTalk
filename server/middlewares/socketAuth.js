@@ -9,7 +9,7 @@ export const socketAuth = (socket, next) => {
       socket.join(decoded.id);
       next();
     } catch (error) {
-      return socket.emit(error);
+      // return socket.emit(error);
     }
   } else {
     return socket.emit('Not Authorized');

@@ -1,11 +1,12 @@
 import { FormProvider, useForm } from 'react-hook-form';
+import { NavLink, useNavigate } from 'react-router-dom';
+
 import { userRegister } from '../../helpers/auth';
+
 import Logo from '../../components/Logo';
 import Input from '../../components/Forms/Input';
-
 import Shape from '../../components/Shape';
 import PasswordInput from '../../components/Forms/PasswordInput';
-import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const methods = useForm();

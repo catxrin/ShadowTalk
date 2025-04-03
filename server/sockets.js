@@ -1,15 +1,13 @@
 import { Conversation } from './models/Conversation.js';
-import mongoose from 'mongoose';
 import { Message } from './models/Messages.js';
 
 let onlineUsers = [];
 
 export const sockets = (io, socket) => {
-  io.emit('connected');
-
   socket.on('new-user-online', newUserId => {
+    // with the user id and the new activity status
     onlineUsers.push({ userId: newUserId, socketId: socket.id });
-    io.emit('get-online-users', onlineUsers);
+    io.emit('online-{user-id}', onlineUsers);
   });
 
   socket.on('send_message', async newMessage => {
@@ -56,6 +54,19 @@ export const sockets = (io, socket) => {
     ).populate('author');
 
     return io.to([newMessage.partnerId, socket?.userId]).emit('edit_message', updatedMessage);
+  });
+
+  socket.on('block_user', async partnerId => {
+    const conv = await Conversation.findOne({
+      participants: {
+        $all: [{ $elemMatch: { user: socket?.userId } }, { $elemMatch: { user: partnerId } }],
+      },
+    }).populate('participants.user');
+
+    conv.blocked = !conv.blocked;
+    conv.save();
+
+    return io.to([partnerId, socket?.userId]).emit('blocked', conv);
   });
 
   io.engine.on('connection_error', err => {

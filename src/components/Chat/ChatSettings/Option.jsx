@@ -1,10 +1,10 @@
 import Icon from '../../Icon';
 
-export default function Option({ label, icon, description }) {
+export default function Option({ label, icon, description, color = 'bg-red-700', ...rest }) {
   return (
-    <div className='flex flex-row gap-2 hover:bg-white/5 hover:cursor-pointer py-3 px-2 rounded'>
-      <div className='bg-red-700 rounded min-h-full flex items-center px-1'>
-        <Icon styles='text-red-200' icon={icon} />
+    <div {...rest} className='flex flex-row gap-2 hover:bg-white/5 hover:cursor-pointer py-3 px-2 rounded'>
+      <div className={`${color} rounded min-h-full flex items-center px-1`}>
+        <Icon styles='text-white' icon={icon} />
       </div>
       <div className='flex flex-col gap-1'>
         <h1>{label}</h1>

@@ -19,7 +19,6 @@ export default function Search() {
 
   return (
     <div>
-      {focus && search.length > 0 && <Items items={searchResult} />}
       <div className='relative'>
         <input
           onFocus={() => setFocus(true)}
@@ -30,6 +29,7 @@ export default function Search() {
         />
         <Icon styles='!text-2xl text-gray-400 absolute right-2 top-1' icon='search' />
       </div>
+      {focus && search.length > 0 && <Items items={searchResult} />}
     </div>
   );
 }

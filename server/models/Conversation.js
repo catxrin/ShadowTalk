@@ -6,6 +6,10 @@ const ConversationSchema = new Schema(
     participants: [
       {
         nickname: String,
+        blocked: {
+          type: Boolean,
+          default: false,
+        },
         user: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User',

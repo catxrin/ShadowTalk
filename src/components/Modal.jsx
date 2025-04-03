@@ -4,7 +4,7 @@ export default function Modal({ children, setShow, label, styles }) {
   return (
     <div
       onClick={() => setShow(false)}
-      className='bg-black/50 absolute left-0 top-0 backdrop-blur-sm w-full h-full flex justify-center items-center'
+      className='bg-black/50 absolute z-50 left-0 top-0 backdrop-blur-sm w-full h-full flex justify-center items-center'
     >
       <div
         onClick={e => e.stopPropagation()}

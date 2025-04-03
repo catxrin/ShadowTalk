@@ -33,7 +33,7 @@ export default function Participants({ participants }) {
                 ></div>
               </div>
               <div>
-                <p className={`text-sm ${i === 0 ? 'text-white' : 'text-gray-300'} truncate`}>
+                <p className={`text-sm ${i === 0 ? 'text-white' : 'text-gray-300'} truncate max-w-40`}>
                   {mate.nickname.length > 0 ? mate.nickname : mate.user.username}
                 </p>
               </div>
