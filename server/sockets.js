@@ -1,15 +1,7 @@
 import { Conversation } from './models/Conversation.js';
 import { Message } from './models/Messages.js';
 
-let onlineUsers = [];
-
 export const sockets = (io, socket) => {
-  socket.on('new-user-online', newUserId => {
-    // with the user id and the new activity status
-    onlineUsers.push({ userId: newUserId, socketId: socket.id });
-    io.emit('online-{user-id}', onlineUsers);
-  });
-
   socket.on('send_message', async newMessage => {
     const user = socket?.userId;
 
@@ -71,11 +63,5 @@ export const sockets = (io, socket) => {
 
   io.engine.on('connection_error', err => {
     console.log(err.message);
-  });
-
-  socket.on('disconnect', () => {
-    onlineUsers = onlineUsers.filter(user => user.socketId !== socket.id);
-    // send all online users to all users
-    io.emit('get-online-users', onlineUsers);
   });
 };
