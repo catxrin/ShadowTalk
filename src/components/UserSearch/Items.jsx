@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { UserContext } from '../../context/UserProvider';
+import { UserContext } from '../../contexts/UserProvider';
 
 import UserItem from './UserItem';
 

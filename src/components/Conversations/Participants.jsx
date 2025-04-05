@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { UserContext } from '../../context/UserProvider';
+import { UserContext } from '../../contexts/UserProvider';
 
 export default function Participants({ participants }) {
   const navigate = useNavigate();

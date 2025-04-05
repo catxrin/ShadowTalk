@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useFetch from '../../helpers/useFetch';
+import useFetch from '../../hooks/useFetch';
 
 import Icon from '../Icon';
 import Items from './Items';

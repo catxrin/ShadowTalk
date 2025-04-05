@@ -1,6 +1,6 @@
 import { enqueueSnackbar } from 'notistack';
 
-export default function useFetch({ url, body, method = 'GET' }) {
+export default function useFetch({ url, body, method = 'GET', noError }) {
   return fetch('/server/' + url, {
     method: method,
     headers: { 'Content-Type': 'application/json' },
@@ -15,7 +15,7 @@ export default function useFetch({ url, body, method = 'GET' }) {
       return response;
     })
     .catch(err => {
-      enqueueSnackbar(err?.message, { variant: 'error', autoHideDuration: 2000 });
+      if (!noError) enqueueSnackbar(err?.message, { variant: 'error', autoHideDuration: 2000 });
       throw new Error(err);
     });
 }

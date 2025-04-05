@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { socket } from '../../helpers/socket';
-import { UserContext } from '../../context/UserProvider';
+import { UserContext } from '../../contexts/UserProvider';
 import { formatDateAndTime } from '../../helpers/utils';
 
 import Icon from '../Icon';

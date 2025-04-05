@@ -2,10 +2,10 @@ import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { socket } from '../../helpers/socket';
-import { UserContext } from '../../context/UserProvider';
+import { UserContext } from '../../contexts/UserProvider';
 
 import Icon from '../Icon';
-import { ChatContext } from '../../context/ChatProvider';
+import { ChatContext } from '../../contexts/ChatProvider';
 
 export default function ChatInput() {
   const { user } = useContext(UserContext);

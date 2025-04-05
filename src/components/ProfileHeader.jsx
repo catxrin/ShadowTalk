@@ -1,11 +1,12 @@
-import Icon from './Icon';
-import { useContext } from 'react';
-import { UserContext } from '../context/UserProvider';
-import { useState } from 'react';
-import Settings from '../views/private/Settings';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { logout } from '../helpers/auth';
+import { UserContext } from '../contexts/UserProvider';
+import { logout } from '../helpers/actions/auth';
+
+import Icon from './Icon';
+import Settings from '../views/private/Settings';
+
 export default function ProfileHeader() {
   const { user, setUserAuth } = useContext(UserContext);
   const [show, setShow] = useState(false);

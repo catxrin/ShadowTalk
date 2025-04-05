@@ -3,7 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 
 import { SnackbarProvider } from 'notistack';
 import { router } from './router/router';
-import UserProvider from './context/UserProvider';
+import UserProvider from './contexts/UserProvider';
 import './index.css';
 
 createRoot(document.getElementById('root')).render(

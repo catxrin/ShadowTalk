@@ -2,10 +2,10 @@ import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { socket } from '../../helpers/socket';
-import useFetch from '../../helpers/useFetch';
+import useFetch from '../../hooks/useFetch';
 
-import { ChatContext } from '../../context/ChatProvider';
-import { UserContext } from '../../context/UserProvider';
+import { ChatContext } from '../../contexts/ChatProvider';
+import { UserContext } from '../../contexts/UserProvider';
 
 import ChatBar from './ChatBar';
 import ChatBody from './ChatBody';

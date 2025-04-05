@@ -1,8 +1,8 @@
 import { useEffect, useState, useContext } from 'react';
 import { Navigate, Outlet, useOutlet } from 'react-router-dom';
 
-import { UserContext } from '../../context/UserProvider';
-import useFetch from '../../helpers/useFetch';
+import { UserContext } from '../../contexts/UserProvider';
+import useFetch from '../../hooks/useFetch';
 
 import Loading from '../Loading';
 import Placeholder from '../Placeholder';
@@ -16,16 +16,16 @@ export default function Private() {
   const [isLoading, setIsLoading] = useState(true);
   const outlet = useOutlet();
 
-  useEffect(() => {
-    if (!user) {
-      useFetch({ url: 'user' })
-        .then(res => setUserAuth(res))
-        .finally(() => setIsLoading(false));
-    }
-    setIsLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   if (!user) {
+  //     useFetch({ url: 'user' })
+  //       .then(res => setUserAuth(res))
+  //       .finally(() => setIsLoading(false));
+  //   }
+  //   setIsLoading(false);
+  // }, []);
 
-  if (isLoading) return <Loading />;
+  // if (isLoading) return <Loading />;
   return (
     <>
       {!user ? (

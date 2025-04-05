@@ -1,14 +1,27 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
+import { UserContext } from './UserProvider';
 
 export const ChatContext = createContext(null);
 
 export default function ChatProvider({ children }) {
+  const { user } = useContext(UserContext);
+
   const [chat, setChat] = useState(null);
   const [conversations, setConversations] = useState([]);
+  const [search, setSearch] = useState(null);
 
   const setCurrentChat = chatData => {
     setChat(chatData);
   };
+
+  const setSearchValue = searchValue => {
+    setSearch(searchValue);
+  };
+
+  const partner = useMemo(() => {
+    if (!chat?.participants) return search;
+    return chat?.participants.find(participant => participant.user._id !== user?._id);
+  }, [chat]);
 
   const saveConversation = conversation => {
     setConversations(prev =>
@@ -53,6 +66,8 @@ export default function ChatProvider({ children }) {
         unsaveConversation,
         conversations,
         bumpConversation,
+        partner,
+        setSearchValue,
       }}
     >
       {children}

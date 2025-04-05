@@ -2,10 +2,10 @@ import { useContext } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Input from '../../components/Forms/Input';
-import { UserContext } from '../../context/UserProvider';
+import { UserContext } from '../../contexts/UserProvider';
 import MediaInput from '../../components/Forms/MediaInput';
 import Modal from '../../components/Modal';
-import { updateUserProfile } from '../../helpers/actions/settings';
+import { updateUserProfile } from '../../helpers/actions/user';
 
 export default function Settings({ setShow }) {
   const { user, setUserAuth } = useContext(UserContext);
