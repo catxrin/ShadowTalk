@@ -25,9 +25,9 @@ export default function ProfileHeader() {
       <div className='bg-[#1C1D22] text-white px-4 h-19 flex flex-row justify-between'>
         <div className='flex flex-row items-center gap-2 font-semibold'>
           <img
-            className='rounded-full border border-gray-500 w-10 object-cover'
-            src={`/server/${user?.image}`}
             alt='pfp'
+            src={`/server/${user?.image}`}
+            className='rounded-full border border-gray-500 w-10 object-cover'
           />
           <p className='text-sm truncate'>{user?.username}</p>
         </div>

@@ -19,12 +19,12 @@ export default function UserItem({ user, styles }) {
         <p className='text-sm'>{user?.username}</p>
       </div>
       <Icon
+        icon='chat'
+        styles='!text-lg !flex items-center'
         onMouseDown={() => {
           navigate(`/chat/${user._id}`);
           setSearchValue({ user: user });
         }}
-        styles='!text-lg !flex items-center'
-        icon='chat'
       />
     </div>
   );

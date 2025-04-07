@@ -49,7 +49,8 @@ user.post('/upload', upload.single('file'), async (req, res) => {
 
 user.get('/search/:key', upload.single('file'), async (req, res) => {
   const regex = new RegExp(req.params.key, 'i');
-  const userData = await User.find({ username: { $regex: regex } }).select('-password');
+  const userData = await User.find({ username: { $regex: regex } }).select('-password -email');
+
   res.json(userData);
 });
 

@@ -9,9 +9,17 @@ conversation.get('/:id', async (req, res) => {
       $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
     },
   })
-    .populate('messages')
-    .populate('participants.user')
-    .populate({ path: 'messages', populate: 'author' });
+    .populate({
+      path: 'messages',
+      populate: {
+        path: 'author.user',
+        select: '-password -email',
+      },
+    })
+    .populate({
+      path: 'participants.user',
+      select: '-password -email',
+    });
 
   if (conv) {
     return res.json(conv);
@@ -56,7 +64,21 @@ conversation.patch('/:id/block', async (req, res) => {
   res.json(conv);
 });
 
-conversation.patch('/:id', async (req, res) => {
+conversation.patch('/:id/accent', async (req, res) => {
+  const conv = await Conversation.findOne({
+    participants: {
+      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
+    },
+  }).populate('participants.user');
+
+  const participant = conv.participants.find(participant => participant.user._id == res.locals.user.id);
+  participant.theme = req.body?.theme;
+
+  await conv.save();
+  res.json(conv);
+});
+
+conversation.patch('/:id/nickname', async (req, res) => {
   const conv = await Conversation.findOne({
     participants: {
       $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],

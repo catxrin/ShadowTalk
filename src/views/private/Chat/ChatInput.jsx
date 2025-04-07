@@ -1,11 +1,12 @@
 import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { socket } from '../../helpers/socket';
-import { UserContext } from '../../contexts/UserProvider';
+import { socket } from '../../../helpers/socket';
+import { UserContext } from '../../../contexts/UserProvider';
+import { ChatContext } from '../../../contexts/ChatProvider';
 
-import Icon from '../Icon';
-import { ChatContext } from '../../contexts/ChatProvider';
+import Icon from '../../../components/Icon';
+import BlockedBanner from './BlockedBanner';
 
 export default function ChatInput() {
   const { user } = useContext(UserContext);
@@ -31,11 +32,7 @@ export default function ChatInput() {
   return (
     <div className={`flex flex-row h-20 ${chat?.blocked ? 'bg-red-700/40' : 'mx-5'} items-center `}>
       {chat?.blocked ? (
-        <div className='w-full p-3 '>
-          <p className='text-center text-white'>
-            Messaging is disabled for this chat. One or both users have blocked communication.
-          </p>
-        </div>
+        <BlockedBanner />
       ) : (
         <>
           <input

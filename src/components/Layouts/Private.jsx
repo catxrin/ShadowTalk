@@ -16,16 +16,18 @@ export default function Private() {
   const [isLoading, setIsLoading] = useState(true);
   const outlet = useOutlet();
 
-  // useEffect(() => {
-  //   if (!user) {
-  //     useFetch({ url: 'user' })
-  //       .then(res => setUserAuth(res))
-  //       .finally(() => setIsLoading(false));
-  //   }
-  //   setIsLoading(false);
-  // }, []);
+  useEffect(() => {
+    if (!user) {
+      useFetch({ url: 'user' })
+        .then(res => {
+          setUserAuth(res);
+        })
+        .finally(() => setIsLoading(false));
+    }
+    setIsLoading(false);
+  }, []);
 
-  // if (isLoading) return <Loading />;
+  if (isLoading) return <Loading />;
   return (
     <>
       {!user ? (

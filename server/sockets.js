@@ -4,25 +4,30 @@ import { Message } from './models/Messages.js';
 export const sockets = (io, socket) => {
   socket.on('send_message', async newMessage => {
     const user = socket?.userId;
-
     let conversation = await Conversation.findOne({
       participants: {
         $all: [{ $elemMatch: { user: user } }, { $elemMatch: { user: newMessage.partnerId } }],
       },
-    }).populate('messages');
-
-    const message = new Message({ author: user, body: newMessage.message });
-    message.populate('author');
-    await message.save();
+    })
+      .populate('messages')
+      .populate('participants.user');
 
     if (!conversation) {
       conversation = new Conversation({
         participants: [
-          { user: user, nickname: '' },
-          { user: newMessage.partnerId, nickname: '' },
+          { user: user, nickname: '', theme: 'Default' },
+          { user: newMessage.partnerId, nickname: '', theme: 'Default' },
         ],
       });
     }
+
+    const message = new Message({
+      author: user,
+      body: newMessage.message,
+    });
+
+    await message.populate('author.user');
+    await message.save();
 
     conversation?.messages?.push(message._id);
     conversation.updatedAt = message.updatedAt;
@@ -31,21 +36,15 @@ export const sockets = (io, socket) => {
     return io.to([newMessage.partnerId, user]).emit('messages', { message: message, conversationId: conversation._id });
   });
 
-  socket.on('delete_message', async data => {
-    await Message.findOneAndDelete({ _id: data.messageId });
-    return io
-      .to([data.partnerId, socket?.userId])
-      .emit('deleted_message', { messageId: data.messageId, author: data.author });
-  });
-
   socket.on('edit_message', async newMessage => {
-    const updatedMessage = await Message.findByIdAndUpdate(
-      newMessage._id,
-      { body: newMessage.body },
-      { new: true }
-    ).populate('author');
+    const updatedMessage = await Message.findByIdAndUpdate(newMessage._id, { body: newMessage.body }, { new: true });
 
     return io.to([newMessage.partnerId, socket?.userId]).emit('edit_message', updatedMessage);
+  });
+
+  socket.on('delete_message', async message => {
+    await Message.findByIdAndDelete(message?.messageId);
+    return io.to([message.partnerId, socket?.userId]).emit('deleted_message', message);
   });
 
   socket.on('block_user', async partnerId => {

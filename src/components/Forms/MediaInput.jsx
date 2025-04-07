@@ -12,8 +12,8 @@ export default function MediaInput({ defaultImage, name }) {
             src={preview?.includes('blob:') ? preview : `/server/${preview}`}
             alt='pfp'
           />
-          <label htmlFor={name}>
-            <p className='bg-black/30 text-sm text-gray-200 p-2 rounded cursor-pointer'>Change</p>
+          <label className='bg-black/30 text-sm text-gray-200 p-2 rounded cursor-pointer' htmlFor={name}>
+            Change
           </label>
           <input
             id={name}

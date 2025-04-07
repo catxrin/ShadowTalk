@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { socket } from '../../helpers/socket';
+import { socket } from '../../../helpers/socket';
 
 export default function EditInput({ message, setEditMode }) {
-  const [editValue, setEditValue] = useState(message?.body);
   const { id } = useParams();
+  const [editValue, setEditValue] = useState(message?.body);
 
   const cancel = () => {
     setEditMode(false);
@@ -19,11 +19,11 @@ export default function EditInput({ message, setEditMode }) {
   return (
     <div className='flex flex-col items-end gap-1 w-full'>
       <input
+        value={editValue}
         onChange={e => {
           setEditValue(e.target.value);
         }}
         className='p-3 outline-hidden font-normal text-gray-200 text-sm rounded-md bg-[#404048] w-full'
-        value={editValue}
       />
       <div className='flex flex-row gap-1 justify-center text-[12px] font-normal text-gray-200'>
         <p>click escape to</p>

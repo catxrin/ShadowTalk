@@ -1,23 +1,22 @@
 import { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { socket } from '../../helpers/socket';
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../../hooks/useFetch';
+import { socket } from '../../../helpers/socket';
 
-import { ChatContext } from '../../contexts/ChatProvider';
-import { UserContext } from '../../contexts/UserProvider';
+import { ChatContext } from '../../../contexts/ChatProvider';
+import { UserContext } from '../../../contexts/UserProvider';
 
 import ChatBar from './ChatBar';
 import ChatBody from './ChatBody';
 import ChatInput from './ChatInput';
 
 export default function Chat() {
-  const { user } = useContext(UserContext);
   const { id } = useParams();
+  const { user } = useContext(UserContext);
+  const { setCurrentChat, bumpConversation } = useContext(ChatContext);
 
   const [messages, setMessages] = useState([]);
-
-  const { setCurrentChat, bumpConversation } = useContext(ChatContext);
 
   useEffect(() => {
     useFetch({ url: 'conversation/' + id }).then(res => {
@@ -30,7 +29,7 @@ export default function Chat() {
   useEffect(() => {
     socket.on('messages', data => {
       bumpConversation(data.conversationId);
-      if ([id, user._id].includes(data.message.author?._id)) setMessages(prev => [...prev, data.message]);
+      if ([id, user._id].includes(data.message.author)) setMessages(prev => [...prev, data.message]);
     });
 
     socket.on('deleted_message', data => {
@@ -38,7 +37,7 @@ export default function Chat() {
     });
 
     socket.on('edit_message', updatedMessage => {
-      if ([id, user._id].includes(updatedMessage.author._id))
+      if ([id, user._id].includes(updatedMessage.author))
         setMessages(prev => prev.map(m => (m._id === updatedMessage._id ? updatedMessage : m)));
     });
     return () => {

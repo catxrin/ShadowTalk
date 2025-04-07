@@ -6,9 +6,10 @@ const Register = lazy(() => import('../views/public/Register'));
 const Landing = lazy(() => import('../views/public/LandingPage/Landing'));
 const Public = lazy(() => import('../components/Layouts/Public'));
 const Private = lazy(() => import('../components/Layouts/Private'));
-const ChatSettings = lazy(() => import('../components/Chat/ChatSettings/Settings'));
-const ChatCustomization = lazy(() => import('../components/Chat/ChatSettings/ChatCustomization'));
-const Chat = lazy(() => import('../components/Chat/Chat'));
+const ChatSettings = lazy(() => import('../views/private/Chat/ChatSettings/Settings'));
+const ChatCustomization = lazy(() => import('../views/private/Chat/ChatSettings/ChatCustomization'));
+const DangerZone = lazy(() => import('../views/private/Chat/ChatSettings/DangerZone'));
+const Chat = lazy(() => import('../views/private/Chat/Chat'));
 
 import NotFound from '../components/NotFound';
 import ChatProvider from '../contexts/ChatProvider';
@@ -51,12 +52,8 @@ export const router = createBrowserRouter([
             element: <ChatCustomization />,
           },
           {
-            path: 'user',
-            element: <p>User</p>,
-          },
-          {
             path: 'danger_zone',
-            element: <p>Danger Zone</p>,
+            element: <DangerZone />,
           },
         ],
       },
