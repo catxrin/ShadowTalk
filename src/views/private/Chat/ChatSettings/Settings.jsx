@@ -23,10 +23,10 @@ export default function Settings() {
         </div>
         <div className='flex flex-col gap-1 text-gray-200 '>
           <p
-            onClick={() => navigate('chat_customization')}
-            className={`cursor-pointer rounded py-3 ${tabStyle('chat_customization')} px-2`}
+            onClick={() => navigate('customization')}
+            className={`cursor-pointer rounded py-3 ${tabStyle('customization')} px-2`}
           >
-            Chat Customization
+            Customization
           </p>
           <p
             onClick={() => navigate('danger_zone')}
@@ -36,7 +36,7 @@ export default function Settings() {
           </p>
         </div>
       </div>
-      <div className='h-screen w-full py-6 px-10 bg-[#2E2F38]'>
+      <div className='h-screen w-full py-6 overflow-y-auto px-10 bg-[#2E2F38]'>
         <Outlet />
       </div>
     </div>

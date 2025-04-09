@@ -14,7 +14,7 @@ import ChatInput from './ChatInput';
 export default function Chat() {
   const { id } = useParams();
   const { user } = useContext(UserContext);
-  const { setCurrentChat, bumpConversation } = useContext(ChatContext);
+  const { setCurrentChat, bumpConversation, setConversations } = useContext(ChatContext);
 
   const [messages, setMessages] = useState([]);
 
@@ -28,8 +28,12 @@ export default function Chat() {
 
   useEffect(() => {
     socket.on('messages', data => {
-      bumpConversation(data.conversationId);
+      bumpConversation(data.conversation);
       if ([id, user._id].includes(data.message.author)) setMessages(prev => [...prev, data.message]);
+    });
+
+    socket.on('deleted_conversation', conversationId => {
+      setConversations(prev => prev.filter(id => id !== conversationId));
     });
 
     socket.on('deleted_message', data => {

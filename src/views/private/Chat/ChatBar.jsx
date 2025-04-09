@@ -29,12 +29,12 @@ export default function ChatBar() {
             <p className={`text-sm truncate max-w-96 ${accentColors[participants[id]?.theme]}`}>
               {participants[id]?.nickname}
             </p>
-            <p className='text-[12px] text-gray-400'>@{participants[id]?.user.username}</p>
+            <p className='text-[12px] text-gray-400'>@{participants[id]?.user?.username}</p>
           </div>
         </div>
         <div className='flex flex-row  gap-2 items-center text-gray-200'>
           <Icon onClick={saveCurrentConversation} fill={chat?.saved} icon='bookmark' />
-          <Icon icon='settings' onClick={() => navigate('settings/chat_customization')} />
+          <Icon icon='settings' onClick={() => navigate('settings/customization')} />
         </div>
       </div>
     </>

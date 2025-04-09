@@ -11,7 +11,7 @@ export default function Conversations() {
 
   const [showSaved, setShowSaved] = useState(false);
   const [showDirect, setShowDirect] = useState(true);
-
+  console.log(conversations);
   useEffect(() => {
     useFetch({ url: 'conversation/' }).then(res => {
       setConversations(res);

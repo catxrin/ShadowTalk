@@ -39,7 +39,7 @@ export default function ChatProvider({ children }) {
         [user?._id]: { theme: 'Default', nickname: user?.username, user: { ...user } },
       });
     }
-  }, [chat, partner]);
+  }, [chat]);
 
   const toggleSavedConversation = conversation => {
     setConversations(prev =>
@@ -52,11 +52,11 @@ export default function ChatProvider({ children }) {
     setChat({ ...chat, saved: !chat.saved });
   };
 
-  const bumpConversation = conversationId => {
+  const bumpConversation = conversationData => {
     setConversations(prev => {
-      const index = prev.findIndex(conv => conv._id === conversationId);
+      const index = prev.findIndex(conv => conv._id === conversationData._id);
 
-      if (index === -1) return prev;
+      if (index === -1) return [conversationData, ...prev];
       const [movedConversation] = prev.splice(index, 1);
 
       return [movedConversation, ...prev];

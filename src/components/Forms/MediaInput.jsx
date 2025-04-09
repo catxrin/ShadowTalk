@@ -8,7 +8,7 @@ export default function MediaInput({ defaultImage, name }) {
       {({ register }) => (
         <div className='flex flex-row w-full justify-between items-center'>
           <img
-            className='rounded-full border border-gray-500 w-20 object-cover'
+            className='rounded-full w-20 object-cover'
             src={preview?.includes('blob:') ? preview : `/server/${preview}`}
             alt='pfp'
           />

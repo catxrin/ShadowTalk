@@ -5,13 +5,13 @@ export default function Input({ name, rules, label, placeholder, styles, ...rest
   return (
     <ConnectForm>
       {({ register, formState: { errors } }) => (
-        <div className='flex flex-col'>
+        <div className='flex flex-col w-full'>
           <label className='text-gray-400 text-sm font-semibold' htmlFor={name}>
             {label}
           </label>
           <input
             placeholder={placeholder}
-            className={`border p-1 xl:text-base text-sm rounded-md ${
+            className={`border p-1 xl:text-base text-sm rounded-md w-full ${
               !errors[name] ? 'border-gray-500' : 'border-red-600'
             } ${styles && styles}`}
             {...rest}

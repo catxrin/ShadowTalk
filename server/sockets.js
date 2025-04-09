@@ -32,8 +32,9 @@ export const sockets = (io, socket) => {
     conversation?.messages?.push(message._id);
     conversation.updatedAt = message.updatedAt;
     await conversation.save();
+    await conversation.populate('participants.user');
 
-    return io.to([newMessage.partnerId, user]).emit('messages', { message: message, conversationId: conversation._id });
+    return io.to([newMessage.partnerId, user]).emit('messages', { message: message, conversation: conversation });
   });
 
   socket.on('edit_message', async newMessage => {
@@ -45,6 +46,11 @@ export const sockets = (io, socket) => {
   socket.on('delete_message', async message => {
     await Message.findByIdAndDelete(message?.messageId);
     return io.to([message.partnerId, socket?.userId]).emit('deleted_message', message);
+  });
+
+  socket.on('delete_conversation', async chatId => {
+    await Conversation.findByIdAndDelete(chatId);
+    return io.emit('deleted_conversation', chatId);
   });
 
   socket.on('block_user', async partnerId => {

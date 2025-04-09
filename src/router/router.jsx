@@ -10,7 +10,9 @@ const ChatSettings = lazy(() => import('../views/private/Chat/ChatSettings/Setti
 const ChatCustomization = lazy(() => import('../views/private/Chat/ChatSettings/ChatCustomization'));
 const DangerZone = lazy(() => import('../views/private/Chat/ChatSettings/DangerZone'));
 const Chat = lazy(() => import('../views/private/Chat/Chat'));
-
+const ProfileCustomization = lazy(() => import('../views/private/ProfileSettings/ProfileCustomization'));
+const ProfileDangerZone = lazy(() => import('../views/private/ProfileSettings/DangerZone'));
+const Profile = lazy(() => import('../views/private/Profile/Profile'));
 import NotFound from '../components/NotFound';
 import ChatProvider from '../contexts/ChatProvider';
 
@@ -48,7 +50,7 @@ export const router = createBrowserRouter([
         ),
         children: [
           {
-            path: 'chat_customization',
+            path: 'customization',
             element: <ChatCustomization />,
           },
           {
@@ -59,6 +61,15 @@ export const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '/user/:id/settings',
+    element: <ChatSettings />,
+    children: [
+      { path: 'customization', element: <ProfileCustomization /> },
+      { path: 'danger_zone', element: <ProfileDangerZone /> },
+    ],
+  },
+  { path: '/user/:id', element: <Profile /> },
 
   { path: '*', element: <NotFound /> },
 ]);
