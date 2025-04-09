@@ -1,8 +1,20 @@
-# React + Vite
+When installing all the app's dependencies youll need to run these two commands
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ 
+```bash
+ 
+npm i
+ 
+cd server && npm i
+ 
+```
+ 
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ 
+After that you can start the application (both FE and BE) by writing
+ 
+```bash
+ 
+npm run dev
+ 
+```
