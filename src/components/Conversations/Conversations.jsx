@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext, useMemo } from 'react';
 
-import useFetch from '../../helpers/useFetch';
-import { ChatContext } from '../../context/ChatProvider';
+import useFetch from '../../hooks/useFetch';
+import { ChatContext } from '../../contexts/ChatProvider';
 
 import Icon from '../Icon';
 import Participants from './Participants';
@@ -11,7 +11,7 @@ export default function Conversations() {
 
   const [showSaved, setShowSaved] = useState(false);
   const [showDirect, setShowDirect] = useState(true);
-
+  console.log(conversations);
   useEffect(() => {
     useFetch({ url: 'conversation/' }).then(res => {
       setConversations(res);

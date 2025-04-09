@@ -1,7 +1,7 @@
 import { useNavigate, NavLink } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { userLogin } from '../../helpers/auth';
+import { login } from '../../helpers/actions/auth';
 
 import Logo from '../../components/Logo';
 import Shape from '../../components/Shape';
@@ -14,9 +14,7 @@ export default function Login() {
 
   const submitData = () =>
     methods.handleSubmit(({ email, password }) => {
-      userLogin({ email: email.trim(), password: password.trim() }).then(() => {
-        navigate('/chat');
-      });
+      login(email, password).then(() => navigate('/chat'));
     });
 
   return (
@@ -46,7 +44,9 @@ export default function Login() {
             label='Email'
             placeholder='example@domain.com'
             rules={{
-              required: 'Email is required',
+              validate: {
+                removeWhiteSpace: value => value.trim('') !== '' || 'Email is required.',
+              },
               pattern: {
                 value: /[a-zA-Z0-9.-]+(.[a-zA-Z]{2,})+/gm,
                 message: 'Invalid email format.',

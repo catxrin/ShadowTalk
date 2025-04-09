@@ -8,13 +8,16 @@ message.post('/:id', async (req, res) => {
   const user = res.locals.user.id;
 
   const conversation = await Conversation.findOne({
-    participants: { $all: [user, req.params.id] },
+    participants: {
+      $all: [{ $elemMatch: { user: user } }, { $elemMatch: { user: req.params.id } }],
+    },
   }).populate('messages');
   if (!conversation) {
     return res.status(404).json({ message: 'Conversation not found' });
   }
 
-  const message = new Message({ author: user, body: req.body.message });
+  const author = conversation.participants.find(participant => participant.user._id == user)._id;
+  const message = new Message({ author, body: req.body.message });
   await message.save();
 
   conversation?.messages?.push(message._id);

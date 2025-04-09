@@ -1,11 +1,12 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { userRegister } from '../../helpers/auth';
+import { NavLink, useNavigate } from 'react-router-dom';
+
+import { register } from '../../helpers/actions/auth';
+
 import Logo from '../../components/Logo';
 import Input from '../../components/Forms/Input';
-
 import Shape from '../../components/Shape';
 import PasswordInput from '../../components/Forms/PasswordInput';
-import { NavLink, useNavigate } from 'react-router-dom';
 
 export default function Register() {
   const methods = useForm();
@@ -13,9 +14,7 @@ export default function Register() {
 
   const submitData = () =>
     methods.handleSubmit(({ username, email, password }) => {
-      userRegister({ username: username.trim(), email: email.trim(), password: password.trim() }).then(() =>
-        navigate('/chat')
-      );
+      register(username, email, password).then(() => navigate('/chat'));
     });
 
   return (
@@ -43,7 +42,9 @@ export default function Register() {
           <Input
             placeholder='Username'
             rules={{
-              required: 'Username is required',
+              validate: {
+                removeWhiteSpace: value => value.trim('') !== '' || 'Username is required.',
+              },
               minLength: { value: 3, message: 'Username must contain at least 3 characters' },
             }}
             name='username'
@@ -54,7 +55,9 @@ export default function Register() {
             label='Email'
             placeholder='example@domain.com'
             rules={{
-              required: 'Email is required',
+              validate: {
+                removeWhiteSpace: value => value.trim('') !== '' || 'Email is required.',
+              },
               pattern: {
                 value: /[a-zA-Z0-9.-]+(.[a-zA-Z]{2,})+/gm,
                 message: 'Invalid email format.',
@@ -68,9 +71,9 @@ export default function Register() {
             type='password'
             placeholder=' ••••••••'
             rules={{
-              required: 'Confirm password is required',
               validate: {
                 passwordEqual: value => value === methods.getValues('password') || "Passwords doesn't match!",
+                removeWhiteSpace: value => value.trim('') !== '' || 'Confirm password is required.',
               },
             }}
           />

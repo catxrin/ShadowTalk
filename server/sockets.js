@@ -1,74 +1,72 @@
 import { Conversation } from './models/Conversation.js';
 import { Message } from './models/Messages.js';
 
-let onlineUsers = [];
-
 export const sockets = (io, socket) => {
-  io.emit('connected');
-
-  socket.on('new-user-online', newUserId => {
-    onlineUsers.push({ userId: newUserId, socketId: socket.id });
-    io.emit('get-online-users', onlineUsers);
-  });
-
   socket.on('send_message', async newMessage => {
     const user = socket?.userId;
-
     let conversation = await Conversation.findOne({
-      participants: { $all: [user, newMessage.partnerId] },
-    }).populate('messages');
-
-    const message = new Message({ author: user, body: newMessage.message });
-    message.populate('author');
-    await message.save();
+      participants: {
+        $all: [{ $elemMatch: { user: user } }, { $elemMatch: { user: newMessage.partnerId } }],
+      },
+    })
+      .populate('messages')
+      .populate('participants.user');
 
     if (!conversation) {
-      conversation = new Conversation({ participants: [user, newMessage.partnerId] });
+      conversation = new Conversation({
+        participants: [
+          { user: user, nickname: '', theme: 'Default' },
+          { user: newMessage.partnerId, nickname: '', theme: 'Default' },
+        ],
+      });
     }
+
+    const message = new Message({
+      author: user,
+      body: newMessage.message,
+    });
+
+    await message.populate('author.user');
+    await message.save();
 
     conversation?.messages?.push(message._id);
     conversation.updatedAt = message.updatedAt;
     await conversation.save();
+    await conversation.populate('participants.user');
 
-    return io.to([newMessage.partnerId, user]).emit('messages', { message: message, conversationId: conversation._id });
-  });
-
-  socket.on('save_conversation', async partnerId => {
-    const user = socket?.userId;
-    const conversation = await Conversation.findOne({
-      participants: { $all: [user, partnerId] },
-    });
-
-    conversation.saved = !conversation.saved;
-    conversation.save();
-
-    return io.to([partnerId, user]).emit('saved', conversation.saved);
-  });
-
-  socket.on('delete_message', async data => {
-    await Message.findOneAndDelete({ _id: data.messageId });
-    return io
-      .to([data.partnerId, socket?.userId])
-      .emit('deleted_message', { messageId: data.messageId, author: data.author });
+    return io.to([newMessage.partnerId, user]).emit('messages', { message: message, conversation: conversation });
   });
 
   socket.on('edit_message', async newMessage => {
-    const updatedMessage = await Message.findByIdAndUpdate(
-      newMessage._id,
-      { body: newMessage.body },
-      { new: true }
-    ).populate('author');
+    const updatedMessage = await Message.findByIdAndUpdate(newMessage._id, { body: newMessage.body }, { new: true });
 
     return io.to([newMessage.partnerId, socket?.userId]).emit('edit_message', updatedMessage);
   });
 
-  io.engine.on('connection_error', err => {
-    console.log(err.message);
+  socket.on('delete_message', async message => {
+    await Message.findByIdAndDelete(message?.messageId);
+    return io.to([message.partnerId, socket?.userId]).emit('deleted_message', message);
   });
 
-  socket.on('disconnect', () => {
-    onlineUsers = onlineUsers.filter(user => user.socketId !== socket.id);
-    // send all online users to all users
-    io.emit('get-online-users', onlineUsers);
+  socket.on('delete_conversation', async chatId => {
+    await Conversation.findByIdAndDelete(chatId);
+    return io.emit('deleted_conversation', chatId);
+  });
+
+  socket.on('block_user', async partnerId => {
+    const conv = await Conversation.findOne({
+      participants: {
+        $all: [{ $elemMatch: { user: socket?.userId } }, { $elemMatch: { user: partnerId } }],
+      },
+    }).populate('participants.user');
+
+    conv.blocked = !conv.blocked;
+    conv.save();
+
+    return io.to([partnerId, socket?.userId]).emit('blocked', conv);
+  });
+
+  io.engine.on('connection_error', err => {
+    console.log(err.message);
   });
 };

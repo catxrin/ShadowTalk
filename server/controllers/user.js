@@ -25,7 +25,7 @@ user.get('/:id', async (req, res) => {
 });
 
 user.patch('/:id', upload.single('file'), async (req, res) => {
-  const { file, ...neededData } = req.body;
+  const { _, ...neededData } = req.body;
   let data;
   if (req?.file?.path) {
     data = { ...neededData, image: req?.file.path };
@@ -49,7 +49,8 @@ user.post('/upload', upload.single('file'), async (req, res) => {
 
 user.get('/search/:key', upload.single('file'), async (req, res) => {
   const regex = new RegExp(req.params.key, 'i');
-  const userData = await User.find({ username: { $regex: regex } }).select('-password');
+  const userData = await User.find({ username: { $regex: regex } }).select('-password -email');
+
   res.json(userData);
 });
 
