@@ -12,7 +12,7 @@ export default function EditInput({ message, setEditMode }) {
     setEditValue(message.body);
   };
   const save = () => {
-    socket.emit('edit_message', { partnerId: id, ...message, body: editValue });
+    socket.emit('edit_message', { partnerId: id, ...message, body: editValue.trim() });
     setEditMode(false);
   };
 
@@ -25,12 +25,10 @@ export default function EditInput({ message, setEditMode }) {
         }}
         className='p-3 outline-hidden font-normal text-gray-200 text-sm rounded-md bg-[#404048] w-full'
       />
-      <div className='flex flex-row gap-1 justify-center text-[12px] font-normal text-gray-200'>
-        <p>click escape to</p>
+      <div className='flex flex-row justify-center gap-2 text-[12px] font-normal text-gray-200'>
         <button onClick={cancel} className='text-blue-400 cursor-pointer hover:underline'>
           cancel
         </button>
-        <p>, enter to</p>
         <button onClick={save} className='text-blue-400 cursor-pointer hover:underline'>
           save
         </button>

@@ -12,10 +12,8 @@ export default function Public() {
   useEffect(() => {
     if (!user) {
       useFetch({ url: 'user', noError: true }).then(res => {
-        if (res) {
-          setUserAuth(res);
-          navigate('/chat');
-        }
+        setUserAuth(res);
+        navigate('/chat');
       });
     }
   }, []);

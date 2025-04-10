@@ -20,7 +20,7 @@ export default function DangerZone() {
   };
 
   return (
-    <div>
+    <div className='p-3'>
       <div className='flex flex-row items-center gap-2'>
         <Icon onClick={() => navigate(`/chat`)} styles='text-white !text-3xl' icon='chevron_left' />
         <p className='font-semibold text-white text-xl'>Danger Zone</p>

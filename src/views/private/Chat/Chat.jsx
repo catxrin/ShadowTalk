@@ -20,9 +20,8 @@ export default function Chat() {
 
   useEffect(() => {
     useFetch({ url: 'conversation/' + id }).then(res => {
-      const msg = res.messages ? res.messages : [];
       setCurrentChat(res);
-      setMessages(msg);
+      setMessages(res.messages || []);
     });
   }, [id]);
 

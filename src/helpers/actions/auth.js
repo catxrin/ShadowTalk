@@ -13,6 +13,6 @@ export const login = (email, password) =>
   });
 
 export const logout = () =>
-  useFetch({ url: 'auth/logout' }).then(() =>
+  useFetch({ url: 'auth/logout', noError: true }).then(() =>
     enqueueSnackbar('Logout successful.', { variant: 'success', autoHideDuration: 2000 })
   );

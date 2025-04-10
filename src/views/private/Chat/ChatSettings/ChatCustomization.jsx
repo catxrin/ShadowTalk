@@ -4,9 +4,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from '../../../../contexts/UserProvider';
 import { ChatContext } from '../../../../contexts/ChatProvider';
 
+import UsernameInput from '../UsernameInput';
 import Icon from '../../../../components/Icon';
 import ColorPicker from './ColorPicker/ColorPicker';
-import UsernameInput from '../UsernameInput';
 
 export default function ChatCustomization() {
   const { id } = useParams();
@@ -16,7 +16,7 @@ export default function ChatCustomization() {
   const navigate = useNavigate();
 
   return (
-    <div className='size-full flex flex-col gap-6'>
+    <div className='size-full flex flex-col gap-6 p-3'>
       <div className='flex flex-row items-center gap-2'>
         <Icon onClick={() => navigate(`/chat/${id}`)} styles='text-white !text-3xl' icon='chevron_left' />
         <p className='font-semibold text-white text-xl'>Chat Customization</p>

@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { socket } from '../../../helpers/socket';
 import { UserContext } from '../../../contexts/UserProvider';
@@ -13,6 +13,8 @@ export default function Message({ message }) {
   const { id } = useParams();
   const { user } = useContext(UserContext);
   const { participants } = useContext(ChatContext);
+
+  const navigate = useNavigate();
 
   const [hover, setHover] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -55,8 +57,13 @@ export default function Message({ message }) {
         />
         <div className='flex flex-col w-full'>
           <div className='flex flex-row gap-2 items-center'>
-            <p className={`text-sm font-semibold ${accentColors[participant?.theme]}`}>{participant?.nickname}</p>
-            <p className='text-[10px] text-gray-400'>{formatDateAndTime(message.createdAt)}</p>
+            <p
+              onClick={() => navigate(`/user/${participant?.user?._id}`)}
+              className={`text-sm hover:underline cursor-pointer font-semibold ${accentColors[participant?.theme]}`}
+            >
+              {participant?.nickname}
+            </p>
+            <p className='text-[10px] text-gray-400'>{formatDateAndTime(message?.createdAt)}</p>
           </div>
           {displayMessageBody()}
         </div>

@@ -15,5 +15,5 @@ export const isAuth = async (req, res, next) => {
       return res.status(400).json({ message: error?.message });
     }
   }
-  res.status(400).json({ message: 'Not authorized!' });
+  res.status(401).json({ message: 'Not authorized!' });
 };

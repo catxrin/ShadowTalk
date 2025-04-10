@@ -2,6 +2,7 @@ import { useEffect, useState, useContext, useMemo } from 'react';
 
 import useFetch from '../../hooks/useFetch';
 import { ChatContext } from '../../contexts/ChatProvider';
+import Search from '../UserSearch/Search';
 
 import Icon from '../Icon';
 import Participants from './Participants';
@@ -11,7 +12,7 @@ export default function Conversations() {
 
   const [showSaved, setShowSaved] = useState(false);
   const [showDirect, setShowDirect] = useState(true);
-  console.log(conversations);
+
   useEffect(() => {
     useFetch({ url: 'conversation/' }).then(res => {
       setConversations(res);
@@ -32,30 +33,37 @@ export default function Conversations() {
   };
 
   return (
-    <div className='flex flex-col gap-2'>
-      <div className='w-full flex flex-row gap-2 bg-black/50 p-1 rounded'>
-        <div
-          onClick={() => showMessages('direct')}
-          className={`${
-            showDirect ? 'bg-white/10 text-gray-200' : 'text-gray-400'
-          } w-full font-semibold p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
-        >
-          <Icon styles='!text-lg' icon='forward_to_inbox' />
-          <button className='text-sm cursor-pointer'>Direct</button>
-        </div>
-        <div
-          onClick={() => showMessages('saved')}
-          className={`${
-            showSaved ? 'bg-white/10 text-gray-200' : 'text-gray-400'
-          } w-full font-semibold p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
-        >
-          <Icon styles='!text-lg' icon='bookmark_added' />
-          <button className='text-sm cursor-pointer'>Saved</button>
-        </div>
+    <div className='flex pt-4 px-3 h-full overflow-x-auto flex-col gap-4'>
+      <div className='flex flex-row items-center gap-2'>
+        <img className='h-7 w-8 p-1 bg-white/80 rounded' src='/logoSVG.svg' alt='logo' />
+        <p className='font-[nuosu] text-white text-sm'>ShadowTalk</p>
       </div>
-      <div className='flex flex-col gap-0.5'>
-        {showDirect && <Participants participants={directConversations} />}
-        {showSaved && <Participants participants={savedConversations} />}
+      <Search />
+      <div className='flex flex-col gap-2'>
+        <div className='w-full flex flex-row gap-2 bg-black/50 p-1 rounded'>
+          <div
+            onClick={() => showMessages('direct')}
+            className={`${
+              showDirect ? 'bg-white/10 text-gray-200' : 'text-gray-400'
+            } w-full font-semibold p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
+          >
+            <Icon styles='!text-lg' icon='forward_to_inbox' />
+            <button className='text-sm cursor-pointer'>Direct</button>
+          </div>
+          <div
+            onClick={() => showMessages('saved')}
+            className={`${
+              showSaved ? 'bg-white/10 text-gray-200' : 'text-gray-400'
+            } w-full font-semibold p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
+          >
+            <Icon styles='!text-lg' icon='bookmark_added' />
+            <button className='text-sm cursor-pointer'>Saved</button>
+          </div>
+        </div>
+        <div className='flex flex-col gap-0.5'>
+          {showDirect && <Participants participants={directConversations} />}
+          {showSaved && <Participants participants={savedConversations} />}
+        </div>
       </div>
     </div>
   );

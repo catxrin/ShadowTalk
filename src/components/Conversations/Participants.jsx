@@ -15,7 +15,8 @@ export default function Participants({ participants }) {
         <div
           key={mate?.user?._id}
           onClick={() => navigate(`/chat/${mate.user._id}`)}
-          className='flex flex-row hover:bg-white/5 bg-black/20 cursor-pointer p-2 rounded items-center gap-2 font-semibold'
+          className='flex flex-row hover:bg-white/5 p-2 rounded gap-2 font-semibold
+          cursor-pointer items-center bg-black/20'
         >
           <img alt='pfp' className={`rounded-full bg-white w-10 object-cover`} src={`/server/${mate?.user?.image}`} />
           <p className={`text-sm truncate text-white max-w-40`}>{mate?.nickname}</p>
