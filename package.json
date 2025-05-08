@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently -n BE,FE -c blue,yellow \"npm run BE\" \"npm run FE\"",
+    "install-all": "npm i && cd server && npm i",
     "BE": "cd server && npm run dev",
-    "FE": "vite",
+    "FE": "vite --host 0.0.0.0",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
