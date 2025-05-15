@@ -26,13 +26,14 @@ export default function ProfileCustomization() {
     },
   });
 
-  const selectedImage = methods.watch('bgImage');
   const submitData = () =>
     methods.handleSubmit(data => {
       updateUserProfile({ ...data, description: data?.description.trim() }, user?._id).then(data => {
         setUserAuth(data);
       });
     });
+
+  const selectedImage = methods.watch('bgImage');
 
   return (
     <FormProvider {...methods}>

@@ -16,7 +16,7 @@ dotenv.config({ path: './../.env' });
 
 // Connecting to the database
 try {
-  await mongoose.connect(`${process.env.MONGODB_URI}/${process.env.DB_NAME}`);
+  await mongoose.connect(`mongodb://localhost:27017/${process.env.DB_NAME}`);
   console.log('Connected to DB');
 } catch (error) {
   console.error(error.message);

@@ -54,7 +54,7 @@ export default function Login() {
             }}
           />
           <PasswordInput />
-          <button type='submit' className='text-black bg-white py-1 font-semibold rounded'>
+          <button type='submit' className='text-black cursor-pointer bg-white py-1 font-semibold rounded'>
             Submit
           </button>
         </form>
