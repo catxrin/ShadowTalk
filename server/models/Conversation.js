@@ -5,19 +5,15 @@ const ConversationSchema = new Schema(
   {
     participants: [
       {
-        nickname: String,
-        theme: {
-          type: String,
-          default: 'Default',
-        },
-        blocked: {
-          type: Boolean,
-          default: false,
-        },
         user: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User',
           required: true,
+        },
+        nickname: String,
+        accent: {
+          type: String,
+          default: 'Default',
         },
       },
     ],

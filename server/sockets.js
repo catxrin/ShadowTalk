@@ -66,6 +66,8 @@ export const sockets = (io, socket) => {
     return io.to([partnerId, socket?.userId]).emit('blocked', conv);
   });
 
+  socket.on('disconnect', () => console.log('User disconnected'));
+
   io.engine.on('connection_error', err => {
     console.log(err.message);
   });

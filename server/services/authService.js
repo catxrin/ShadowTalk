@@ -12,14 +12,12 @@ export const registerUser = async data => {
 };
 
 export const loginUser = async data => {
-  const user = await User.findOne({ email: data.email });
+  const user = await User.findOne({ email: data.email }).select('+password');
   if (!user) {
     throw new Error('Wrong credentials!');
   }
   const isPasswordCorrect = await bcrypt.compare(data.password, user.password);
-  if (isPasswordCorrect) {
-    return user._id;
-  } else {
-    throw new Error('Wrong credentials!');
-  }
+  if (!isPasswordCorrect) throw new Error('Wrong credentials!');
+
+  return user._id;
 };

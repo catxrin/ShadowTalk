@@ -1,97 +1,85 @@
 import { Router } from 'express';
-import { Conversation } from '../models/Conversation.js';
+import { findConversation } from '../services/messagesService.js';
+import { getAll } from '../services/conversationsService.js';
 
 const conversation = Router();
 
 conversation.get('/:id', async (req, res) => {
-  const conv = await Conversation.findOne({
-    participants: {
-      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
+  const userId = res.locals.user.id;
+  const chat = await findConversation(userId, req.params.id);
+
+  if (!chat) return res.json([]);
+
+  await chat.populate({
+    path: 'messages',
+    populate: {
+      path: 'author.user',
     },
-  })
-    .populate({
-      path: 'messages',
-      populate: {
-        path: 'author.user',
-        select: '-password -email',
-      },
-    })
-    .populate({
-      path: 'participants.user',
-      select: '-password -email',
-    });
+  });
 
-  if (conv) {
-    return res.json(conv);
-  }
+  await chat.populate({
+    path: 'participants.user',
+  });
 
-  res.json([]);
+  return res.json(chat);
 });
 
 conversation.get('', async (req, res) => {
-  const convs = await Conversation.find({
-    participants: { $elemMatch: { user: res.locals.user.id } },
-  })
-    .populate('participants.user')
-    .sort({ updatedAt: -1 });
-  res.json(convs);
+  const userId = res.locals.user.id;
+
+  const allConversations = await getAll(userId).populate('participants.user').sort({ updatedAt: -1 });
+  res.json(allConversations);
 });
 
 conversation.patch('/:id/save', async (req, res) => {
-  const conv = await Conversation.findOne({
-    participants: {
-      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
-    },
-  }).populate('participants.user');
+  const userId = res.locals.user.id;
 
-  conv.saved = !conv.saved;
-  conv.save();
+  const chat = await findConversation(userId, req.params.id).populate('participants.user');
 
-  const filtered = conv.participants.filter(x => x._id !== res.locals.user.id);
+  chat.saved = !chat.saved;
+  chat.save();
+
+  const filtered = chat.participants.filter(participant => participant._id !== userId);
   res.json(filtered);
 });
 
-conversation.patch('/:id/block', async (req, res) => {
-  const conv = await Conversation.findOne({
-    participants: {
-      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
-    },
-  }).populate('participants.user');
-
-  conv.blocked = !conv.blocked;
-  conv.save();
-
-  res.json(conv);
-});
-
 conversation.patch('/:id/accent', async (req, res) => {
-  const conv = await Conversation.findOne({
-    participants: {
-      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
-    },
-  }).populate('participants.user');
+  const userId = res.locals.user.id;
 
-  const participant = conv.participants.find(participant => participant.user._id == res.locals.user.id);
+  const chat = await findConversation(userId, req.params.id).populate('participants.user');
+
+  const participant = chat.participants.find(participant => participant.user._id == res.locals.user.id);
   participant.theme = req.body?.theme;
 
-  await conv.save();
-  res.json(conv);
+  await chat.save();
+  res.json(chat);
 });
 
 conversation.patch('/:id/nickname', async (req, res) => {
-  const conv = await Conversation.findOne({
-    participants: {
-      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
-    },
-  }).populate('participants.user');
+  const userId = res.locals.user.id;
 
-  const paricipant = conv.participants.find(participant => participant.user._id == req.params.id);
-  paricipant.nickname = req.body.nickname;
+  const chat = await findConversation(userId, req.params.id).populate('participants.user');
 
-  await conv.save();
-  res.json(conv);
+  const participant = chat.participants.find(participant => participant.user._id == req.params.id);
+  participant.nickname = req.body.nickname;
+
+  await chat.save();
+  res.json(chat);
 });
 
-// query parameter saved from the BE
+// conversation.patch('/:id/block', async (req, res) => {
+//   const conv = await Conversation.findOne({
+//     participants: {
+//       $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
+//     },
+//   }).populate('participants.user');
+
+//   conv.blocked = !conv.blocked;
+//   conv.save();
+
+//   res.json(conv);
+// });
+
+// query parameter saved from the BE?
 
 export default conversation;

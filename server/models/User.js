@@ -7,24 +7,26 @@ const UserSchema = new Schema(
       type: String,
       required: [true, 'Username is required'],
     },
-    theme: { type: String, default: 'Default' },
     email: {
       type: String,
-      required: [true, 'Username is required'],
+      required: [true, 'Email is required'],
       match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/, 'Fill a valid email address'],
+    },
+    password: {
+      type: String,
+      select: false,
+      required: [true, 'Password is required'],
+      minLength: [8, 'Password must be 8 or more characters'],
     },
     image: {
       type: String,
       required: false,
       default: 'uploads/defaultPfp.jpg',
     },
-    description: { type: String, required: false },
+    theme: { type: String, default: 'Dark' },
+    decoration: { type: String, required: false, default: 'None' },
+    biography: { type: String, required: false },
     bgImage: { type: String, required: false, default: 'uploads/landscape1.jpg' },
-    password: {
-      type: String,
-      required: [true, 'Password is required'],
-      minLength: [8, 'Password must be 8 or more characters'],
-    },
   },
   { timestamps: true }
 );
