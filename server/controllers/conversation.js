@@ -1,6 +1,5 @@
 import { Router } from 'express';
-import { findConversation } from '../services/messagesService.js';
-import { getAll } from '../services/conversationsService.js';
+import { getAll, findConversation } from '../services/conversationsService.js';
 
 const conversation = Router();
 

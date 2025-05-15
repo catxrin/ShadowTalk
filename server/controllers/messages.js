@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Message } from '../models/Messages.js';
-import { findConversation } from '../services/messagesService.js';
+import { findConversation } from '../services/conversationsService.js';
 
 const message = Router();
 

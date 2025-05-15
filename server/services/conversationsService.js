@@ -5,3 +5,13 @@ export const getAll = async userId => {
     participants: { $elemMatch: { user: userId } },
   });
 };
+
+export const findConversation = async (userId, partnerId) => {
+  const conversation = await Conversation.findOne({
+    participants: {
+      $all: [{ $elemMatch: { user: userId } }, { $elemMatch: { user: partnerId } }],
+    },
+  });
+
+  return conversation;
+};
