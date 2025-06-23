@@ -6,6 +6,7 @@ import ConnectForm from './ConnectForm';
 
 export default function PasswordInput() {
   const [visible, setVisible] = useState(false);
+
   const visibilityIcon = () => (!visible ? 'visibility_off' : 'visibility');
   const inputType = () => (!visible ? 'password' : 'text');
 
@@ -21,7 +22,7 @@ export default function PasswordInput() {
               <input
                 placeholder=' ••••••••'
                 type={inputType()}
-                className={`border p-1 rounded-md border-gray-500 ${
+                className={`border p-1 rounded-md border-gray-500 outline-none ${
                   !errors['password'] ? 'border-gray-500' : 'border-red-600'
                 } pr-12 relative w-full`}
                 {...register('password', {

@@ -11,7 +11,7 @@ export default function ChatBody({ messages }) {
   }, [messages]);
 
   return (
-    <div className='bg-white/5 h-full w-full py-5 overflow-y-auto flex flex-col gap-2'>
+    <div className='bg-white/5 size-full py-5 overflow-y-auto flex flex-col gap-2'>
       {messages?.map(message => (
         <Message key={message._id} message={message} />
       ))}
