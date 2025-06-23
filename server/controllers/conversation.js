@@ -26,7 +26,7 @@ conversation.get('/:id', async (req, res) => {
 conversation.get('', async (req, res) => {
   const userId = res.locals.user.id;
 
-  const allConversations = await getAll(userId).populate('participants.user').sort({ updatedAt: -1 });
+  const allConversations = await getAll(userId);
   res.json(allConversations);
 });
 

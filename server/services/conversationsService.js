@@ -1,9 +1,12 @@
 import { Conversation } from '../models/Conversation.js';
 
 export const getAll = async userId => {
-  return await Conversation.find({
+  const conversation = await Conversation.find({
     participants: { $elemMatch: { user: userId } },
-  });
+  })
+    .populate('participants.user')
+    .sort({ updatedAt: -1 });
+  return conversation;
 };
 
 export const findConversation = async (userId, partnerId) => {
