@@ -1,5 +1,4 @@
-import { Schema, model } from 'mongoose';
-import mongoose from 'mongoose';
+import mongoose, { model, Schema } from 'mongoose';
 
 const ConversationSchema = new Schema(
   {
@@ -7,6 +6,10 @@ const ConversationSchema = new Schema(
       {
         nickname: String,
         theme: {
+          type: String,
+          default: 'Default',
+        },
+        accent: {
           type: String,
           default: 'Default',
         },

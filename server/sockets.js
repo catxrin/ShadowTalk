@@ -31,6 +31,7 @@ export const sockets = (io, socket) => {
 
     conversation?.messages?.push(message._id);
     conversation.updatedAt = message.updatedAt;
+
     await conversation.save();
     await conversation.populate('participants.user');
 

@@ -17,12 +17,12 @@ export default function ColorPicker() {
     useFetch({
       url: 'conversation/' + user?._id + '/accent',
       method: 'PATCH',
-      body: { theme: color },
+      body: { accent: color },
     });
   };
 
   useEffect(() => {
-    setChatColor(participants[user?._id]?.theme);
+    setChatColor(participants[user?._id]?.accent);
   }, []);
 
   return (

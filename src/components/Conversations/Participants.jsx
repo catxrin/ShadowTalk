@@ -22,7 +22,7 @@ export default function Participants({ participants }) {
           <div className='size-full p-2 flex flex-row items-center gap-2'>
             <img
               alt='pfp'
-              className={`rounded-full shadow-sm bg-white w-10 object-cover`}
+              className={`rounded-full shadow-sm bg-white w-10 h-10 object-cover`}
               src={`/server/${mate?.user?.image}`}
             />
             <p className={`text-sm truncate shadow-sm text-white max-w-40`}>{mate?.nickname}</p>

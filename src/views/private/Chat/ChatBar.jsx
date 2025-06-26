@@ -13,6 +13,8 @@ export default function ChatBar() {
 
   const { chat, participants, toggleSavedConversation } = useContext(ChatContext);
 
+  const partner = chat?.participants?.find(user => user._id === id);
+
   const saveCurrentConversation = () => {
     saveChat(participants[id]?.user?._id).then(() => toggleSavedConversation(chat));
   };
@@ -22,20 +24,18 @@ export default function ChatBar() {
       <div className='flex flex-row items-center gap-2 font-semibold'>
         <Icon styles='!block md:!hidden' onClick={() => navigate('/chat')} icon='chevron_left' />
         <img
-          className='rounded-full border border-black w-10 object-cover'
-          src={`/server/${participants[id]?.user?.image}`}
+          className='rounded-full border border-black w-10 h-10 object-cover'
+          src={`/server/${partner?.image}`}
           alt='pfp'
         />
         <div>
           <p
             onClick={() => navigate(`/user/${participants[id]?.user?._id}`)}
-            className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${
-              accentColors[participants[id]?.theme]
-            }`}
+            className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${accentColors[partner?.accent]}`}
           >
-            {participants[id]?.nickname}
+            {partner?.nickname || partner?.user?.username}
           </p>
-          <p className='text-[12px] text-gray-400'>@{participants[id]?.user?.username}</p>
+          <p className='text-[12px] text-gray-400'>@{partner?.username}</p>
         </div>
       </div>
       <div className='flex flex-row  gap-2 items-center text-gray-200'>

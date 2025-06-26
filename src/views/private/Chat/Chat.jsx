@@ -13,15 +13,16 @@ import ChatInput from './ChatInput';
 
 export default function Chat() {
   const { id } = useParams();
+
   const { user } = useContext(UserContext);
-  const { setCurrentChat, bumpConversation, setConversations } = useContext(ChatContext);
+  const { bumpConversation, setConversations, setChat } = useContext(ChatContext);
 
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     useFetch({ url: 'conversation/' + id }).then(res => {
-      setCurrentChat(res);
-      setMessages(res.messages || []);
+      setChat(res);
+      setMessages(res?.messages || []);
     });
   }, [id]);
 

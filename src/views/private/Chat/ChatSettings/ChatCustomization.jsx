@@ -10,6 +10,7 @@ import ColorPicker from './ColorPicker/ColorPicker';
 
 export default function ChatCustomization() {
   const { id } = useParams();
+
   const { user } = useContext(UserContext);
   const { participants } = useContext(ChatContext);
 

@@ -29,7 +29,7 @@ export default function Profile() {
         <div className='flex flex-col gap-2 justify-center bg-black/60 rounded p-4'>
           <div className='flex flex-col items-center'>
             <img
-              className='rounded-full border border-white w-20 object-cover'
+              className='rounded-full border border-white w-20 h-20 object-cover'
               src={`/server/${profile?.image}`}
               alt='pfp'
             />

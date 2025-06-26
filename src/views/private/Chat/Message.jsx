@@ -21,6 +21,7 @@ export default function Message({ message }) {
   const [editMode, setEditMode] = useState(false);
 
   const participant = participants[message?.author];
+
   const clipboardIcon = () => `${!copied ? 'content_paste' : 'inventory'}`;
 
   const copyMessage = async () => {
@@ -51,17 +52,17 @@ export default function Message({ message }) {
     >
       <div className='flex items-start flex-row gap-2 w-full'>
         <img
-          className='rounded-full border border-gray-500 w-12 object-cover'
-          src={`/server/${participant?.user?.image}`}
+          className='rounded-full border border-gray-500 w-12 h-12 object-cover'
+          src={`/server/${participant?.image}`}
           alt='pfp'
         />
         <div className='flex flex-col w-full'>
           <div className='flex flex-row gap-2 items-center'>
             <p
-              onClick={() => navigate(`/user/${participant?.user?._id}`)}
-              className={`text-sm hover:underline cursor-pointer font-semibold ${accentColors[participant?.theme]}`}
+              onClick={() => navigate(`/user/${participant?._id}`)}
+              className={`text-sm hover:underline cursor-pointer font-semibold ${accentColors[participant?.accent]}`}
             >
-              {participant?.nickname}
+              {participant?.nickname || participant?.username}
             </p>
             <p className='text-[10px] text-gray-400'>{formatDateAndTime(message?.createdAt)}</p>
           </div>
