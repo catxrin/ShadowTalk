@@ -2,21 +2,22 @@ import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ChatContext } from '../../../contexts/ChatProvider';
-import { saveChat } from '../../../helpers/actions/chat';
+
 import { accentColors } from '../../../helpers/utils';
+import { saveChat } from '../../../helpers/actions/chat';
 
 import Icon from '../../../components/Icon';
 
 export default function ChatBar() {
-  const { id } = useParams();
   const navigate = useNavigate();
 
+  const { chatId } = useParams();
   const { chat, participants, toggleSavedConversation } = useContext(ChatContext);
 
-  const partner = chat?.participants?.find(user => user._id === id);
+  const partner = chat?.participants?.find(user => user._id === chatId);
 
   const saveCurrentConversation = () => {
-    saveChat(participants[id]?.user?._id).then(() => toggleSavedConversation(chat));
+    saveChat(participants[chatId]?.user?._id).then(() => toggleSavedConversation(chat));
   };
 
   return (
@@ -30,10 +31,10 @@ export default function ChatBar() {
         />
         <div>
           <p
-            onClick={() => navigate(`/user/${participants[id]?.user?._id}`)}
+            onClick={() => navigate(`/user/${participants[chatId]?.user?._id}`)}
             className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${accentColors[partner?.accent]}`}
           >
-            {partner?.nickname || partner?.user?.username}
+            {partner?.nickname || partner?.username}
           </p>
           <p className='text-[12px] text-gray-400'>@{partner?.username}</p>
         </div>

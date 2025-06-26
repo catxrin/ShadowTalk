@@ -3,14 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { socket } from '../../../helpers/socket';
 import { UserContext } from '../../../contexts/UserProvider';
+import { ChatContext } from '../../../contexts/ChatProvider';
 import { accentColors, formatDateAndTime } from '../../../helpers/utils';
 
-import Icon from '../../../components/Icon';
 import EditInput from './EditInput';
-import { ChatContext } from '../../../contexts/ChatProvider';
+import Icon from '../../../components/Icon';
 
 export default function Message({ message }) {
-  const { id } = useParams();
+  const { chatId } = useParams();
+
   const { user } = useContext(UserContext);
   const { participants } = useContext(ChatContext);
 
@@ -29,7 +30,7 @@ export default function Message({ message }) {
     setCopied(true);
   };
   const deleteMessage = () => {
-    socket.emit('delete_message', { messageId: message._id, partnerId: id, author: message.author });
+    socket.emit('delete_message', { messageId: message._id, partnerId: chatId, author: message.author });
   };
 
   const displayMessageBody = () => {

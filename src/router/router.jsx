@@ -43,10 +43,10 @@ export const router = createBrowserRouter([
             </Private>
           </ChatProvider>
         ),
-        children: [{ path: ':id', element: <Chat /> }],
+        children: [{ path: ':chatId', element: <Chat /> }],
       },
       {
-        path: ':id/settings',
+        path: ':chatId/settings',
         element: (
           <ChatProvider>
             <Private>
@@ -68,7 +68,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '/user/:id/settings',
+    path: '/user/:userId/settings',
     element: (
       <Private>
         <Settings />

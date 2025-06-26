@@ -4,6 +4,7 @@ import { Message } from './models/Messages.js';
 export const sockets = (io, socket) => {
   socket.on('send_message', async newMessage => {
     const user = socket?.userId;
+
     let conversation = await Conversation.findOne({
       participants: {
         $all: [{ $elemMatch: { user: user } }, { $elemMatch: { user: newMessage.partnerId } }],
@@ -15,8 +16,8 @@ export const sockets = (io, socket) => {
     if (!conversation) {
       conversation = new Conversation({
         participants: [
-          { user: user, nickname: '', theme: 'Default' },
-          { user: newMessage.partnerId, nickname: '', theme: 'Default' },
+          { user: user, nickname: '', theme: 'Default', accent: 'Default' },
+          { user: newMessage.partnerId, nickname: '', theme: 'Default', accent: 'Default' },
         ],
       });
     }
@@ -49,9 +50,9 @@ export const sockets = (io, socket) => {
     return io.to([message.partnerId, socket?.userId]).emit('deleted_message', message);
   });
 
-  socket.on('delete_conversation', async chatId => {
-    await Conversation.findByIdAndDelete(chatId);
-    return io.emit('deleted_conversation', chatId);
+  socket.on('delete_conversation', async id => {
+    await Conversation.findByIdAndDelete(id);
+    return io.emit('deleted_conversation', id);
   });
 
   socket.on('block_user', async partnerId => {

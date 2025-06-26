@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { socket } from '../../../helpers/socket';
 
 export default function EditInput({ message, setEditMode }) {
-  const { id } = useParams();
+  const { chatId } = useParams();
   const [editValue, setEditValue] = useState(message?.body);
 
   const cancel = () => {
@@ -12,7 +12,7 @@ export default function EditInput({ message, setEditMode }) {
     setEditValue(message.body);
   };
   const save = () => {
-    socket.emit('edit_message', { partnerId: id, ...message, body: editValue.trim() });
+    socket.emit('edit_message', { partnerId: chatId, ...message, body: editValue.trim() });
     setEditMode(false);
   };
 

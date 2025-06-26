@@ -7,14 +7,14 @@ import Icon from '../../../components/Icon';
 import useFetch from '../../../hooks/useFetch';
 
 export default function Profile() {
-  const { id } = useParams();
+  const { userId } = useParams();
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
-    useFetch({ url: `user/${id}` }).then(res => setProfile(res));
-  }, [id]);
+    useFetch({ url: `user/${userId}` }).then(res => setProfile(res));
+  }, [userId]);
 
   return (
     <div className='w-screen h-screen sm:p-20 p-0 relative bg-[#121214] flex justify-center items-center'>

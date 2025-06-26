@@ -1,11 +1,19 @@
 import { createContext, useEffect, useState } from 'react';
+import useFetch from '../hooks/useFetch';
+import { useParams } from 'react-router-dom';
 
 export const ChatContext = createContext(null);
 
 export default function ChatProvider({ children }) {
+  const { chatId } = useParams();
+
   const [chat, setChat] = useState(null);
   const [conversations, setConversations] = useState([]);
   const [participants, setParticipants] = useState({});
+
+  useEffect(() => {
+    if (chatId) useFetch({ url: 'conversation/' + chatId }).then(res => setChat(res));
+  }, [chatId]);
 
   useEffect(() => {
     setParticipants({

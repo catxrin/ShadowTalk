@@ -19,8 +19,7 @@ export default function UsernameInput({ participant }) {
   }, [nickname]);
 
   const changeNickname = (id, nickname) => {
-    if (nickname.length < 3) return setError('Nickname must be greater than 2 characters!');
-    if (error.length > 1) setError('');
+    if (nickname.length > 15) return setError('Nickname must not be greater than 15 characters!');
 
     useFetch({ url: `conversation/${id}/nickname`, body: { nickname }, method: 'PATCH' }).then(res => {
       setChat(res);

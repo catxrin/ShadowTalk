@@ -8,7 +8,7 @@ import Icon from '../../../components/Icon';
 
 export default function ChatInput() {
   const { user } = useContext(UserContext);
-  const { id } = useParams();
+  const { chatId } = useParams();
 
   const [message, setMessage] = useState('');
 
@@ -16,7 +16,7 @@ export default function ChatInput() {
     if (message.trim().length > 0) {
       socket.emit('send_message', {
         message: message,
-        partnerId: id,
+        partnerId: chatId,
         author: user._id,
         username: user.username,
         image: user.image,

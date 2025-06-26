@@ -1,19 +1,22 @@
+import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import { socket } from '../../../../helpers/socket';
+import { ChatContext } from '../../../../contexts/ChatProvider';
 
 import Option from './Option';
 import Icon from '../../../../components/Icon';
-import { useContext } from 'react';
-import { ChatContext } from '../../../../contexts/ChatProvider';
-import { socket } from '../../../../helpers/socket';
+
 export default function DangerZone() {
-  const { id } = useParams();
   const navigate = useNavigate();
+
+  const { chatId } = useParams();
   const { chat } = useContext(ChatContext);
 
   return (
     <div className='size-full flex flex-col gap-4'>
       <div className='flex flex-row items-center gap-2'>
-        <Icon onClick={() => navigate(`/chat/${id}`)} styles='text-white !text-3xl' icon='chevron_left' />
+        <Icon onClick={() => navigate(`/chat/${chatId}`)} styles='text-white !text-3xl' icon='chevron_left' />
         <p className='font-semibold text-white text-xl'>Danger Zone</p>
       </div>
 
