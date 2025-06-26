@@ -13,9 +13,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const submitData = () =>
-    methods.handleSubmit(({ email, password }) => {
-      login(email, password).then(() => navigate('/chat'));
-    });
+    methods.handleSubmit(({ email, password }) => login(email, password).then(() => navigate('/chat')));
 
   return (
     <div className='min-h-screen relative bg-[#0c0c0c] overflow-hidden gap-4 flex justify-center flex-col items-center text-white'>

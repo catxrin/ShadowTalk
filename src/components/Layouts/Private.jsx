@@ -2,15 +2,16 @@ import { useEffect, useState, useContext } from 'react';
 import { Navigate, Outlet, useOutlet } from 'react-router-dom';
 
 import { UserContext } from '../../contexts/UserProvider';
+import useScreenSize from '../../hooks/useScreenSize';
 import useFetch from '../../hooks/useFetch';
 
 import Loading from '../Loading';
 import Placeholder from '../Placeholder';
 import ProfileHeader from '../ProfileHeader';
-import useScreenSize from '../../hooks/useScreenSize';
 
 export default function Private({ children }) {
   const { user, setUserAuth } = useContext(UserContext);
+
   const screenSize = useScreenSize();
   const outlet = useOutlet();
 
