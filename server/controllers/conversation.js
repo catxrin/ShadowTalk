@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 const conversation = Router();
 
 conversation.get('/:id', async (req, res) => {
+  // go through this again, can i make it shorter?
   const conv = await Conversation.aggregate([
     {
       $match: {
