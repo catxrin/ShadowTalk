@@ -2,19 +2,22 @@ import { useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ChatContext } from '../../../contexts/ChatProvider';
-import { saveChat } from '../../../helpers/actions/chat';
+
 import { accentColors } from '../../../helpers/utils';
+import { saveChat } from '../../../helpers/actions/chat';
 
 import Icon from '../../../components/Icon';
 
 export default function ChatBar() {
-  const { id } = useParams();
   const navigate = useNavigate();
 
+  const { chatId } = useParams();
   const { chat, participants, toggleSavedConversation } = useContext(ChatContext);
 
+  const partner = chat?.participants?.find(user => user._id === chatId);
+
   const saveCurrentConversation = () => {
-    saveChat(participants[id]?.user?._id).then(() => toggleSavedConversation(chat));
+    saveChat(participants[chatId]?.user?._id).then(() => toggleSavedConversation(chat));
   };
 
   return (
@@ -22,20 +25,18 @@ export default function ChatBar() {
       <div className='flex flex-row items-center gap-2 font-semibold'>
         <Icon styles='!block md:!hidden' onClick={() => navigate('/chat')} icon='chevron_left' />
         <img
-          className='rounded-full border border-black w-10 object-cover'
-          src={`/server/${participants[id]?.user?.image}`}
+          className='rounded-full border border-black w-10 h-10 object-cover'
+          src={`/server/${partner?.image}`}
           alt='pfp'
         />
         <div>
           <p
-            onClick={() => navigate(`/user/${participants[id]?.user?._id}`)}
-            className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${
-              accentColors[participants[id]?.theme]
-            }`}
+            onClick={() => navigate(`/user/${participants[chatId]?.user?._id}`)}
+            className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${accentColors[partner?.accent]}`}
           >
-            {participants[id]?.nickname}
+            {partner?.nickname || partner?.username}
           </p>
-          <p className='text-[12px] text-gray-400'>@{participants[id]?.user?.username}</p>
+          <p className='text-[12px] text-gray-400'>@{partner?.username}</p>
         </div>
       </div>
       <div className='flex flex-row  gap-2 items-center text-gray-200'>

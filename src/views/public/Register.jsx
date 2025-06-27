@@ -13,9 +13,9 @@ export default function Register() {
   const navigate = useNavigate();
 
   const submitData = () =>
-    methods.handleSubmit(({ username, email, password }) => {
-      register(username, email, password).then(() => navigate('/chat'));
-    });
+    methods.handleSubmit(({ username, email, password }) =>
+      register(username, email, password).then(() => navigate('/chat'))
+    );
 
   return (
     <div className='min-h-screen relative bg-[#0c0c0c] overflow-hidden gap-4 flex justify-center flex-col items-center text-white'>

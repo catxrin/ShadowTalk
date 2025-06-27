@@ -3,14 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { socket } from '../../../helpers/socket';
 import { UserContext } from '../../../contexts/UserProvider';
+import { ChatContext } from '../../../contexts/ChatProvider';
 import { accentColors, formatDateAndTime } from '../../../helpers/utils';
 
-import Icon from '../../../components/Icon';
 import EditInput from './EditInput';
-import { ChatContext } from '../../../contexts/ChatProvider';
+import Icon from '../../../components/Icon';
 
 export default function Message({ message }) {
-  const { id } = useParams();
+  const { chatId } = useParams();
+
   const { user } = useContext(UserContext);
   const { participants } = useContext(ChatContext);
 
@@ -21,6 +22,7 @@ export default function Message({ message }) {
   const [editMode, setEditMode] = useState(false);
 
   const participant = participants[message?.author];
+
   const clipboardIcon = () => `${!copied ? 'content_paste' : 'inventory'}`;
 
   const copyMessage = async () => {
@@ -28,7 +30,7 @@ export default function Message({ message }) {
     setCopied(true);
   };
   const deleteMessage = () => {
-    socket.emit('delete_message', { messageId: message._id, partnerId: id, author: message.author });
+    socket.emit('delete_message', { messageId: message._id, partnerId: chatId, author: message.author });
   };
 
   const displayMessageBody = () => {
@@ -51,17 +53,17 @@ export default function Message({ message }) {
     >
       <div className='flex items-start flex-row gap-2 w-full'>
         <img
-          className='rounded-full border border-gray-500 w-12 object-cover'
-          src={`/server/${participant?.user?.image}`}
+          className='rounded-full border border-gray-500 w-12 h-12 object-cover'
+          src={`/server/${participant?.image}`}
           alt='pfp'
         />
         <div className='flex flex-col w-full'>
           <div className='flex flex-row gap-2 items-center'>
             <p
-              onClick={() => navigate(`/user/${participant?.user?._id}`)}
-              className={`text-sm hover:underline cursor-pointer font-semibold ${accentColors[participant?.theme]}`}
+              onClick={() => navigate(`/user/${participant?._id}`)}
+              className={`text-sm hover:underline cursor-pointer font-semibold ${accentColors[participant?.accent]}`}
             >
-              {participant?.nickname}
+              {participant?.nickname || participant?.username}
             </p>
             <p className='text-[10px] text-gray-400'>{formatDateAndTime(message?.createdAt)}</p>
           </div>

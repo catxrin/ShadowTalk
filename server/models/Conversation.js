@@ -1,5 +1,4 @@
-import { Schema, model } from 'mongoose';
-import mongoose from 'mongoose';
+import mongoose, { model, Schema } from 'mongoose';
 
 const ConversationSchema = new Schema(
   {
@@ -7,6 +6,10 @@ const ConversationSchema = new Schema(
       {
         nickname: String,
         theme: {
+          type: String,
+          default: 'Default',
+        },
+        accent: {
           type: String,
           default: 'Default',
         },
@@ -38,17 +41,5 @@ const ConversationSchema = new Schema(
   },
   { timestamps: true }
 );
-
-ConversationSchema.pre('save', async function (next) {
-  for (let participant of this.participants) {
-    if (!participant.nickname) {
-      const user = await mongoose.model('User').findById(participant.user);
-      if (user) {
-        participant.nickname = user.username;
-      }
-    }
-  }
-  next();
-});
 
 export const Conversation = model('Conversation', ConversationSchema);

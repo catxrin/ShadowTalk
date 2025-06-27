@@ -1,31 +1,119 @@
 import { Router } from 'express';
 import { Conversation } from '../models/Conversation.js';
+import User from '../models/User.js';
+import mongoose from 'mongoose';
 
 const conversation = Router();
 
 conversation.get('/:id', async (req, res) => {
-  const conv = await Conversation.findOne({
-    participants: {
-      $all: [{ $elemMatch: { user: res.locals.user.id } }, { $elemMatch: { user: req.params.id } }],
-    },
-  })
-    .populate({
-      path: 'messages',
-      populate: {
-        path: 'author.user',
-        select: '-password -email',
+  // go through this again, can i make it shorter?
+  const conv = await Conversation.aggregate([
+    {
+      $match: {
+        'participants.user': {
+          $all: [new mongoose.Types.ObjectId(res.locals.user.id), new mongoose.Types.ObjectId(req.params.id)],
+        },
       },
-    })
-    .populate({
-      path: 'participants.user',
-      select: '-password -email',
-    });
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'participants.user',
+        foreignField: '_id',
+        as: 'userDetails',
+      },
+    },
+    {
+      $lookup: {
+        from: 'messages',
+        let: { messageIds: '$messages' },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $in: ['$_id', '$$messageIds'],
+              },
+            },
+          },
+          {
+            $sort: { createdAt: 1 },
+          },
+        ],
+        as: 'messages',
+      },
+    },
+    {
+      $project: {
+        messages: 1,
+        participants: 1,
+        userDetails: {
+          $map: {
+            input: '$userDetails',
+            as: 'u',
+            in: {
+              _id: '$$u._id',
+              username: '$$u.username',
+              image: '$$u.image',
+            },
+          },
+        },
+      },
+    },
 
-  if (conv) {
-    return res.json(conv);
+    {
+      $addFields: {
+        participants: {
+          $map: {
+            input: '$participants',
+            as: 'p',
+            in: {
+              $mergeObjects: [
+                '$$p',
+                {
+                  $first: {
+                    $filter: {
+                      input: '$userDetails',
+                      as: 'u',
+                      cond: {
+                        $eq: ['$$u._id', '$$p.user'],
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        'participants.user': 0,
+        userDetails: 0,
+      },
+    },
+    {
+      $sort: {
+        'messages.createdAt': -1,
+      },
+    },
+  ]);
+
+  if (conv[0]) {
+    return res.json(conv[0]);
   }
 
-  res.json([]);
+  const user = await User.findById(res.locals.user.id).select('-password -email');
+  const partner = await User.findById(req.params.id).select('-password -email');
+
+  const chat = {
+    participants: [
+      { ...user._doc, accent: 'Default', theme: 'Default' },
+      { ...partner._doc, accent: 'Default', theme: 'Default' },
+    ],
+  };
+
+  res.json(chat);
 });
 
 conversation.get('', async (req, res) => {
@@ -72,7 +160,7 @@ conversation.patch('/:id/accent', async (req, res) => {
   }).populate('participants.user');
 
   const participant = conv.participants.find(participant => participant.user._id == res.locals.user.id);
-  participant.theme = req.body?.theme;
+  participant.accent = req.body?.theme;
 
   await conv.save();
   res.json(conv);

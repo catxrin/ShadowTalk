@@ -33,11 +33,7 @@ export default function Conversations() {
   };
 
   return (
-    <div className='flex pt-4 px-3 h-full overflow-x-auto flex-col gap-4'>
-      <div className='flex flex-row items-center gap-2'>
-        <img className='h-7 w-8 p-1 bg-white/80 rounded' src='/logoSVG.svg' alt='logo' />
-        <p className='font-[nuosu] text-white text-sm'>ShadowTalk</p>
-      </div>
+    <div className='flex h-full overflow-x-auto flex-col gap-4'>
       <Search />
       <div className='flex flex-col gap-2'>
         <div className='w-full flex flex-row gap-2 bg-black/50 p-1 rounded'>

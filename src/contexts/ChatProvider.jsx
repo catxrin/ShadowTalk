@@ -1,44 +1,25 @@
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { UserContext } from './UserProvider';
+import { createContext, useEffect, useState } from 'react';
+import useFetch from '../hooks/useFetch';
 import { useParams } from 'react-router-dom';
 
 export const ChatContext = createContext(null);
 
 export default function ChatProvider({ children }) {
-  const { user } = useContext(UserContext);
-
-  const { id } = useParams();
+  const { chatId } = useParams();
 
   const [chat, setChat] = useState(null);
   const [conversations, setConversations] = useState([]);
-  const [search, setSearch] = useState(null);
   const [participants, setParticipants] = useState({});
 
-  const setCurrentChat = chatData => {
-    setChat(chatData);
-  };
-
-  const setSearchValue = searchValue => {
-    setSearch(searchValue);
-  };
-
-  const partner = useMemo(() => {
-    if (!chat?.participants) return search;
-    return chat?.participants.find(participant => participant.user._id !== user?._id);
-  }, [chat]);
+  useEffect(() => {
+    if (chatId) useFetch({ url: 'conversation/' + chatId }).then(res => setChat(res));
+  }, [chatId]);
 
   useEffect(() => {
-    if (chat?._id) {
-      setParticipants({
-        [chat?.participants[0]?.user?._id]: chat?.participants[0],
-        [chat?.participants[1]?.user?._id]: chat?.participants[1],
-      });
-    } else {
-      setParticipants({
-        [id]: { theme: 'Default', nickname: partner?.user?.username, ...partner },
-        [user?._id]: { theme: 'Default', nickname: user?.username, user: { ...user } },
-      });
-    }
+    setParticipants({
+      [chat?.participants[0]?._id]: chat?.participants[0],
+      [chat?.participants[1]?._id]: chat?.participants[1],
+    });
   }, [chat]);
 
   const toggleSavedConversation = conversation => {
@@ -69,8 +50,7 @@ export default function ChatProvider({ children }) {
         chat,
         participants,
         conversations,
-        setCurrentChat,
-        setSearchValue,
+        setChat,
         setParticipants,
         setConversations,
         bumpConversation,

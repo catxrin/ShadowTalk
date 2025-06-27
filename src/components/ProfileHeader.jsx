@@ -13,9 +13,9 @@ export default function ProfileHeader() {
   const navigate = useNavigate();
 
   return (
-    <div className='bg-[#1C1D22] text-white px-4 h-19 flex flex-row justify-between'>
+    <div className='bg-[#1C1D22] text-white px-4 py-3 flex flex-row justify-between'>
       <div className='flex flex-row w-auto sm:w-full items-center gap-2 font-semibold'>
-        <img alt='pfp' src={`/server/${user?.image}`} className='rounded-full w-10 object-cover' />
+        <img alt='pfp' src={`/server/${user?.image}`} className='rounded-full w-10 h-10 object-cover' />
         <p className='text-sm truncate'>{user?.username}</p>
       </div>
       <div className='flex flex-row items-center gap-3 text-gray-300'>

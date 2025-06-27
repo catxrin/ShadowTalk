@@ -1,4 +1,5 @@
 import { Router } from 'express';
+
 import { Conversation } from '../models/Conversation.js';
 import { Message } from '../models/Messages.js';
 
@@ -12,6 +13,7 @@ message.post('/:id', async (req, res) => {
       $all: [{ $elemMatch: { user: user } }, { $elemMatch: { user: req.params.id } }],
     },
   }).populate('messages');
+
   if (!conversation) {
     return res.status(404).json({ message: 'Conversation not found' });
   }

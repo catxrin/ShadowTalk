@@ -12,7 +12,7 @@ export default function Textarea({ name, rules, label, placeholder, styles, ...r
           <textarea
             placeholder={placeholder}
             rows='5'
-            className={`border p-1 xl:text-base text-sm rounded-md w-full ${
+            className={`border p-1 xl:text-base text-sm rounded-md w-full outline-none ${
               !errors[name] ? 'border-gray-500' : 'border-red-600'
             } ${styles && styles}`}
             {...rest}

@@ -7,14 +7,14 @@ import Icon from '../../../components/Icon';
 import useFetch from '../../../hooks/useFetch';
 
 export default function Profile() {
-  const { id } = useParams();
+  const { userId } = useParams();
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState({});
 
   useEffect(() => {
-    useFetch({ url: `user/${id}` }).then(res => setProfile(res));
-  }, [id]);
+    useFetch({ url: `user/${userId}` }).then(res => setProfile(res));
+  }, [userId]);
 
   return (
     <div className='w-screen h-screen sm:p-20 p-0 relative bg-[#121214] flex justify-center items-center'>
@@ -29,7 +29,7 @@ export default function Profile() {
         <div className='flex flex-col gap-2 justify-center bg-black/60 rounded p-4'>
           <div className='flex flex-col items-center'>
             <img
-              className='rounded-full border border-white w-20 object-cover'
+              className='rounded-full border border-white w-20 h-20 object-cover'
               src={`/server/${profile?.image}`}
               alt='pfp'
             />

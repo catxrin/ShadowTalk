@@ -1,11 +1,12 @@
-import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { UserContext } from '../../contexts/UserProvider';
 
 export default function Participants({ participants }) {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+
   const chatMate = participants?.map(el => el?.participants?.filter(p => p.user._id !== user._id)[0]);
 
   return (
@@ -22,10 +23,10 @@ export default function Participants({ participants }) {
           <div className='size-full p-2 flex flex-row items-center gap-2'>
             <img
               alt='pfp'
-              className={`rounded-full shadow-sm bg-white w-10 object-cover`}
+              className={`rounded-full shadow-sm bg-white w-10 h-10 object-cover`}
               src={`/server/${mate?.user?.image}`}
             />
-            <p className={`text-sm truncate shadow-sm text-white max-w-40`}>{mate?.nickname}</p>
+            <p className={`text-sm truncate shadow-sm text-white max-w-40`}>{mate?.nickname || mate?.user.username}</p>
           </div>
         </div>
       ))}
