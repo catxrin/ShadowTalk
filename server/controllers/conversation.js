@@ -25,8 +25,19 @@ conversation.get('/:id', async (req, res) => {
     {
       $lookup: {
         from: 'messages',
-        localField: 'messages',
-        foreignField: '_id',
+        let: { messageIds: '$messages' },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $in: ['$_id', '$$messageIds'],
+              },
+            },
+          },
+          {
+            $sort: { createdAt: 1 },
+          },
+        ],
         as: 'messages',
       },
     },
@@ -78,6 +89,11 @@ conversation.get('/:id', async (req, res) => {
       $project: {
         'participants.user': 0,
         userDetails: 0,
+      },
+    },
+    {
+      $sort: {
+        'messages.createdAt': -1,
       },
     },
   ]);
@@ -138,7 +154,7 @@ conversation.patch('/:id/accent', async (req, res) => {
   }).populate('participants.user');
 
   const participant = conv.participants.find(participant => participant.user._id == res.locals.user.id);
-  participant.accent = req.body?.accent;
+  participant.accent = req.body?.theme;
 
   await conv.save();
   res.json(conv);
