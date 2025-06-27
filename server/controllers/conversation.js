@@ -106,7 +106,12 @@ conversation.get('/:id', async (req, res) => {
   const user = await User.findById(res.locals.user.id).select('-password -email');
   const partner = await User.findById(req.params.id).select('-password -email');
 
-  const chat = { participants: [user, partner] };
+  const chat = {
+    participants: [
+      { ...user._doc, accent: 'Default', theme: 'Default' },
+      { ...partner._doc, accent: 'Default', theme: 'Default' },
+    ],
+  };
 
   res.json(chat);
 });
