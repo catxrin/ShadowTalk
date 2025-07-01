@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Settings() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const [tab, setTab] = useState('');
 
@@ -20,13 +22,16 @@ export default function Settings() {
         onClick={() => navigate('customization')}
         className={`cursor-pointer rounded py-3 ${tabStyle('customization')} px-2`}
       >
-        Customization
+        {t('Profile Customization')}
+      </p>
+      <p onClick={() => navigate('language')} className={`cursor-pointer rounded py-3 ${tabStyle('language')} px-2`}>
+        {t('Language')}
       </p>
       <p
         onClick={() => navigate('danger_zone')}
         className={`cursor-pointer rounded py-3 ${tabStyle('danger_zone')} px-2`}
       >
-        Danger Zone
+        {t('Danger Zone')}
       </p>
     </div>
   );

@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { HashLink } from 'react-router-hash-link';
 
 import Icon from '../../../components/Icon';
 
 export default function Contacts() {
+  const { t } = useTranslation();
+
   return (
     <section
       id='contacts'
@@ -20,15 +23,15 @@ export default function Contacts() {
         </HashLink>
         <div className='flex flex-row xl:gap-5 gap-2 items-center'>
           <HashLink smooth to='#home' className='xl:text-base text-sm'>
-            Home
+            {t('Home')}
           </HashLink>
           <div className='xl:min-h-8 min-h-5 w-0.5 bg-gray-400'></div>
           <HashLink smooth to='#about' className='xl:text-base text-sm'>
-            About
+            {t('About us')}
           </HashLink>
           <div className='xl:min-h-8 min-h-5 w-0.5 bg-gray-400'></div>
           <HashLink smooth to='#contacts' className='xl:text-base text-sm'>
-            Contacts
+            {t('Contacts')}
           </HashLink>
         </div>
         <Link to='https://github.com/catxrin'>
@@ -36,7 +39,7 @@ export default function Contacts() {
         </Link>
         <div className='absolute flex gap-1 flex-row items-center bottom-2 right-4 xl:text-sm text-[10px] font-semibold'>
           <div className='flex flex-row items-center gap-1'>
-            Made with <Icon styles='xl:!text-lg !text-sm' icon='favorite' /> by
+            {t('Made with')} <Icon styles='xl:!text-lg !text-sm' icon='favorite' /> {t('by')}
           </div>
           <Link to='https://github.com/catxrin' className='underline italic'>
             catxrin

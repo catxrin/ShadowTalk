@@ -3,11 +3,14 @@ import useFetch from '../../hooks/useFetch';
 
 import Icon from '../Icon';
 import Items from './Items';
+import { useTranslation } from 'react-i18next';
 
 export default function Search() {
   const [search, setSearch] = useState('');
-  const [searchResult, setSearchResult] = useState([]);
   const [focus, setFocus] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (focus && search.length > 0) {
@@ -25,7 +28,7 @@ export default function Search() {
           onBlur={() => setFocus(false)}
           onChange={e => setSearch(e.target.value)}
           className='border py-2 pl-3 pr-9 outline-hidden text-gray-300 xl:text-base text-sm rounded-md bg-black/20 border-white/9 w-full'
-          placeholder='Find chatmates'
+          placeholder={t('Find chatmates')}
         />
         <Icon styles='!text-2xl text-gray-400 absolute right-2 top-1' icon='search' />
       </div>
