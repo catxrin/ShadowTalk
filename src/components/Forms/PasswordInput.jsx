@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Icon from '../Icon';
 import ErrorMessage from '../ErrorMessage';
@@ -6,6 +7,7 @@ import ConnectForm from './ConnectForm';
 
 export default function PasswordInput() {
   const [visible, setVisible] = useState(false);
+  const { t } = useTranslation();
 
   const visibilityIcon = () => (!visible ? 'visibility_off' : 'visibility');
   const inputType = () => (!visible ? 'password' : 'text');
@@ -16,7 +18,7 @@ export default function PasswordInput() {
         {({ register, formState: { errors } }) => (
           <div className='flex flex-col w-full'>
             <label className='text-gray-400 text-sm font-semibold' htmlFor='password'>
-              Password
+              {t('Password')}
             </label>
             <div className='flex flex-row relative'>
               <input

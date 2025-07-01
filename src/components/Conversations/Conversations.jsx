@@ -1,5 +1,7 @@
 import { useEffect, useState, useContext, useMemo } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import useFetch from '../../hooks/useFetch';
 import { ChatContext } from '../../contexts/ChatProvider';
 import Search from '../UserSearch/Search';
@@ -9,6 +11,8 @@ import Participants from './Participants';
 
 export default function Conversations() {
   const { conversations, setConversations } = useContext(ChatContext);
+
+  const { t } = useTranslation();
 
   const [showSaved, setShowSaved] = useState(false);
   const [showDirect, setShowDirect] = useState(true);
@@ -44,7 +48,7 @@ export default function Conversations() {
             } w-full font-semibold p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
           >
             <Icon styles='!text-lg' icon='forward_to_inbox' />
-            <button className='text-sm cursor-pointer'>Direct</button>
+            <button className='text-sm cursor-pointer'>{t('Direct')}</button>
           </div>
           <div
             onClick={() => showMessages('saved')}
@@ -53,7 +57,7 @@ export default function Conversations() {
             } w-full font-semibold p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
           >
             <Icon styles='!text-lg' icon='bookmark_added' />
-            <button className='text-sm cursor-pointer'>Saved</button>
+            <button className='text-sm cursor-pointer'>{t('Saved')}</button>
           </div>
         </div>
         <div className='flex flex-col gap-0.5'>

@@ -14,6 +14,7 @@ const ProfileCustomization = lazy(() => import('../views/private/ProfileSettings
 const ProfileDangerZone = lazy(() => import('../views/private/ProfileSettings/DangerZone'));
 const Profile = lazy(() => import('../views/private/Profile/Profile'));
 const Conversations = lazy(() => import('../components/Conversations/Conversations'));
+const Language = lazy(() => import('../views/private/ProfileSettings/Language'));
 
 import NotFound from '../components/NotFound';
 import ChatProvider from '../contexts/ChatProvider';
@@ -76,6 +77,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: 'customization', element: <ProfileCustomization /> },
+      { path: 'language', element: <Language /> },
       { path: 'danger_zone', element: <ProfileDangerZone /> },
     ],
   },

@@ -1,5 +1,6 @@
 import { useNavigate, NavLink } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { login } from '../../helpers/actions/auth';
 
@@ -11,6 +12,7 @@ import PasswordInput from '../../components/Forms/PasswordInput';
 export default function Login() {
   const methods = useForm();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const submitData = () =>
     methods.handleSubmit(({ email, password }) => login(email, password).then(() => navigate('/chat')));
@@ -22,11 +24,11 @@ export default function Login() {
       <div className='flex h-full flex-col justify-center items-center gap-3'>
         <Logo />
         <div className='flex flex-col gap-1 text-center'>
-          <p className='font-semibold text-xl xl:text-3xl'>Yooo, welcome back!</p>
+          <p className='font-semibold text-xl xl:text-3xl'>{t('Yooo, welcome back!')}</p>
           <div className='flex flex-row gap-2 justify-center'>
-            <p className='text-gray-400 xl:text-base text-sm'> First time here?</p>
+            <p className='text-gray-400 xl:text-base text-sm'>{t('First time here?')}</p>
             <NavLink to='/register' className='text-white xl:text-base text-sm hover:underline hover:cursor-pointer'>
-              Sign up for free
+              {t('Sign up for free')}
             </NavLink>
           </div>
         </div>
@@ -39,21 +41,21 @@ export default function Login() {
         >
           <Input
             name='email'
-            label='Email'
+            label={t('Email')}
             placeholder='example@domain.com'
             rules={{
               validate: {
-                removeWhiteSpace: value => value.trim('') !== '' || 'Email is required.',
+                removeWhiteSpace: value => value.trim('') !== '' || t('This field is required.'),
               },
               pattern: {
                 value: /[a-zA-Z0-9.-]+(.[a-zA-Z]{2,})+/gm,
-                message: 'Invalid email format.',
+                message: t('Invalid email format.'),
               },
             }}
           />
           <PasswordInput />
           <button type='submit' className='text-black cursor-pointer bg-white py-1 font-semibold rounded'>
-            Submit
+            {t('Sign in')}
           </button>
         </form>
       </FormProvider>

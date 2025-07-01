@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import NavLink from './NavLink';
 
 import Icon from '../Icon';
+import LanguageSelector from '../LanguageSelector';
+import { useTranslation } from 'react-i18next';
 
 export default function MobileNavigation() {
   const [visible, setVisible] = useState(false);
   const changeVisibility = () => setVisible(prev => !prev);
+
+  const { t } = useTranslation();
 
   return (
     <div className='fixed top-0 z-50 xl:hidden flex w-full'>
@@ -31,23 +35,26 @@ export default function MobileNavigation() {
                 </div>
                 <Icon styles='bg-white/10 !text-lg py-0.5 px-1.5 rounded-lg' onClick={changeVisibility} icon='close' />
               </div>
+              <div className='flex justify-end pt-3'>
+                <LanguageSelector />
+              </div>
               <div className='flex flex-col gap-4 px-2'>
-                <NavLink label='Home' onClick={() => changeVisibility()} to='/#home' />
-                <NavLink label='About' onClick={() => changeVisibility()} to='/#about' />
-                <NavLink label='Contacts' onClick={() => changeVisibility()} to='/#contacts' />
+                <NavLink label={t('Home')} onClick={() => changeVisibility()} to='/#home' />
+                <NavLink label={t('About us')} onClick={() => changeVisibility()} to='/#about' />
+                <NavLink label={t('Contacts')} onClick={() => changeVisibility()} to='/#contacts' />
 
                 <div className='flex flex-row py-3 justify-between gap-5 text-center w-full'>
                   <Link
                     to='/login'
                     className='rounded-3xl w-full text-[15px] bg-white font-semibold border border-white text-black px-3 py-1.5'
                   >
-                    Login
+                    {t('Login')}
                   </Link>
                   <Link
                     to='/register'
                     className='rounded-3xl w-full text-[15px] bg-white font-semibold border text-black border-white px-3 py-1.5'
                   >
-                    Register
+                    {t('Register')}
                   </Link>
                 </div>
               </div>

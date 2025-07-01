@@ -160,7 +160,7 @@ conversation.patch('/:id/accent', async (req, res) => {
   }).populate('participants.user');
 
   const participant = conv.participants.find(participant => participant.user._id == res.locals.user.id);
-  participant.accent = req.body?.theme;
+  participant.accent = req.body?.accent;
 
   await conv.save();
   res.json(conv);

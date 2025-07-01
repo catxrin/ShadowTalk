@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { UserContext } from '../../../contexts/UserProvider';
@@ -12,6 +13,8 @@ import Textarea from '../../../components/Forms/Textarea';
 
 export default function ProfileCustomization() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   const { user, setUserAuth } = useContext(UserContext);
 
   const chooseImage = image => methods.setValue('bgImage', `uploads/${image}`);
@@ -40,7 +43,7 @@ export default function ProfileCustomization() {
       <div className='flex flex-col p-3 bg-[#2E2F38]'>
         <div className='flex flex-row items-center gap-1 w-full'>
           <Icon onClick={() => navigate(`/chat`)} styles='text-white !text-3xl' icon='chevron_left' />
-          <p className='font-semibold text-white text-xl'>Profile Customization</p>
+          <p className='font-semibold text-white text-xl'>{t('Profile Customization')}</p>
         </div>
         <form
           onSubmit={submitData()}
@@ -48,47 +51,47 @@ export default function ProfileCustomization() {
         >
           <div className='flex flex-col gap-3 sm:w-[30rem] w-full p-3'>
             <div className='flex flex-col gap-1'>
-              <p className='font-semibold'>Avatar</p>
+              <p className='font-semibold'>{t('Avatar')}</p>
               <MediaInput defaultImage={user?.image} name='file' />
             </div>
             <Input
               name='username'
-              label='Username'
+              label={t('Username')}
               rules={{
-                minLength: { value: 3, message: 'Username must contain at least 3 characters' },
+                minLength: { value: 3, message: t('Username must contain at least 3 characters') },
                 validate: {
-                  removeWhiteSpace: value => value.trim('') !== '' || 'Username is required.',
+                  removeWhiteSpace: value => value.trim('') !== '' || t('This field is required.'),
                 },
               }}
             />
             <Input
               name='email'
-              label='Email'
+              label={t('Email')}
               rules={{
-                required: 'Email is required',
+                required: t('This field is required.'),
                 pattern: {
                   value: /[a-zA-Z0-9.-]+(.[a-zA-Z]{2,})+/gm,
-                  message: 'Invalid email format.',
+                  message: t('Invalid email format.'),
                 },
 
                 validate: {
-                  removeWhiteSpace: value => value.trim('') !== '' || 'Email is required.',
+                  removeWhiteSpace: value => value.trim('') !== '' || t('This field is required.'),
                 },
               }}
             />
             <Textarea
               rules={{
-                maxLength: { value: 200, message: 'Total characters reached' },
+                maxLength: { value: 200, message: t('Total characters reached') },
               }}
               name='description'
-              label='Description'
+              label={t('Description')}
             />
             <button type='submit' className='text-black w-full bg-white py-1 cursor-pointer font-semibold rounded'>
-              Submit
+              {t('Submit')}
             </button>
           </div>
           <div className='flex flex-col gap-1 sm:justify-end justify-center items-center'>
-            <p className='font-semibold'>Profile Background</p>
+            <p className='font-semibold'>{t('Profile Background')}</p>
             <div className='flex flex-row gap-4 flex-wrap justify-center'>
               <div
                 name='bgImage'

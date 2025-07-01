@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { socket } from '../../../helpers/socket';
 import { UserContext } from '../../../contexts/UserProvider';
@@ -7,10 +8,11 @@ import { UserContext } from '../../../contexts/UserProvider';
 import Icon from '../../../components/Icon';
 
 export default function ChatInput() {
-  const { user } = useContext(UserContext);
   const { chatId } = useParams();
+  const { user } = useContext(UserContext);
 
   const [message, setMessage] = useState('');
+  const { t } = useTranslation();
 
   const sendMessage = () => {
     if (message.trim().length > 0) {
@@ -32,7 +34,7 @@ export default function ChatInput() {
         <input
           onChange={e => setMessage(e.target.value)}
           className='bg-[#404048] text-gray-300 w-full h-full text-base px-3 py-2 outline-hidden rounded'
-          placeholder='Send a message'
+          placeholder={t('Send a message')}
           value={message}
         />
         <div className='flex flex-row items-center gap-3 absolute right-8'>

@@ -1,16 +1,18 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { register } from '../../helpers/actions/auth';
 
 import Logo from '../../components/Logo';
-import Input from '../../components/Forms/Input';
 import Shape from '../../components/Shape';
+import Input from '../../components/Forms/Input';
 import PasswordInput from '../../components/Forms/PasswordInput';
 
 export default function Register() {
   const methods = useForm();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const submitData = () =>
     methods.handleSubmit(({ username, email, password }) =>
@@ -24,11 +26,11 @@ export default function Register() {
       <div className='flex h-full flex-col justify-center items-center gap-3'>
         <Logo />
         <div className='flex flex-col gap-1 text-center'>
-          <p className='font-semibold text-xl xl:text-3xl'>New here? Let’s go!</p>
+          <p className='font-semibold text-xl xl:text-3xl'>{t('New here? Let’s go!')}</p>
           <div className='flex flex-row gap-2 justify-center'>
-            <p className='text-gray-400 xl:text-base text-sm'>Already a member?</p>
+            <p className='text-gray-400 xl:text-base text-sm'>{t('Already a member?')}</p>
             <NavLink to='/login' className='text-white xl:text-base text-sm hover:underline hover:cursor-pointer'>
-              Sign in here
+              {t('Sign in here')}
             </NavLink>
           </div>
         </div>
@@ -40,45 +42,45 @@ export default function Register() {
           onSubmit={submitData()}
         >
           <Input
-            placeholder='Username'
+            placeholder={t('Username')}
             rules={{
               validate: {
-                removeWhiteSpace: value => value.trim('') !== '' || 'Username is required.',
+                removeWhiteSpace: value => value.trim('') !== '' || t('This field is required.'),
               },
-              minLength: { value: 3, message: 'Username must contain at least 3 characters' },
+              minLength: { value: 3, message: t('Username must contain at least 3 characters') },
             }}
             name='username'
-            label='Username'
+            label={t('Username')}
           />
           <Input
             name='email'
-            label='Email'
+            label={t('Email')}
             placeholder='example@domain.com'
             rules={{
               validate: {
-                removeWhiteSpace: value => value.trim('') !== '' || 'Email is required.',
+                removeWhiteSpace: value => value.trim('') !== '' || t('This field is required.'),
               },
               pattern: {
                 value: /[a-zA-Z0-9.-]+(.[a-zA-Z]{2,})+/gm,
-                message: 'Invalid email format.',
+                message: t('Invalid email format.'),
               },
             }}
           />
           <PasswordInput />
           <Input
             name='confirmPassword'
-            label='Confirm Password'
+            label={t('Confirm Password')}
             type='password'
             placeholder=' ••••••••'
             rules={{
               validate: {
-                passwordEqual: value => value === methods.getValues('password') || "Passwords doesn't match!",
-                removeWhiteSpace: value => value.trim('') !== '' || 'Confirm password is required.',
+                passwordEqual: value => value === methods.getValues('password') || t("Passwords doesn't match!"),
+                removeWhiteSpace: value => value.trim('') !== '' || t('This field is required.'),
               },
             }}
           />
           <button type='submit' className='text-black cursor-pointer bg-white py-1 font-semibold rounded'>
-            Submit
+            {t('Sign up')}
           </button>
         </form>
       </FormProvider>

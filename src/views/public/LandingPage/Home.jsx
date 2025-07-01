@@ -1,7 +1,11 @@
-import Shape from '../../../components/Shape';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import Shape from '../../../components/Shape';
 
 export default function Home() {
+  const { t } = useTranslation();
+
   return (
     <section
       id='home'
@@ -24,15 +28,16 @@ export default function Home() {
                 <div className='xl:p-0.5 p-[1px] bg-gradient-to-r from-gray-200 to-gray-700 rounded-full'></div>
               </div>
               <p className=' bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent italic xl:text-xl text-base'>
-                A sleek, modern chat app for effortless conversations in a beautifully dark-themed, clutter-free
-                interface. Stay connected with friends and groups in style.
+                {t(
+                  'A sleek, modern chat app for effortless conversations in a beautifully dark-themed, clutter-free interface. Stay connected with friends and groups in style.'
+                )}
               </p>
             </div>
             <Link
               to='/login'
               className='rounded-3xl hover:bg-black/10 cursor-pointer transition duration-700 hover:border-[1px] hover:text-white flex flex-row justify-center items-center gap-2 xl:text-base text-sm bg-white font-semibold border text-black border-white px-3 xl:py-1.5 py-1'
             >
-              Start Chatting
+              {t('Start Chatting')}
             </Link>
           </div>
         </div>
