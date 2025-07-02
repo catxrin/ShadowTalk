@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { formatDate } from '../../../helpers/utils';
@@ -9,6 +10,7 @@ import useFetch from '../../../hooks/useFetch';
 export default function Profile() {
   const { userId } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [profile, setProfile] = useState({});
 
@@ -20,7 +22,7 @@ export default function Profile() {
     <div className='w-screen h-screen sm:p-20 p-0 relative bg-[#121214] flex justify-center items-center'>
       <div className='flex left-4 top-4 flex-row absolute items-center gap-2'>
         <Icon onClick={() => navigate(`/chat`)} styles='text-white !text-3xl' icon='chevron_left' />
-        <p className='font-semibold text-white text-xl'>Chat</p>
+        <p className='font-semibold text-white text-xl'>{t('Chat')}</p>
       </div>
       <div
         style={{ backgroundImage: `url(/server/${profile?.bgImage})` }}
@@ -36,7 +38,9 @@ export default function Profile() {
             <p className={`text-sm truncate max-w-96 text-white font-bold`}>{profile?.username}</p>
           </div>
           <p className='text-sm max-w-96 text-white break-all'>{profile?.description}</p>
-          <p className='text-sm max-w-96 text-gray-300 font-medium'>Member since: {formatDate(profile?.createdAt)}</p>
+          <p className='text-sm max-w-96 text-gray-300 font-medium'>
+            {t('Member since')}: {formatDate(profile?.createdAt)}
+          </p>
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ export default function Conversations() {
   };
 
   return (
-    <div className='flex h-full overflow-x-auto flex-col gap-4'>
+    <div className='flex overflow-visible flex-col gap-4'>
       <Search />
       <div className='flex flex-col gap-2'>
         <div className='w-full flex flex-row gap-2 bg-black/50 p-1 rounded'>
@@ -45,7 +45,7 @@ export default function Conversations() {
             onClick={() => showMessages('direct')}
             className={`${
               showDirect ? 'bg-white/10 text-gray-200' : 'text-gray-400'
-            } w-full font-semibold p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
+            } w-full transition duration-500 ease-in-out font-semibold p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
           >
             <Icon styles='!text-lg' icon='forward_to_inbox' />
             <button className='text-sm cursor-pointer'>{t('Direct')}</button>
@@ -54,7 +54,7 @@ export default function Conversations() {
             onClick={() => showMessages('saved')}
             className={`${
               showSaved ? 'bg-white/10 text-gray-200' : 'text-gray-400'
-            } w-full font-semibold p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
+            } w-full font-semibold transition duration-500 ease-in-out p-1 rounded cursor-pointer flex flex-row items-center justify-center gap-1`}
           >
             <Icon styles='!text-lg' icon='bookmark_added' />
             <button className='text-sm cursor-pointer'>{t('Saved')}</button>

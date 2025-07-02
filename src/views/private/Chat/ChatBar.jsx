@@ -8,7 +8,7 @@ import { saveChat } from '../../../helpers/actions/chat';
 
 import Icon from '../../../components/Icon';
 
-export default function ChatBar() {
+export default function ChatBar({ hasMessages }) {
   const navigate = useNavigate();
 
   const { chatId } = useParams();
@@ -19,7 +19,6 @@ export default function ChatBar() {
   const saveCurrentConversation = () => {
     saveChat(participants[chatId]?.user?._id).then(() => toggleSavedConversation(chat));
   };
-
   return (
     <div className='w-full bg-[#25262D] py-3 px-6 text-white shadow-sm justify-between flex flex-row'>
       <div className='flex flex-row items-center gap-2 font-semibold'>
@@ -41,7 +40,7 @@ export default function ChatBar() {
       </div>
       <div className='flex flex-row  gap-2 items-center text-gray-200'>
         <Icon onClick={saveCurrentConversation} fill={chat?.saved} icon='bookmark' />
-        <Icon icon='settings' onClick={() => navigate('settings/customization')} />
+        {hasMessages && <Icon icon='settings' onClick={() => navigate('settings/customization')} />}
       </div>
     </div>
   );

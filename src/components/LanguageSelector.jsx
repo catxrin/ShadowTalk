@@ -7,13 +7,17 @@ export default function LanguageSelector() {
   return (
     <div className='flex flex-row items-start shadow-sm self-start bg-black/50 rounded'>
       <div
-        className={`${activeLanguageStyles('bg')} font-semibold flex items-center py-1 px-3 rounded cursor-pointer`}
+        className={`${activeLanguageStyles(
+          'bg'
+        )} transition duration-500 ease-in-out font-semibold flex items-center py-1 px-3 rounded cursor-pointer`}
         onClick={() => changeLanguage('bg')}
       >
         BG
       </div>
       <div
-        className={`${activeLanguageStyles('en')} font-semibold flex items-center py-1 px-3 rounded cursor-pointer`}
+        className={`${activeLanguageStyles(
+          'en'
+        )} transition duration-500 ease-in-out font-semibold flex items-center py-1 px-3 rounded cursor-pointer`}
         onClick={() => changeLanguage('en')}
       >
         EN

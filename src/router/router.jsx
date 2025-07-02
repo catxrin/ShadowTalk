@@ -81,7 +81,7 @@ export const router = createBrowserRouter([
       { path: 'danger_zone', element: <ProfileDangerZone /> },
     ],
   },
-  { path: '/user/:id', element: <Profile /> },
+  { path: '/user/:userId', element: <Profile /> },
 
   { path: '*', element: <NotFound /> },
 ]);

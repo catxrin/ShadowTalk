@@ -49,7 +49,7 @@ export default function Chat() {
 
   return (
     <div className='w-full h-full justify-between flex flex-col'>
-      <ChatBar />
+      <ChatBar hasMessages={messages.length > 0} />
       <ChatBody messages={messages} />
       <ChatInput />
     </div>
