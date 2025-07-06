@@ -5,8 +5,8 @@ import bg from './lang/bg.json';
 import en from './lang/en.json';
 
 export default i18n.use(initReactI18next).init({
-  lng: 'bg',
-  fallbackLng: 'bg',
+  lng: 'en',
+  fallbackLng: 'en',
   interpolation: {
     escapeValue: false,
   },
