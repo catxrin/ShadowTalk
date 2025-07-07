@@ -10,7 +10,7 @@ const Settings = lazy(() => import('../views/private/Chat/ChatSettings/Settings'
 const ChatCustomization = lazy(() => import('../views/private/Chat/ChatSettings/ChatCustomization'));
 const DangerZone = lazy(() => import('../views/private/Chat/ChatSettings/DangerZone'));
 const Chat = lazy(() => import('../views/private/Chat/Chat'));
-const ProfileCustomization = lazy(() => import('../views/private/ProfileSettings/ProfileCustomization'));
+const ProfileCustomization = lazy(() => import('../views/private/ProfileSettings/Customization/ProfileCustomization'));
 const ProfileDangerZone = lazy(() => import('../views/private/ProfileSettings/DangerZone'));
 const Profile = lazy(() => import('../views/private/Profile/Profile'));
 const Conversations = lazy(() => import('../components/Conversations/Conversations'));

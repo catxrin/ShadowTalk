@@ -24,8 +24,8 @@ export default function PasswordInput() {
               <input
                 placeholder=' ••••••••'
                 type={inputType()}
-                className={`border p-1 rounded-md border-gray-500 outline-none ${
-                  !errors['password'] ? 'border-gray-500' : 'border-red-600'
+                className={`border p-1.5 bg-white/10 rounded-md border-none shadow-sm outline-none ${
+                  errors['password'] && 'border-red-600'
                 } pr-12 relative w-full`}
                 {...register('password', {
                   required: 'Password is required',

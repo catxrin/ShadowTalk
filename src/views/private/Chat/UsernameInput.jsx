@@ -1,10 +1,13 @@
-import Icon from '../../../components/Icon';
 import { useState, useEffect, useContext } from 'react';
+
 import useFetch from '../../../hooks/useFetch';
 import { ChatContext } from '../../../contexts/ChatProvider';
 
+import Icon from '../../../components/Icon';
+
 export default function UsernameInput({ participant }) {
   const { setChat } = useContext(ChatContext);
+
   const [nickname, setNickname] = useState('');
   const [error, setError] = useState('');
   const [edit, setEdit] = useState(false);

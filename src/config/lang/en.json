@@ -2,6 +2,7 @@
   "A beautifully crafted, eye-friendly interface that looks stunning, day or night.": "A beautifully crafted, eye-friendly interface that looks stunning, day or night.",
   "A sleek, modern chat app for effortless conversations in a beautifully dark-themed, clutter-free interface. Stay connected with friends and groups in style.": "A sleek, modern chat app for effortless conversations in a beautifully dark-themed, clutter-free interface. Stay connected with friends and groups in style.",
   "About us": "About us",
+  "About me": "About me",
   "Already a member?": "Already a member?",
   "Avatar": "Avatar",
   "Built for Dark Mode Lovers": "Built for Dark Mode Lovers",
@@ -24,6 +25,7 @@
   "Find chatmates": "Find chatmates",
   "First time here?": "First time here?",
   "Green": "Green",
+  "Tags": "Tags",
 
   "Home": "Home",
   "It’s quiet here... Say hello or ask a question to get started!": "It’s quiet here... Say hello or ask a question to get started!",
@@ -41,11 +43,12 @@
   "Password": "Password",
   "Pink": "Pink",
   "Profile Background": "Profile Background",
-  "Profile Customization": "Profile Customization",
   "Purple": "Purple",
 
   "Register": "Register",
+  "Reset": "Reset",
   "Saved": "Saved",
+  "Save Changes": "Save Changes",
   "Send a message": "Send a message",
   "Sign in": "Sign in",
   "Sign in here": "Sign in here",
@@ -54,6 +57,7 @@
   "Sky": "Sky",
   "Start Chatting": "Start Chatting",
   "Submit": "Submit",
+  "You have unsaved changes!": "You have unsaved changes!",
 
   "Whether you're chatting one-on-one or in a group, Shadow Talk makes communication effortless across all your devices.": "Whether you're chatting one-on-one or in a group, Shadow Talk makes communication effortless across all your devices.",
   "Why Shadow Talk?": "Why Shadow Talk?",

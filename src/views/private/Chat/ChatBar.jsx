@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ChatContext } from '../../../contexts/ChatProvider';
@@ -6,12 +6,15 @@ import { ChatContext } from '../../../contexts/ChatProvider';
 import { accentColors } from '../../../helpers/utils';
 import { saveChat } from '../../../helpers/actions/chat';
 
+import Profile from '../Profile/Profile';
 import Icon from '../../../components/Icon';
 
 export default function ChatBar({ hasMessages }) {
+  const { chatId } = useParams();
   const navigate = useNavigate();
 
-  const { chatId } = useParams();
+  const [showProfile, setShowProfile] = useState(false);
+
   const { chat, participants, toggleSavedConversation } = useContext(ChatContext);
 
   const partner = chat?.participants?.find(user => user._id === chatId);
@@ -23,6 +26,24 @@ export default function ChatBar({ hasMessages }) {
     <div className='w-full bg-[#25262D] py-3 px-6 text-white shadow-sm justify-between flex flex-row'>
       <div className='flex flex-row items-center gap-2 font-semibold'>
         <Icon styles='!block md:!hidden' onClick={() => navigate('/chat')} icon='chevron_left' />
+        {showProfile && (
+          <div
+            onClick={() => setShowProfile(false)}
+            className='bg-black/50 absolute z-50 left-0 top-0 backdrop-blur-sm w-full h-full flex justify-center items-center'
+          >
+            <div
+              onClick={e => e.stopPropagation()}
+              className={`relative sm:w-[30rem] sm:h-auto w-screen h-screen rounded text-white flex flex-col gap-2`}
+            >
+              <Icon
+                icon='close'
+                onClick={() => setShowProfile(false)}
+                styles='bg-black/30 right-3 top-3 z-50 absolute rounded-full px-1.5 leading-none !text-lg'
+              />
+              <Profile user={partner} />
+            </div>
+          </div>
+        )}
         <img
           className='rounded-full border border-black w-10 h-10 object-cover'
           src={`/server/${partner?.image}`}
@@ -30,7 +51,7 @@ export default function ChatBar({ hasMessages }) {
         />
         <div>
           <p
-            onClick={() => navigate(`/user/${participants[chatId]?.user?._id}`)}
+            onClick={() => setShowProfile(true)}
             className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${accentColors[partner?.accent]}`}
           >
             {partner?.nickname || partner?.username}

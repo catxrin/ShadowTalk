@@ -8,6 +8,7 @@ const UserSchema = new Schema(
       required: [true, 'Username is required'],
     },
     theme: { type: String, default: 'Default' },
+    tags: { type: [String] },
     email: {
       type: String,
       required: [true, 'Username is required'],

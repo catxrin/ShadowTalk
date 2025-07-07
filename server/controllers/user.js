@@ -44,6 +44,7 @@ user.post('/upload', upload.single('file'), async (req, res) => {
     { image: req?.file.path },
     { returnOriginal: false }
   ).select('-password');
+
   res.json(userData);
 });
 
