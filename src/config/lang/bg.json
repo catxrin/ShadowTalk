@@ -46,7 +46,9 @@
   "Purple": "Лилаво",
 
   "Register": "Регистрация",
+  "Reset": "Върни",
   "Saved": "Запазени",
+  "Save Changes": "Запази промените",
   "Send a message": "Изпрати съобщение",
   "Sign in": "Вход",
   "Sign in here": "Влез оттук",
@@ -55,6 +57,7 @@
   "Sky": "Небе",
   "Start Chatting": "Започни чат",
   "Submit": "Запази",
+  "You have unsaved changes!": "Имаш незапазени промени!",
 
   "Whether you're chatting one-on-one or in a group, Shadow Talk makes communication effortless across all your devices.": "Независимо дали чатиш насаме или в група, Shadow Talk прави комуникацията лесна на всички твои устройства.",
   "Why Shadow Talk?": "Защо Shadow Talk?",

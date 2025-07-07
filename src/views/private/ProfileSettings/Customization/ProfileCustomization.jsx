@@ -9,8 +9,10 @@ import { updateUserProfile } from '../../../../helpers/actions/user';
 import Tags from './Tags';
 import Icon from '../../../../components/Icon';
 import Input from '../../../../components/Forms/Input';
-import MediaInput from '../../../../components/Forms/MediaInput';
 import Textarea from '../../../../components/Forms/Textarea';
+import MediaInput from '../../../../components/Forms/MediaInput';
+import BackgroundImages from './BackgroundImages';
+import UpdateIndicator from './UpdateIndicator';
 
 export default function ProfileCustomization() {
   const navigate = useNavigate();
@@ -18,28 +20,22 @@ export default function ProfileCustomization() {
 
   const { user, setUserAuth } = useContext(UserContext);
 
-  const chooseImage = image => methods.setValue('bgImage', `uploads/${image}`);
-  const resetForm = () => methods.reset();
-
   const methods = useForm({
     defaultValues: {
       username: user?.username,
-      tags: user?.tags,
       email: user?.email,
       description: user?.description,
-      file: user?.image,
+      tags: user?.tags,
       bgImage: user?.bgImage,
+      file: user?.image,
     },
   });
 
   const submitData = () =>
     methods.handleSubmit(data => {
-      updateUserProfile({ ...data, description: data?.description.trim() }, user?._id).then(data => {
-        setUserAuth(data);
-      });
+      updateUserProfile({ ...data, description: data?.description.trim() }, user?._id).then(data => setUserAuth(data));
+      methods.reset(methods.getValues());
     });
-
-  const selectedImage = methods.watch('bgImage');
 
   return (
     <FormProvider {...methods}>
@@ -77,71 +73,23 @@ export default function ProfileCustomization() {
                     value: /[a-zA-Z0-9.-]+(.[a-zA-Z]{2,})+/gm,
                     message: t('Invalid email format.'),
                   },
-
                   validate: {
                     removeWhiteSpace: value => value.trim('') !== '' || t('This field is required.'),
                   },
                 }}
               />
               <Textarea
+                name='description'
+                label={t('Description')}
                 rules={{
                   maxLength: { value: 200, message: t('Total characters reached') },
                 }}
-                name='description'
-                label={t('Description')}
               />
             </div>
             <Tags />
           </div>
-          <div className='flex flex-col gap-1 justify-start'>
-            <p className='font-semibold'>{t('Profile Background')}</p>
-            <div className='flex flex-row gap-4 flex-wrap justify-center'>
-              <div
-                name='bgImage'
-                onClick={() => chooseImage('landscape1.jpg')}
-                className={`w-60 h-40 sm:w-70 sm:h-48 bg-[url(/server/uploads/landscape1.jpg)] ${
-                  selectedImage === 'uploads/landscape1.jpg' && 'border-2 border-white'
-                } rounded bg-cover`}
-              />
-              <div
-                name='bgImage'
-                onClick={() => chooseImage('landscape2.jpg')}
-                className={`w-60 h-40 sm:w-70 sm:h-48 bg-[url(/server/uploads/landscape2.jpg)] ${
-                  selectedImage === 'uploads/landscape2.jpg' && 'border-2 border-white'
-                } rounded bg-cover`}
-              />
-              <div
-                name='bgImage'
-                onClick={() => chooseImage('landscape3.jpg')}
-                className={`w-60 h-40 sm:w-70 sm:h-48 bg-[url(/server/uploads/landscape3.jpg)] ${
-                  selectedImage === 'uploads/landscape3.jpg' && 'border-2 border-white'
-                } rounded bg-cover`}
-              />
-              <div
-                name='bgImage'
-                onClick={() => chooseImage('landscape4.jpg')}
-                className={`w-60 h-40 sm:w-70 sm:h-48 bg-[url(/server/uploads/landscape4.jpg)] ${
-                  selectedImage === 'uploads/landscape4.jpg' && 'border-2 border-white'
-                } rounded bg-cover`}
-              />
-            </div>
-          </div>
-          {methods.formState.isDirty && (
-            <div className='flex left-0 right-0 m-auto text-sm font-semibold flex-row justify-between items-center shadow-sm w-5/10 bg-[#40414e] rounded px-4 py-3 absolute bottom-10'>
-              <p>You have unsaved changes!</p>
-              <div className='flex flex-row gap-3 text-sm font-semibold'>
-                <button
-                  onClick={resetForm}
-                  className='px-2.5 cursor-pointer py-1 text-white border-white/15 border shadow-sm rounded'
-                >
-                  Reset
-                </button>
-                <button type='submit' className='px-2.5 cursor-pointer py-1 text-white bg-indigo-500 shadow-sm rounded'>
-                  Save Changes
-                </button>
-              </div>
-            </div>
-          )}
+          <BackgroundImages />
+          {methods.formState.isDirty && <UpdateIndicator />}
         </form>
       </div>
     </FormProvider>

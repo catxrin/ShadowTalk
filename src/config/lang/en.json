@@ -46,7 +46,9 @@
   "Purple": "Purple",
 
   "Register": "Register",
+  "Reset": "Reset",
   "Saved": "Saved",
+  "Save Changes": "Save Changes",
   "Send a message": "Send a message",
   "Sign in": "Sign in",
   "Sign in here": "Sign in here",
@@ -55,6 +57,7 @@
   "Sky": "Sky",
   "Start Chatting": "Start Chatting",
   "Submit": "Submit",
+  "You have unsaved changes!": "You have unsaved changes!",
 
   "Whether you're chatting one-on-one or in a group, Shadow Talk makes communication effortless across all your devices.": "Whether you're chatting one-on-one or in a group, Shadow Talk makes communication effortless across all your devices.",
   "Why Shadow Talk?": "Why Shadow Talk?",

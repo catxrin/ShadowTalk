@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next';
 
 import { formatDate } from '../../../helpers/utils';
+
 import Tag from '../../../components/Tag';
 
 export default function Profile({ user }) {
   const { t } = useTranslation();
+
   const userHasTags = user?.tags?.length > 0;
 
   return (

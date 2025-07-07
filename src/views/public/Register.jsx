@@ -42,6 +42,8 @@ export default function Register() {
           onSubmit={submitData()}
         >
           <Input
+            name='username'
+            label={t('Username')}
             placeholder={t('Username')}
             rules={{
               validate: {
@@ -49,8 +51,6 @@ export default function Register() {
               },
               minLength: { value: 3, message: t('Username must contain at least 3 characters') },
             }}
-            name='username'
-            label={t('Username')}
           />
           <Input
             name='email'
@@ -69,8 +69,8 @@ export default function Register() {
           <PasswordInput />
           <Input
             name='confirmPassword'
-            label={t('Confirm Password')}
             type='password'
+            label={t('Confirm Password')}
             placeholder=' ••••••••'
             rules={{
               validate: {

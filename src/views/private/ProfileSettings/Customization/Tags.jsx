@@ -50,8 +50,8 @@ export default function Tags() {
         </div>
       </div>
       <div {...register('tags')} className='flex flex-row gap-2.5'>
-        {tags.length > 0 &&
-          tags.map(tag => (
+        {tags?.length > 0 &&
+          tags?.map(tag => (
             <div
               key={tag}
               name={`tags.${tag}`}
@@ -63,7 +63,8 @@ export default function Tags() {
                 onClick={() =>
                   setValue(
                     'tags',
-                    tags.filter(tagName => tagName !== tag)
+                    tags?.filter(tagName => tagName !== tag),
+                    { shouldDirty: true }
                   )
                 }
                 styles='bg-white/10 rounded-full p-0.5 !text-lg !leading-none'
