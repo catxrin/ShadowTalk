@@ -22,7 +22,7 @@ export default function Settings() {
         onClick={() => navigate('customization')}
         className={`cursor-pointer rounded py-3 ${tabStyle('customization')} px-2`}
       >
-        {t('Profile Customization')}
+        {t('Customization')}
       </p>
       <p onClick={() => navigate('language')} className={`cursor-pointer rounded py-3 ${tabStyle('language')} px-2`}>
         {t('Language')}

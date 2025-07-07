@@ -12,7 +12,11 @@ export default function Modal({ children, setShow, label, styles }) {
       >
         <div className='flex flex-row w-full justify-between'>
           <h1 className='text-xl font-semibold'>{label}</h1>
-          <Icon icon='close' onClick={() => setShow(false)} styles='bg-white/10 rounded-full px-2 py-0.5 !text-lg' />
+          <Icon
+            icon='close'
+            onClick={() => setShow(false)}
+            styles='bg-white/10 rounded-full px-1.5 leading-none !text-lg'
+          />
         </div>
         {children}
       </div>

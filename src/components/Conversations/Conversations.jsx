@@ -1,12 +1,11 @@
 import { useEffect, useState, useContext, useMemo } from 'react';
-
 import { useTranslation } from 'react-i18next';
 
 import useFetch from '../../hooks/useFetch';
 import { ChatContext } from '../../contexts/ChatProvider';
-import Search from '../UserSearch/Search';
 
 import Icon from '../Icon';
+import Search from '../UserSearch/Search';
 import Participants from './Participants';
 
 export default function Conversations() {

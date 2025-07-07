@@ -12,8 +12,8 @@ export default function Textarea({ name, rules, label, placeholder, styles, ...r
           <textarea
             placeholder={placeholder}
             rows='5'
-            className={`border p-1 xl:text-base text-sm rounded-md w-full outline-none ${
-              !errors[name] ? 'border-gray-500' : 'border-red-600'
+            className={`shadow-sm py-1 bg-white/10 px-1.5 xl:text-base text-sm rounded-md w-full outline-none ${
+              !errors[name] && 'border-red-600'
             } ${styles && styles}`}
             {...rest}
             {...register(name, rules)}

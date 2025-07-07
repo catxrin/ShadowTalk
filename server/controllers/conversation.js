@@ -53,7 +53,11 @@ conversation.get('/:id', async (req, res) => {
             in: {
               _id: '$$u._id',
               username: '$$u.username',
+              tags: '$$u.tags',
               image: '$$u.image',
+              bgImage: '$$u.bgImage',
+              createdAt: '$$u.createdAt',
+              description: '$$u.description',
             },
           },
         },
