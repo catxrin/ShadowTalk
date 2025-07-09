@@ -1,11 +1,15 @@
+import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { formatDate } from '../../../helpers/utils';
 
 import Tag from '../../../components/Tag';
 
+import { UserContext } from '../../../contexts/UserProvider';
+
 export default function Profile({ user }) {
   const { t } = useTranslation();
+  const { onlineUsers } = useContext(UserContext);
 
   const userHasTags = user?.tags?.length > 0;
 
@@ -17,16 +21,20 @@ export default function Profile({ user }) {
         className='w-full flex object-cover h-36 rounded-t relative shadow-sm'
       />
       <div className='flex flex-row gap-2 items-end absolute top-25.5 left-5'>
-        <img
-          className='rounded-full border-5 border-[#242429] w-22 h-22 object-cover'
-          src={`/server/${user?.image}`}
-          alt='profile picture'
-        />
+        <div className='relative'>
+          <img
+            className='rounded-full border-4 border-[#242429] min-w-22 h-22 object-cover'
+            src={`/server/${user?.image}`}
+            alt='profile picture'
+          />
+          <div
+            className={`w-4.5 h-4.5 border-3 border-[#242429] absolute right-1 bottom-2 shadow-sm mt-0.5 rounded-full ${
+              onlineUsers[user._id] ? 'bg-green-400' : 'bg-gray-400'
+            }`}
+          ></div>
+        </div>
         <div className='flex w-full flex-col justify-start'>
-          <div className='flex gap-1.5 flex-row'>
-            <p className='truncate max-w-96 text-white font-bold'>{user?.username}</p>
-            <div className='bg-green-400 w-2 mt-1.5 h-2 shadow-sm rounded-full'></div>
-          </div>
+          <p className='truncate max-w-96 text-white font-bold'>{user?.username}</p>
           <p className='text-sm/[20px] text-gray-300 font-medium'>
             {t('Member since')}: {formatDate(user?.createdAt)}
           </p>

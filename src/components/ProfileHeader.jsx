@@ -8,7 +8,7 @@ import Profile from '../views/private/Profile/Profile';
 import useScreenSize from '../hooks/useScreenSize';
 
 export default function ProfileHeader() {
-  const { user } = useContext(UserContext);
+  const { user, onlineUsers } = useContext(UserContext);
   const [showProfile, setShowProfile] = useState(false);
 
   const screenSize = useScreenSize();
@@ -18,7 +18,14 @@ export default function ProfileHeader() {
   return (
     <div className='bg-[#1C1D22] text-white px-4 py-3 flex flex-row justify-between'>
       <div className='flex flex-row w-auto sm:w-full items-center gap-2 font-semibold'>
-        <img alt='pfp' src={`/server/${user?.image}`} className='rounded-full w-10 h-10 object-cover' />
+        <div className='relative'>
+          <img alt='pfp' src={`/server/${user?.image}`} className='rounded-full w-10 h-10 object-cover' />
+          <div
+            className={`w-3 h-3 border-2 border-[#242429] absolute -right-0.5 bottom-0.5 shadow-sm mt-0.5 rounded-full ${
+              onlineUsers[user?._id] ? 'bg-green-400' : 'bg-gray-400'
+            }`}
+          ></div>
+        </div>
         <p className='text-sm truncate'>{user?.username}</p>
       </div>
       {showProfile && (
@@ -33,7 +40,7 @@ export default function ProfileHeader() {
             <Icon
               icon='close'
               onClick={() => setShowProfile(false)}
-              styles='bg-black/30 right-3 top-3 z-50 absolute rounded-full px-1.5 py-px !text-lg'
+              styles='bg-black/30 right-3 top-3 z-50 absolute rounded-full p-1.5 leading-none !text-lg'
             />
             <Profile user={user} />
           </div>

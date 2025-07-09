@@ -9,7 +9,6 @@ import { saveChat } from '../../../helpers/actions/chat';
 
 import Profile from '../Profile/Profile';
 import Icon from '../../../components/Icon';
-import ActiveIndicator from '../../../components/ActiveIndicator';
 
 export default function ChatBar({ hasMessages }) {
   const { chatId } = useParams();
@@ -42,27 +41,31 @@ export default function ChatBar({ hasMessages }) {
               <Icon
                 icon='close'
                 onClick={() => setShowProfile(false)}
-                styles='bg-black/30 right-3 top-3 z-50 absolute rounded-full px-1.5 leading-none !text-lg'
+                styles='bg-black/30 right-3 top-3 z-50 absolute rounded-full p-1.5 leading-none !text-lg'
               />
               <Profile user={partner} />
             </div>
           </div>
         )}
-        <img
-          className='rounded-full border border-black w-10 h-10 object-cover'
-          src={`/server/${partner?.image}`}
-          alt='pfp'
-        />
+        <div className='relative'>
+          <img
+            className='rounded-full border border-[#242429] w-10 h-10 object-cover'
+            src={`/server/${partner?.image}`}
+            alt='pfp'
+          />
+          <div
+            className={`w-3 h-3 border-2 border-[#242429] absolute -right-0.5 bottom-0.5 shadow-sm mt-0.5 rounded-full ${
+              onlineUsers[partner?._id] ? 'bg-green-400' : 'bg-gray-400'
+            }`}
+          ></div>
+        </div>
         <div>
-          <div className='flex flex-row gap-1'>
-            <p
-              onClick={() => setShowProfile(true)}
-              className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${accentColors[partner?.accent]}`}
-            >
-              {partner?.nickname || partner?.username}{' '}
-            </p>
-            <ActiveIndicator active={onlineUsers[partner?._id]} />
-          </div>
+          <p
+            onClick={() => setShowProfile(true)}
+            className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${accentColors[partner?.accent]}`}
+          >
+            {partner?.nickname || partner?.username}{' '}
+          </p>
           <p className='text-[12px] text-gray-400'>@{partner?.username}</p>
         </div>
       </div>
