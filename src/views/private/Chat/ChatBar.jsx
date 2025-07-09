@@ -2,12 +2,14 @@ import { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ChatContext } from '../../../contexts/ChatProvider';
+import { UserContext } from '../../../contexts/UserProvider';
 
 import { accentColors } from '../../../helpers/utils';
 import { saveChat } from '../../../helpers/actions/chat';
 
 import Profile from '../Profile/Profile';
 import Icon from '../../../components/Icon';
+import ActiveIndicator from '../../../components/ActiveIndicator';
 
 export default function ChatBar({ hasMessages }) {
   const { chatId } = useParams();
@@ -16,12 +18,14 @@ export default function ChatBar({ hasMessages }) {
   const [showProfile, setShowProfile] = useState(false);
 
   const { chat, participants, toggleSavedConversation } = useContext(ChatContext);
+  const { onlineUsers } = useContext(UserContext);
 
   const partner = chat?.participants?.find(user => user._id === chatId);
 
   const saveCurrentConversation = () => {
     saveChat(participants[chatId]?.user?._id).then(() => toggleSavedConversation(chat));
   };
+
   return (
     <div className='w-full bg-[#25262D] py-3 px-6 text-white shadow-sm justify-between flex flex-row'>
       <div className='flex flex-row items-center gap-2 font-semibold'>
@@ -50,12 +54,15 @@ export default function ChatBar({ hasMessages }) {
           alt='pfp'
         />
         <div>
-          <p
-            onClick={() => setShowProfile(true)}
-            className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${accentColors[partner?.accent]}`}
-          >
-            {partner?.nickname || partner?.username}
-          </p>
+          <div className='flex flex-row gap-1'>
+            <p
+              onClick={() => setShowProfile(true)}
+              className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${accentColors[partner?.accent]}`}
+            >
+              {partner?.nickname || partner?.username}{' '}
+            </p>
+            <ActiveIndicator active={onlineUsers[partner?._id]} />
+          </div>
           <p className='text-[12px] text-gray-400'>@{partner?.username}</p>
         </div>
       </div>

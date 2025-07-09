@@ -8,9 +8,10 @@ import useFetch from '../../hooks/useFetch';
 import Loading from '../Loading';
 import Placeholder from '../Placeholder';
 import ProfileHeader from '../ProfileHeader';
+import { socket } from '../../helpers/socket';
 
 export default function Private({ children }) {
-  const { user, setUserAuth } = useContext(UserContext);
+  const { user, setUserAuth, setOnlineUsers } = useContext(UserContext);
 
   const screenSize = useScreenSize();
   const outlet = useOutlet();
@@ -25,6 +26,24 @@ export default function Private({ children }) {
     } else {
       setIsLoading(false);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleOnlineUsers = data => {
+      setOnlineUsers(data);
+    };
+
+    const handleConnect = () => {
+      socket.emit('get_online_users');
+    };
+
+    socket.on('connect', handleConnect);
+    socket.on('online_users', handleOnlineUsers);
+
+    return () => {
+      socket.off('connect', handleConnect);
+      socket.off('online_users', handleOnlineUsers);
+    };
   }, []);
 
   if (isLoading) return <Loading />;
