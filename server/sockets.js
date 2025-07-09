@@ -1,6 +1,8 @@
 import { Conversation } from './models/Conversation.js';
 import { Message } from './models/Messages.js';
 
+let onlineUsers = {};
+
 export const sockets = (io, socket) => {
   socket.on('send_message', async newMessage => {
     const user = socket?.userId;
@@ -66,6 +68,21 @@ export const sockets = (io, socket) => {
     conv.save();
 
     return io.to([partnerId, socket?.userId]).emit('blocked', conv);
+  });
+
+  io.on('connection', socket => {
+    onlineUsers[socket.userId] = socket.userId;
+
+    socket.on('get_online_users', () => {
+      io.emit('online_users', onlineUsers);
+    });
+
+    socket.on('disconnect', () => {
+      delete onlineUsers[socket.userId];
+      io.emit('online_users', onlineUsers);
+
+      console.log('User disconnected!');
+    });
   });
 
   io.engine.on('connection_error', err => {

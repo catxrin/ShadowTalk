@@ -19,7 +19,8 @@ export default function BackgroundImages() {
             key={image}
             {...register('bgImage')}
             onClick={() => chooseImage(image)}
-            className={`w-60 h-40 sm:w-70 sm:h-48 bg-[url(/server/${image})] ${
+            style={{ backgroundImage: `url(/server/${image})` }}
+            className={`w-60 h-40 sm:w-70 sm:h-48 ${
               selectedImage === image && 'border-2 border-white'
             } rounded bg-cover`}
           />

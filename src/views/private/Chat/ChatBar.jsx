@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ChatContext } from '../../../contexts/ChatProvider';
+import { UserContext } from '../../../contexts/UserProvider';
 
 import { accentColors } from '../../../helpers/utils';
 import { saveChat } from '../../../helpers/actions/chat';
@@ -16,12 +17,14 @@ export default function ChatBar({ hasMessages }) {
   const [showProfile, setShowProfile] = useState(false);
 
   const { chat, participants, toggleSavedConversation } = useContext(ChatContext);
+  const { onlineUsers } = useContext(UserContext);
 
   const partner = chat?.participants?.find(user => user._id === chatId);
 
   const saveCurrentConversation = () => {
     saveChat(participants[chatId]?.user?._id).then(() => toggleSavedConversation(chat));
   };
+
   return (
     <div className='w-full bg-[#25262D] py-3 px-6 text-white shadow-sm justify-between flex flex-row'>
       <div className='flex flex-row items-center gap-2 font-semibold'>
@@ -38,23 +41,30 @@ export default function ChatBar({ hasMessages }) {
               <Icon
                 icon='close'
                 onClick={() => setShowProfile(false)}
-                styles='bg-black/30 right-3 top-3 z-50 absolute rounded-full px-1.5 leading-none !text-lg'
+                styles='bg-black/30 right-3 top-3 z-50 absolute rounded-full p-1.5 leading-none !text-lg'
               />
               <Profile user={partner} />
             </div>
           </div>
         )}
-        <img
-          className='rounded-full border border-black w-10 h-10 object-cover'
-          src={`/server/${partner?.image}`}
-          alt='pfp'
-        />
+        <div className='relative'>
+          <img
+            className='rounded-full border border-[#242429] w-10 h-10 object-cover'
+            src={`/server/${partner?.image}`}
+            alt='pfp'
+          />
+          <div
+            className={`w-3 h-3 border-2 border-[#242429] absolute -right-0.5 bottom-0.5 shadow-sm mt-0.5 rounded-full ${
+              onlineUsers[partner?._id] ? 'bg-green-400' : 'bg-gray-400'
+            }`}
+          ></div>
+        </div>
         <div>
           <p
             onClick={() => setShowProfile(true)}
             className={`text-sm truncate cursor-pointer hover:underline max-w-96 ${accentColors[partner?.accent]}`}
           >
-            {partner?.nickname || partner?.username}
+            {partner?.nickname || partner?.username}{' '}
           </p>
           <p className='text-[12px] text-gray-400'>@{partner?.username}</p>
         </div>
