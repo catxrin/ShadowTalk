@@ -80,8 +80,6 @@ export const sockets = (io, socket) => {
     socket.on('disconnect', () => {
       delete onlineUsers[socket.userId];
       io.emit('online_users', onlineUsers);
-
-      console.log('User disconnected!');
     });
   });
 

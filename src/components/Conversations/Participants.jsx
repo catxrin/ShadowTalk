@@ -8,7 +8,6 @@ export default function Participants({ participants }) {
   const navigate = useNavigate();
 
   const chatMate = participants?.map(el => el?.participants?.filter(p => p.user._id !== user._id)[0]);
-
   return (
     <div className='flex flex-col gap-2'>
       {chatMate?.map(mate => (
@@ -29,7 +28,7 @@ export default function Participants({ participants }) {
               />
               <div
                 className={`w-3 h-3 border-2 border-[#242429] absolute -right-0.5 bottom-0.5 shadow-sm mt-0.5 rounded-full ${
-                  onlineUsers[mate?._id] ? 'bg-green-400' : 'bg-gray-400'
+                  onlineUsers[mate?.user?._id] ? 'bg-green-400' : 'bg-gray-400'
                 }`}
               ></div>
             </div>
