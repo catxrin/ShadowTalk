@@ -71,6 +71,8 @@ export const sockets = (io, socket) => {
   });
 
   io.on('connection', socket => {
+    console.log('User connected!');
+
     onlineUsers[socket.userId] = socket.userId;
 
     socket.on('get_online_users', () => {
@@ -78,9 +80,15 @@ export const sockets = (io, socket) => {
     });
 
     socket.on('disconnect', () => {
+      console.log('User disconnected!');
+
       delete onlineUsers[socket.userId];
       io.emit('online_users', onlineUsers);
     });
+  });
+
+  socket.on('connect_error', err => {
+    console.error('Socket connection failed:', err.message);
   });
 
   io.engine.on('connection_error', err => {
