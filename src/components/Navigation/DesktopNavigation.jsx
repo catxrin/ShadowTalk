@@ -4,6 +4,8 @@ import { HashLink } from 'react-router-hash-link';
 
 import LanguageSelector from '../LanguageSelector';
 
+import { APP_NAME } from '../../helpers/utils';
+
 export default function DesktopNavigation() {
   const { t } = useTranslation();
 
@@ -12,7 +14,7 @@ export default function DesktopNavigation() {
       <ul className='flex lex-row items-center gap-20 text-white w-full justify-between'>
         <Link to='/' className='flex flex-row items-center gap-2'>
           <img className='h-7 w-8 p-1 bg-white/80 rounded' src='logoSVG.svg' alt='logo' />
-          <p className='font-[nuosu] text-lg'>ShadowTalk</p>
+          <p className='font-[nuosu] text-lg'>{APP_NAME}</p>
         </Link>
 
         <div className='flex flex-row gap-10 items-center'>

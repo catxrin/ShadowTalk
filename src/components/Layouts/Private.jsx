@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { Navigate, Outlet, useOutlet } from 'react-router-dom';
+import { Navigate, Outlet, useOutlet, Link } from 'react-router-dom';
 
 import { UserContext } from '../../contexts/UserProvider';
 import useScreenSize from '../../hooks/useScreenSize';
@@ -8,8 +8,9 @@ import useFetch from '../../hooks/useFetch';
 import Loading from '../Loading';
 import Placeholder from '../Placeholder';
 import ProfileHeader from '../ProfileHeader';
+
 import { socket } from '../../helpers/socket';
-import { Link } from 'react-router-dom';
+import { APP_NAME } from '../../helpers/utils';
 
 export default function Private({ children }) {
   const { user, setUserAuth, setOnlineUsers } = useContext(UserContext);
@@ -58,7 +59,7 @@ export default function Private({ children }) {
             <div className='flex flex-col gap-5 px-3'>
               <Link to={'/chat'} className='flex flex-row items-center gap-2'>
                 <img className='h-6 w-7 p-1 bg-white/80 rounded' src='/logoSVG.svg' alt='logo' />
-                <p className='font-[nuosu] text-white text-base'>ShadowTalk</p>
+                <p className='font-[nuosu] text-white text-base'>{APP_NAME}</p>
               </Link>
               <div>{children}</div>
             </div>

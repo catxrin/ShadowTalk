@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
 import NavLink from './NavLink';
 
 import Icon from '../Icon';
 import LanguageSelector from '../LanguageSelector';
-import { useTranslation } from 'react-i18next';
+
+import { APP_NAME } from '../../helpers/utils';
 
 export default function MobileNavigation() {
   const [visible, setVisible] = useState(false);
@@ -17,7 +20,7 @@ export default function MobileNavigation() {
       <nav className='flex justify-between shadow-sm items-center shadow-white/1 top-0 z-50 bg-black/10 w-full py-2.5 px-4 text-white backdrop-blur-2xl'>
         <Link to='/' className='flex flex-row items-center gap-2'>
           <img className='h-7 w-8 p-1 bg-white/80 rounded' src='logoSVG.svg' alt='logo' />
-          <p className='font-[nuosu] text-lg'>ShadowTalk</p>
+          <p className='font-[nuosu] text-lg'>{APP_NAME}</p>
         </Link>
         <Icon onClick={changeVisibility} icon='menu' />
       </nav>
@@ -31,7 +34,7 @@ export default function MobileNavigation() {
               <div className='flex w-full justify-between'>
                 <div className='flex flex-row items-center gap-2'>
                   <img className='h-7 w-8 p-1 bg-white/80 rounded' src='logoSVG.svg' alt='logo' />
-                  <p className='font-[nuosu] text-lg'>ShadowTalk</p>
+                  <p className='font-[nuosu] text-lg'>{APP_NAME}</p>
                 </div>
                 <Icon styles='bg-white/10 !text-lg py-0.5 px-1.5 rounded-lg' onClick={changeVisibility} icon='close' />
               </div>

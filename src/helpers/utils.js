@@ -5,6 +5,8 @@ export const formatDateAndTime = timestamp => {
   return ` ${date.toLocaleDateString('en-GB')}, ${hour}:${minutes <= 9 ? `0${minutes}` : minutes}`;
 };
 
+export const APP_NAME = 'ShadowTalk';
+
 export const formatDate = date => new Date(date).toLocaleDateString('en-GB');
 
 export const accentColors = Object.freeze({

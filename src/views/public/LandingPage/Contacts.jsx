@@ -4,6 +4,8 @@ import { HashLink } from 'react-router-hash-link';
 
 import Icon from '../../../components/Icon';
 
+import { APP_NAME } from '../../../helpers/utils';
+
 export default function Contacts() {
   const { t } = useTranslation();
 
@@ -19,7 +21,7 @@ export default function Contacts() {
             src='logoSVG.svg'
             alt='logo'
           />
-          <p className='font-[nuosu] xl:text-lg xl:block hidden'>ShadowTalk</p>
+          <p className='font-[nuosu] xl:text-lg xl:block hidden'>{APP_NAME}</p>
         </HashLink>
         <div className='flex flex-row xl:gap-5 gap-2 items-center'>
           <HashLink smooth to='#home' className='xl:text-base text-sm'>
