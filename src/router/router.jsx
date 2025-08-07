@@ -6,15 +6,18 @@ const Register = lazy(() => import('../views/public/Register'));
 const Landing = lazy(() => import('../views/public/LandingPage/Landing'));
 const Public = lazy(() => import('../components/Layouts/Public'));
 const Private = lazy(() => import('../components/Layouts/Private'));
-const Settings = lazy(() => import('../views/private/Chat/ChatSettings/Settings'));
+const ChatSettings = lazy(() => import('../views/private/Chat/ChatSettings/Settings'));
 const ChatCustomization = lazy(() => import('../views/private/Chat/ChatSettings/ChatCustomization'));
 const DangerZone = lazy(() => import('../views/private/Chat/ChatSettings/DangerZone'));
 const Chat = lazy(() => import('../views/private/Chat/Chat'));
-const ProfileCustomization = lazy(() => import('../views/private/ProfileSettings/Customization/ProfileCustomization'));
-const ProfileDangerZone = lazy(() => import('../views/private/ProfileSettings/DangerZone'));
+const ProfileCustomization = lazy(() =>
+  import('../views/private/Profile/ProfileSettings/Customization/ProfileCustomization')
+);
+const ProfileSettings = lazy(() => import('../views/private/Profile/ProfileSettings/ProfileSettings'));
+const ProfileDangerZone = lazy(() => import('../views/private/Profile/ProfileSettings/DangerZone'));
 const Profile = lazy(() => import('../views/private/Profile/Profile'));
 const Conversations = lazy(() => import('../components/Conversations/Conversations'));
-const Language = lazy(() => import('../views/private/ProfileSettings/Language'));
+const Language = lazy(() => import('../views/private/Profile/ProfileSettings/Language'));
 
 import NotFound from '../components/NotFound';
 import ChatProvider from '../contexts/ChatProvider';
@@ -51,7 +54,7 @@ export const router = createBrowserRouter([
         element: (
           <ChatProvider>
             <Private>
-              <Settings />
+              <ChatSettings />
             </Private>
           </ChatProvider>
         ),
@@ -72,7 +75,7 @@ export const router = createBrowserRouter([
     path: '/user/:userId/settings',
     element: (
       <Private>
-        <Settings />
+        <ProfileSettings />
       </Private>
     ),
     children: [

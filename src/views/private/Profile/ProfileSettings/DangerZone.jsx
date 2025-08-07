@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { logout } from '../../../helpers/actions/auth';
-import { UserContext } from '../../../contexts/UserProvider';
+import { logout } from '../../../../helpers/actions/auth';
+import { UserContext } from '../../../../contexts/UserProvider';
 
-import Icon from '../../../components/Icon';
-import Option from '../Chat/ChatSettings/Option';
+import Icon from '../../../../components/Icon';
+import Option from '../../Chat/ChatSettings/Option';
 
 export default function DangerZone() {
   const { setUserAuth } = useContext(UserContext);

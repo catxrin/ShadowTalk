@@ -24,6 +24,9 @@ export default function Settings() {
       >
         {t('Customization')}
       </p>
+      <p onClick={() => navigate('language')} className={`cursor-pointer rounded py-3 ${tabStyle('language')} px-2`}>
+        {t('Language')}
+      </p>
       <p
         onClick={() => navigate('danger_zone')}
         className={`cursor-pointer rounded py-3 ${tabStyle('danger_zone')} px-2`}

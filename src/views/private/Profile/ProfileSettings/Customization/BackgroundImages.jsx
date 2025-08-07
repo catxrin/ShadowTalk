@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import bgImages from '../../../../../public/bgImages.json';
+import bgImages from '../../../../../../public/bgImages.json';
 
 export default function BackgroundImages() {
   const { watch, setValue, register } = useFormContext();

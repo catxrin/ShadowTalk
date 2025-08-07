@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import LanguageSelector from '../../../components/LanguageSelector';
-import Icon from '../../../components/Icon';
+import LanguageSelector from '../../../../components/LanguageSelector';
+import Icon from '../../../../components/Icon';
 
 export default function Language() {
   const navigate = useNavigate();

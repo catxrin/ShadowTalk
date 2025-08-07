@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { UserContext } from '../../../../contexts/UserProvider';
-import { updateUserProfile } from '../../../../helpers/actions/user';
+import { UserContext } from '../../../../../contexts/UserProvider';
+import { updateUserProfile } from '../../../../../helpers/actions/user';
 
 import Tags from './Tags';
-import Icon from '../../../../components/Icon';
-import Input from '../../../../components/Forms/Input';
-import Textarea from '../../../../components/Forms/Textarea';
-import MediaInput from '../../../../components/Forms/MediaInput';
+import Icon from '../../../../../components/Icon';
+import Input from '../../../../../components/Forms/Input';
+import Textarea from '../../../../../components/Forms/Textarea';
+import MediaInput from '../../../../../components/Forms/MediaInput';
 import BackgroundImages from './BackgroundImages';
 import UpdateIndicator from './UpdateIndicator';
 

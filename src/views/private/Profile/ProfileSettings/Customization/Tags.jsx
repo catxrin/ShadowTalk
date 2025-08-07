@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormContext } from 'react-hook-form';
 
-import Icon from '../../../../components/Icon';
-import ErrorMessage from '../../../../components/ErrorMessage';
+import Icon from '../../../../../components/Icon';
+import ErrorMessage from '../../../../../components/ErrorMessage';
 
 export default function Tags() {
   const { watch, register, setValue } = useFormContext();
