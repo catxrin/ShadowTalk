@@ -41,7 +41,7 @@ export default function Login() {
         >
           <Input
             name='email'
-            label={t('Email')}
+            label='Email'
             placeholder='example@domain.com'
             rules={{
               validate: {

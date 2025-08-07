@@ -1,6 +1,7 @@
 {
   "A beautifully crafted, eye-friendly interface that looks stunning, day or night.": "A beautifully crafted, eye-friendly interface that looks stunning, day or night.",
   "A sleek, modern chat app for effortless conversations in a beautifully dark-themed, clutter-free interface. Stay connected with friends and groups in style.": "A sleek, modern chat app for effortless conversations in a beautifully dark-themed, clutter-free interface. Stay connected with friends and groups in style.",
+  "Adventurer": "Adventurer",
   "About us": "About us",
   "About me": "About me",
   "Already a member?": "Already a member?",
@@ -39,14 +40,18 @@
   "Nicknames": "Nicknames",
   "No bloated features—just pure, seamless messaging that keeps up with your conversations.": "No bloated features—just pure, seamless messaging that keeps up with your conversations.",
   "No chat selected. Start a conversation!": "No chat selected. Start a conversation!",
+  "Username": "Username",
 
   "Password": "Password",
   "Pink": "Pink",
+  "Profile Customization": "Profile Customization",
   "Profile Background": "Profile Background",
   "Purple": "Purple",
 
   "Register": "Register",
   "Reset": "Reset",
+  "Logout": "Logout",
+  "Logout from your account": "Logout from your account",
   "Saved": "Saved",
   "Save Changes": "Save Changes",
   "Send a message": "Send a message",

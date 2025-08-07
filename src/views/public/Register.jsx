@@ -43,8 +43,8 @@ export default function Register() {
         >
           <Input
             name='username'
-            label={t('Username')}
-            placeholder={t('Username')}
+            label='Username'
+            placeholder='Username'
             rules={{
               validate: {
                 removeWhiteSpace: value => value.trim('') !== '' || t('This field is required.'),
@@ -54,7 +54,7 @@ export default function Register() {
           />
           <Input
             name='email'
-            label={t('Email')}
+            label='Email'
             placeholder='example@domain.com'
             rules={{
               validate: {
@@ -70,7 +70,7 @@ export default function Register() {
           <Input
             name='confirmPassword'
             type='password'
-            label={t('Confirm Password')}
+            label='Confirm Password'
             placeholder=' ••••••••'
             rules={{
               validate: {

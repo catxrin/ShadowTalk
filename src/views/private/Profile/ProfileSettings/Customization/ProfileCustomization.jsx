@@ -56,7 +56,7 @@ export default function ProfileCustomization() {
               </div>
               <Input
                 name='username'
-                label={t('Username')}
+                label='Username'
                 rules={{
                   minLength: { value: 3, message: t('Username must contain at least 3 characters') },
                   validate: {
@@ -66,7 +66,7 @@ export default function ProfileCustomization() {
               />
               <Input
                 name='email'
-                label={t('Email')}
+                label='Email'
                 rules={{
                   required: t('This field is required.'),
                   pattern: {

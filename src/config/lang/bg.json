@@ -1,6 +1,7 @@
 {
   "A beautifully crafted, eye-friendly interface that looks stunning, day or night.": "Прекрасно изработен, щадящ очите интерфейс, който изглежда страхотно ден и нощ.",
   "A sleek, modern chat app for effortless conversations in a beautifully dark-themed, clutter-free interface. Stay connected with friends and groups in style.": "Модерно и елегантно чат приложение за лесни разговори в стилен тъмен дизайн без излишни елементи. Бъди във връзка с приятели и групи със стил.",
+  "Adventurer": "Приключенец",
   "About us": "За нас",
   "About me": "За мен",
   "Already a member?": "Вече си член?",
@@ -10,6 +11,8 @@
 
   "Change": "Промени",
   "Chat": "Чат",
+  "Profile Customization": "Profile Customization",
+
   "Chat Customization": "Персонализиране на чата",
   "Confirm Password": "Потвърди паролата",
   "Connect Instantly": "Свържи се мигновено",
@@ -39,14 +42,18 @@
   "Nicknames": "Прякор",
   "No bloated features—just pure, seamless messaging that keeps up with your conversations.": "Без излишни функции — само чисто и безпроблемно съобщаване, което следва ритъма на твоите разговори.",
   "No chat selected. Start a conversation!": "Няма избран чат. Започни разговор!",
+  "Username": "Потребителско име",
 
   "Password": "Парола",
   "Pink": "Розово",
+  "Profile Customization": "Персонализиране на профила",
   "Profile Background": "Фон на профила",
   "Purple": "Лилаво",
 
   "Register": "Регистрация",
   "Reset": "Върни",
+  "Logout": "Излез",
+  "Logout from your account": "Излез от профила си",
   "Saved": "Запазени",
   "Save Changes": "Запази промените",
   "Send a message": "Изпрати съобщение",

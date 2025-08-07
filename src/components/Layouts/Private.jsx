@@ -9,6 +9,7 @@ import Loading from '../Loading';
 import Placeholder from '../Placeholder';
 import ProfileHeader from '../ProfileHeader';
 import { socket } from '../../helpers/socket';
+import { Link } from 'react-router-dom';
 
 export default function Private({ children }) {
   const { user, setUserAuth, setOnlineUsers } = useContext(UserContext);
@@ -55,10 +56,10 @@ export default function Private({ children }) {
         <>
           <div className='w-92 h-screen bg-[#25262D] pt-4 flex flex-col justify-between'>
             <div className='flex flex-col gap-5 px-3'>
-              <div className='flex flex-row items-center gap-2'>
-                <img className='h-7 w-8 p-1 bg-white/80 rounded' src='/logoSVG.svg' alt='logo' />
-                <p className='font-[nuosu] text-white text-sm'>ShadowTalk</p>
-              </div>
+              <Link to={'/chat'} className='flex flex-row items-center gap-2'>
+                <img className='h-6 w-7 p-1 bg-white/80 rounded' src='/logoSVG.svg' alt='logo' />
+                <p className='font-[nuosu] text-white text-base'>ShadowTalk</p>
+              </Link>
               <div>{children}</div>
             </div>
             <ProfileHeader />

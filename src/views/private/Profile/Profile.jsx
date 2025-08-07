@@ -52,7 +52,7 @@ export default function Profile({ user }) {
 
           {user?.description && (
             <div className='flex flex-col gap-1'>
-              <p className='font-semibold text-base'>Description</p>
+              <p className='font-semibold text-base'>{t('Description')}</p>
               <p className='text-sm max-w-96 text-white break-all'>{user?.description}</p>
             </div>
           )}

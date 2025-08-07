@@ -32,7 +32,7 @@ export default function Tags() {
           <div className='flex flex-row'>
             <input
               value={newTag}
-              placeholder='Enter tag name...'
+              placeholder={`${t('Adventurer')} ✨`}
               onChange={e => setNewTag(e.target.value)}
               className={`shadow-sm p-1.5 xl:text-base bg-white/10 xl:w-80 text-sm rounded-l-md w-full outline-none`}
             />

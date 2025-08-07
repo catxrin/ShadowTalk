@@ -1,16 +1,20 @@
+import { useTranslation } from 'react-i18next';
+
 import ErrorMessage from '../ErrorMessage';
 import ConnectForm from './ConnectForm';
 
 export default function Input({ name, rules, label, placeholder, styles, ...rest }) {
+  const { t } = useTranslation();
+
   return (
     <ConnectForm>
       {({ register, formState: { errors } }) => (
         <div className='flex flex-col w-full'>
           <label className='text-gray-400 text-sm font-semibold' htmlFor={name}>
-            {label}
+            {t(label)}
           </label>
           <input
-            placeholder={placeholder}
+            placeholder={t(placeholder)}
             className={`shadow-sm p-1.5 bg-white/10 xl:text-base text-sm rounded-md w-full outline-none ${
               !errors[name] && 'border-red-600'
             } ${styles && styles}`}
