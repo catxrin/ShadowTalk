@@ -25,7 +25,7 @@ export default function Tags() {
   };
 
   return (
-    <div className='flex flex-col items-start gap-7'>
+    <div className='flex flex-col items-start gap-7 text-normal'>
       <div className='flex flex-col gap-1.5'>
         <p className='font-semibold'>{t('Tags')}</p>
         <div className='relative'>
@@ -34,7 +34,7 @@ export default function Tags() {
               value={newTag}
               placeholder={`${t('Adventurer')} ✨`}
               onChange={e => setNewTag(e.target.value)}
-              className={`shadow-sm p-1.5 xl:text-base bg-white/10 xl:w-80 text-sm rounded-l-md w-full outline-none`}
+              className={`shadow-sm p-1.5 xl:text-base bg-tertiary text-muted xl:w-80 text-sm rounded-l-md w-full outline-none`}
             />
             <div
               onClick={addNewTag}

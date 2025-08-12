@@ -13,7 +13,7 @@ import { socket } from '../../helpers/socket';
 import { APP_NAME } from '../../helpers/utils';
 
 export default function Private({ children }) {
-  const { user, setUserAuth, setOnlineUsers } = useContext(UserContext);
+  const { user, setUser, setOnlineUsers } = useContext(UserContext);
 
   const screenSize = useScreenSize();
   const outlet = useOutlet();
@@ -23,7 +23,7 @@ export default function Private({ children }) {
   useEffect(() => {
     if (!user) {
       useFetch({ url: 'user' })
-        .then(res => setUserAuth(res))
+        .then(res => setUser(res))
         .finally(() => setIsLoading(false));
     } else {
       setIsLoading(false);
@@ -52,7 +52,7 @@ export default function Private({ children }) {
 
   if (!isLoading && !user) return <Navigate to='/login' />;
   return (
-    <div data-theme='light' className='w-screen h-screen bg-[#2E2F38] flex flex-row'>
+    <div data-theme={user?.theme} className='w-screen h-screen bg-[#2E2F38] flex flex-row'>
       {screenSize > 768 && (
         <>
           <div className='w-92 h-screen bg-primary pt-4 flex flex-col justify-between'>

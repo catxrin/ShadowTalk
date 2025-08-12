@@ -11,7 +11,6 @@
 
   "Change": "Промени",
   "Chat": "Чат",
-  "Profile Customization": "Profile Customization",
 
   "Chat Customization": "Персонализиране на чата",
   "Confirm Password": "Потвърди паролата",
@@ -44,6 +43,9 @@
   "No chat selected. Start a conversation!": "Няма избран чат. Започни разговор!",
   "Username": "Потребителско име",
 
+  "Dark": "Тъмно",
+  "Light": "Светло",
+  "Theme": "Тема",
   "Password": "Парола",
   "Pink": "Розово",
   "Profile Customization": "Персонализиране на профила",

@@ -6,8 +6,8 @@ export default function Option({ label, icon, description, color = 'bg-red-700',
       <div className={`${color} rounded flex items-center px-1`}>
         <Icon styles='text-white' icon={icon} />
       </div>
-      <div className='flex flex-col gap-1'>
-        <h1 className='font-medium text-normal'>{label}</h1>
+      <div className='flex flex-col gap-1 text-normal'>
+        <h1 className='font-medium'>{label}</h1>
         <p className='text-sm text-mute'>{description}</p>
       </div>
     </div>

@@ -2,7 +2,7 @@ import i18next from 'i18next';
 
 export default function LanguageSelector() {
   const changeLanguage = lng => i18next.changeLanguage(lng);
-  const activeLanguageStyles = lng => (i18next.language === lng ? 'bg-secondary shadow-sm text-normal' : 'text-muted');
+  const activeLanguageStyles = lng => (i18next.language === lng ? 'bg-tertiary shadow-sm text-normal' : 'text-muted');
 
   return (
     <div className='flex flex-row items-start shadow-sm self-start bg-primary/50 rounded'>

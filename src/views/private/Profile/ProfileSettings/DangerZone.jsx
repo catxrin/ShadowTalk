@@ -10,7 +10,7 @@ import Icon from '../../../../components/Icon';
 import Option from '../../Chat/ChatSettings/Option';
 
 export default function DangerZone() {
-  const { setUserAuth } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const { t } = useTranslation();
 
@@ -18,7 +18,7 @@ export default function DangerZone() {
 
   const logoutUser = () => {
     logout().then(() => {
-      setUserAuth(null);
+      setUser(null);
       navigate('/');
     });
   };

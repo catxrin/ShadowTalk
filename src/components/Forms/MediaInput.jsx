@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 import ConnectForm from './ConnectForm';
 
 export default function MediaInput({ defaultImage, name }) {
-  const [preview, setPreview] = useState(defaultImage);
   const { t } = useTranslation();
+
+  const [preview, setPreview] = useState(defaultImage);
 
   return (
     <ConnectForm>

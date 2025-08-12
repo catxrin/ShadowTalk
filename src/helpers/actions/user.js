@@ -6,6 +6,7 @@ export const updateUserProfile = (data, userId) => {
   formData.append('bgImage', data.bgImage);
   formData.append('username', data.username);
   formData.append('description', data.description);
+  formData.append('theme', data.theme);
 
   data.tags.forEach(item => {
     formData.append('tags', item);
