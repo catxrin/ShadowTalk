@@ -10,7 +10,7 @@ import Icon from '../../../../components/Icon';
 import Option from '../../Chat/ChatSettings/Option';
 
 export default function DangerZone() {
-  const { setUserAuth } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const { t } = useTranslation();
 
@@ -18,7 +18,7 @@ export default function DangerZone() {
 
   const logoutUser = () => {
     logout().then(() => {
-      setUserAuth(null);
+      setUser(null);
       navigate('/');
     });
   };
@@ -27,7 +27,7 @@ export default function DangerZone() {
     <div className='p-3'>
       <div className='flex flex-row items-center gap-2'>
         <Icon onClick={() => navigate(`/chat`)} styles='text-white !text-3xl' icon='chevron_left' />
-        <p className='font-semibold text-white text-xl'>{t('Danger Zone')}</p>
+        <p className='font-semibold text-normal text-xl'>{t('Danger Zone')}</p>
       </div>
       <Option onClick={logoutUser} icon='logout' label={t('Logout')} description={t('Logout from your account')} />
     </div>

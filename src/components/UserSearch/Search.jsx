@@ -29,7 +29,7 @@ export default function Search() {
           onBlur={() => setFocus(false)}
           onChange={e => setSearch(e.target.value)}
           placeholder={t('Find chatmates')}
-          className='border py-2 pl-3 flex pr-9 outline-hidden text-gray-300 xl:text-base text-sm rounded-md bg-black/20 border-white/9 w-full'
+          className='border py-2 pl-3 flex pr-9 outline-hidden text-normal xl:text-base text-sm rounded-md bg-quaternary border-opposite/9 w-full'
         />
         <Icon styles='!text-2xl text-gray-400 absolute right-2 top-1' icon='search' />
       </div>

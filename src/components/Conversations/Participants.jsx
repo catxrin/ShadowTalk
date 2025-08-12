@@ -15,7 +15,7 @@ export default function Participants({ participants }) {
           key={mate?.user?._id}
           onClick={() => navigate(`/chat/${mate.user._id}`)}
           style={{ backgroundImage: `url(/server/${mate?.user?.bgImage})` }}
-          className={`hover:bg-white/5 rounded font-semibold bg-cover w-full
+          className={`hover:bg-tertiary rounded font-semibold bg-cover w-full
           cursor-pointer bg-black/20 bg-center`}
         >
           <div className='absolute bg-black/5'></div>
@@ -23,11 +23,11 @@ export default function Participants({ participants }) {
             <div className='relative'>
               <img
                 alt='pfp'
-                className={`rounded-full shadow-sm bg-white w-10 h-10 object-cover`}
+                className='rounded-full shadow-sm w-10 h-10 object-cover'
                 src={`/server/${mate?.user?.image}`}
               />
               <div
-                className={`w-3 h-3 border-2 border-[#242429] absolute -right-0.5 bottom-0.5 shadow-sm mt-0.5 rounded-full ${
+                className={`w-3 h-3 border-2 border-blend absolute -right-0.5 bottom-0.5 shadow-sm mt-0.5 rounded-full ${
                   onlineUsers[mate?.user?._id] ? 'bg-green-400' : 'bg-gray-400'
                 }`}
               ></div>

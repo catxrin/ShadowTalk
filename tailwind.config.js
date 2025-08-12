@@ -7,8 +7,6 @@ export default {
       oxygen: ['"Oxygen", "sans-serif"'],
       nuosu: ['Nuosu SIL', 'sans-serif'],
     },
-
-    extend: {},
   },
 
   plugins: [],

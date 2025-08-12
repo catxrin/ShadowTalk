@@ -11,8 +11,8 @@ export default function Language() {
   return (
     <div className='p-3 flex flex-col gap-5'>
       <div className='flex flex-row items-center gap-1 w-full'>
-        <Icon onClick={() => navigate(`/chat`)} styles='text-white !text-3xl' icon='chevron_left' />
-        <p className='font-semibold text-white text-xl'>{t('Language')}</p>
+        <Icon onClick={() => navigate(`/chat`)} styles='text-normal !text-3xl' icon='chevron_left' />
+        <p className='font-semibold text-normal text-xl'>{t('Language')}</p>
       </div>
       <LanguageSelector />
     </div>

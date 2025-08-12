@@ -18,10 +18,10 @@ export default function DangerZone() {
   const { chat } = useContext(ChatContext);
 
   return (
-    <div className='size-full flex flex-col gap-4'>
+    <div className='size-full flex flex-col gap-4 p-3'>
       <div className='flex flex-row items-center gap-2'>
-        <Icon onClick={() => navigate(`/chat/${chatId}`)} styles='text-white !text-3xl' icon='chevron_left' />
-        <p className='font-semibold text-white text-xl'>{t('Danger Zone')}</p>
+        <Icon onClick={() => navigate(`/chat/${chatId}`)} styles='text-normal  !text-3xl' icon='chevron_left' />
+        <p className='font-semibold text-normal text-xl'>{t('Danger Zone')}</p>
       </div>
 
       <div className='flex flex-col'>

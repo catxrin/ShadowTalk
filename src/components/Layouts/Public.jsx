@@ -6,13 +6,13 @@ import Navigation from '../Navigation/Navigation';
 import useFetch from '../../hooks/useFetch';
 
 export default function Public() {
-  const { user, setUserAuth } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) {
       useFetch({ url: 'user', noError: true }).then(res => {
-        setUserAuth(res);
+        setUser(res);
         navigate('/chat');
       });
     }

@@ -12,7 +12,7 @@ export default function Items({ items }) {
       {items.length > 0 ? (
         items.map(chat => isNotCurrentUser(chat._id) && <UserItem key={chat._id} user={chat} />)
       ) : (
-        <p className='bg-[#1C1D22] text-gray-300 text-sm py-2 px-3'>No results found</p>
+        <p className='bg-secondary text-gray-300 text-sm py-2 px-3'>No results found</p>
       )}
     </div>
   );

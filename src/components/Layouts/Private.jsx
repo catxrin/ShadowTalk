@@ -13,7 +13,7 @@ import { socket } from '../../helpers/socket';
 import { APP_NAME } from '../../helpers/utils';
 
 export default function Private({ children }) {
-  const { user, setUserAuth, setOnlineUsers } = useContext(UserContext);
+  const { user, setUser, setOnlineUsers } = useContext(UserContext);
 
   const screenSize = useScreenSize();
   const outlet = useOutlet();
@@ -23,7 +23,7 @@ export default function Private({ children }) {
   useEffect(() => {
     if (!user) {
       useFetch({ url: 'user' })
-        .then(res => setUserAuth(res))
+        .then(res => setUser(res))
         .finally(() => setIsLoading(false));
     } else {
       setIsLoading(false);
@@ -52,26 +52,26 @@ export default function Private({ children }) {
 
   if (!isLoading && !user) return <Navigate to='/login' />;
   return (
-    <div className='w-screen h-screen bg-[#2E2F38] flex flex-row'>
+    <div data-theme={user?.theme} className='w-screen h-screen bg-[#2E2F38] flex flex-row'>
       {screenSize > 768 && (
         <>
-          <div className='w-92 h-screen bg-[#25262D] pt-4 flex flex-col justify-between'>
+          <div className='w-92 h-screen bg-primary pt-4 flex flex-col justify-between'>
             <div className='flex flex-col gap-5 px-3'>
               <Link to={'/chat'} className='flex flex-row items-center gap-2'>
                 <img className='h-6 w-7 p-1 bg-white/80 rounded' src='/logoSVG.svg' alt='logo' />
-                <p className='font-[nuosu] text-white text-base'>{APP_NAME}</p>
+                <p className='font-[nuosu] text-normal text-base'>{APP_NAME}</p>
               </Link>
               <div>{children}</div>
             </div>
             <ProfileHeader />
           </div>
-          <div className='size-full overflow-auto'>{outlet ? <Outlet /> : <Placeholder />}</div>
+          <div className='size-full overflow-auto bg-secondary'>{outlet ? <Outlet /> : <Placeholder />}</div>
         </>
       )}
       {screenSize < 768 && (
         <>
           {!outlet ? (
-            <div className='w-screen h-screen bg-[#25262D] flex flex-col justify-between'>
+            <div className='w-screen h-screen bg-primary flex flex-col justify-between'>
               {children}
               <ProfileHeader />
             </div>

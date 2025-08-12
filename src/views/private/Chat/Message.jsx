@@ -35,7 +35,7 @@ export default function Message({ message }) {
 
   const displayMessageBody = () => {
     if (!editMode) {
-      return <p className='text-sm font-medium text-gray-300 break-all'>{message.body}</p>;
+      return <p className='text-sm text-normal break-all'>{message.body}</p>;
     }
     return <EditInput message={message} setEditMode={setEditMode} />;
   };
@@ -47,13 +47,13 @@ export default function Message({ message }) {
         setHover(false);
         setCopied(false);
       }}
-      className={`font-semibold hover:bg-black/15 rounded items-start py-3 px-6 w-full flex flex-row justify-between ${
+      className={`hover:bg-primary rounded items-start py-3 px-6 w-full flex flex-row justify-between ${
         editMode && 'bg-black/15'
       }`}
     >
       <div className='flex items-start flex-row gap-2 w-full'>
         <img
-          className='rounded-full border border-gray-500 w-12 h-12 object-cover'
+          className='rounded-full border border-soft shadow-sm w-12 h-12 object-cover'
           src={`/server/${participant?.image}`}
           alt='pfp'
         />
@@ -65,12 +65,12 @@ export default function Message({ message }) {
             >
               {participant?.nickname || participant?.username}
             </p>
-            <p className='text-[10px] text-gray-400'>{formatDateAndTime(message?.createdAt)}</p>
+            <p className='text-[11px] text-muted'>{formatDateAndTime(message?.createdAt)}</p>
           </div>
           {displayMessageBody()}
         </div>
       </div>
-      <div className={`flex pt-4 flex-row gap-1.5 text-gray-400 items-center ${(!hover || editMode) && 'invisible'}`}>
+      <div className={`flex pt-4 flex-row gap-1.5 text-muted items-center ${(!hover || editMode) && 'invisible'}`}>
         <Icon
           icon={clipboardIcon()}
           onClick={copyMessage}

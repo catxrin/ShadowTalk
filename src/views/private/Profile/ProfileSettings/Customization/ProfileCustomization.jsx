@@ -7,6 +7,7 @@ import { UserContext } from '../../../../../contexts/UserProvider';
 import { updateUserProfile } from '../../../../../helpers/actions/user';
 
 import Tags from './Tags';
+import Themes from './Themes';
 import Icon from '../../../../../components/Icon';
 import Input from '../../../../../components/Forms/Input';
 import Textarea from '../../../../../components/Forms/Textarea';
@@ -18,12 +19,13 @@ export default function ProfileCustomization() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  const { user, setUserAuth } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const methods = useForm({
     defaultValues: {
       username: user?.username,
       email: user?.email,
+      theme: user?.theme,
       description: user?.description,
       tags: user?.tags,
       bgImage: user?.bgImage,
@@ -33,22 +35,22 @@ export default function ProfileCustomization() {
 
   const submitData = () =>
     methods.handleSubmit(data => {
-      updateUserProfile({ ...data, description: data?.description.trim() }, user?._id).then(data => setUserAuth(data));
+      updateUserProfile({ ...data, description: data?.description.trim() }, user?._id).then(data => setUser(data));
       methods.reset(methods.getValues());
     });
 
   return (
     <FormProvider {...methods}>
-      <div className='flex flex-col p-3 bg-[#2E2F38] relative min-h-full'>
+      <div className='flex flex-col p-3 bg-secondary relative min-h-full'>
         <div className='flex flex-row items-center gap-1 w-full'>
-          <Icon onClick={() => navigate(`/chat`)} styles='text-white !text-3xl' icon='chevron_left' />
-          <p className='font-semibold text-white text-xl'>{t('Profile Customization')}</p>
+          <Icon onClick={() => navigate(`/chat`)} styles='text-normal !text-3xl' icon='chevron_left' />
+          <p className='font-semibold text-normal text-xl'>{t('Profile Customization')}</p>
         </div>
         <form
           onSubmit={submitData()}
-          className='sm:min-w-[20rem] sm:justify-between justify-center flex flex-col gap-10 xl:items-start bg-[#2E2F38] sm:p-8 rounded text-white items-center'
+          className='sm:min-w-[20rem] sm:justify-between justify-center flex flex-col gap-10 xl:items-start sm:p-8 rounded items-center'
         >
-          <div className='flex flex-row gap-50 w-full'>
+          <div className='flex flex-row gap-50 w-full text-normal'>
             <div className='flex flex-col gap-3 sm:w-[30rem] w-full p-3'>
               <div className='flex flex-col gap-1'>
                 <p className='font-semibold'>{t('Avatar')}</p>
@@ -86,7 +88,10 @@ export default function ProfileCustomization() {
                 }}
               />
             </div>
-            <Tags />
+            <div className='flex flex-col gap-10'>
+              <Themes />
+              <Tags />
+            </div>
           </div>
           <BackgroundImages />
           {methods.formState.isDirty && <UpdateIndicator />}

@@ -6,11 +6,5 @@ export default function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
 
-  const setUserAuth = userData => {
-    setUser(userData);
-  };
-
-  return (
-    <UserContext.Provider value={{ user, setUserAuth, onlineUsers, setOnlineUsers }}>{children}</UserContext.Provider>
-  );
+  return <UserContext.Provider value={{ user, setUser, onlineUsers, setOnlineUsers }}>{children}</UserContext.Provider>;
 }

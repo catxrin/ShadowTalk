@@ -25,7 +25,7 @@ export default function Tags() {
   };
 
   return (
-    <div className='flex flex-col items-start gap-7'>
+    <div className='flex flex-col items-start gap-7 text-normal'>
       <div className='flex flex-col gap-1.5'>
         <p className='font-semibold'>{t('Tags')}</p>
         <div className='relative'>
@@ -34,16 +34,16 @@ export default function Tags() {
               value={newTag}
               placeholder={`${t('Adventurer')} ✨`}
               onChange={e => setNewTag(e.target.value)}
-              className={`shadow-sm p-1.5 xl:text-base bg-white/10 xl:w-80 text-sm rounded-l-md w-full outline-none`}
+              className={`shadow-sm p-1.5 xl:text-base bg-tertiary text-muted xl:w-80 text-sm rounded-l-md w-full outline-none`}
             />
             <div
               onClick={addNewTag}
               disabled={!newTag?.length > 0}
               className={`flex ${
                 !newTag?.length > 0 && 'bg-gray-500'
-              } bg-black/50 text-sm font-semibold min-h-full items-center rounded-r px-2 cursor-pointer`}
+              } bg-primary text-sm font-semibold min-h-full shadow-sm items-center rounded-r px-2 cursor-pointer`}
             >
-              <Icon styles={`${!newTag?.length > 0 && 'text-gray-400'} !text-xl`} icon='Add' />
+              <Icon styles={`${!newTag?.length > 0 && 'text-muted'} !text-xl`} icon='Add' />
             </div>
           </div>
           {error && <ErrorMessage styles='absolute' error={error} />}
@@ -55,7 +55,7 @@ export default function Tags() {
             <div
               key={tag}
               name={`tags.${tag}`}
-              className='py-1 flex flex-row gap-2 cursor-pointer shadow-sm px-2 bg-white/10 rounded text-sm font-semibold'
+              className='py-1 flex flex-row gap-2 cursor-pointer shadow-sm px-2 bg-secondary/10 rounded text-sm font-semibold'
             >
               <div>{tag}</div>
               <Icon
@@ -67,7 +67,7 @@ export default function Tags() {
                     { shouldDirty: true }
                   )
                 }
-                styles='bg-white/10 rounded-full p-0.5 !text-lg !leading-none'
+                styles='bg-secondary rounded-full p-0.5 !text-lg !leading-none'
               />
             </div>
           ))}
