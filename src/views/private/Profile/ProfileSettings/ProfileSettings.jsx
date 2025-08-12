@@ -9,7 +9,7 @@ export default function Settings() {
 
   const [tab, setTab] = useState('');
 
-  const tabStyle = path => (tab === path ? 'bg-white/10' : 'hover:bg-white/10');
+  const tabStyle = path => (tab === path ? 'bg-secondary' : 'hover:bg-secondary');
 
   useEffect(() => {
     const currentTab = location.pathname.split('settings/')[1];
@@ -17,7 +17,7 @@ export default function Settings() {
   }, [location]);
 
   return (
-    <div className='flex flex-col gap-1 text-gray-200 '>
+    <div className='flex flex-col gap-1 text-normal'>
       <p
         onClick={() => navigate('customization')}
         className={`cursor-pointer rounded py-3 ${tabStyle('customization')} px-2`}

@@ -39,14 +39,14 @@ export default function ProfileCustomization() {
 
   return (
     <FormProvider {...methods}>
-      <div className='flex flex-col p-3 bg-[#2E2F38] relative min-h-full'>
+      <div className='flex flex-col p-3 bg-secondary relative min-h-full'>
         <div className='flex flex-row items-center gap-1 w-full'>
-          <Icon onClick={() => navigate(`/chat`)} styles='text-white !text-3xl' icon='chevron_left' />
-          <p className='font-semibold text-white text-xl'>{t('Profile Customization')}</p>
+          <Icon onClick={() => navigate(`/chat`)} styles='text-normal !text-3xl' icon='chevron_left' />
+          <p className='font-semibold text-normal text-xl'>{t('Profile Customization')}</p>
         </div>
         <form
           onSubmit={submitData()}
-          className='sm:min-w-[20rem] sm:justify-between justify-center flex flex-col gap-10 xl:items-start bg-[#2E2F38] sm:p-8 rounded text-white items-center'
+          className='sm:min-w-[20rem] sm:justify-between justify-center flex flex-col gap-10 xl:items-start sm:p-8 rounded items-center'
         >
           <div className='flex flex-row gap-50 w-full'>
             <div className='flex flex-col gap-3 sm:w-[30rem] w-full p-3'>

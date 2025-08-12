@@ -29,17 +29,17 @@ export default function ChatInput() {
   };
 
   return (
-    <div className='bg-[#25262D] w-full py-2 flex items-center'>
+    <div className='bg-tertiary w-full py-2 flex items-center'>
       <div className='flex flex-row h-12 px-5 items-center w-full relative'>
         <input
           onChange={e => setMessage(e.target.value)}
-          className='bg-[#404048] text-gray-300 w-full h-full text-base px-3 py-2 outline-hidden rounded'
+          className='bg-secondary shadow-sm border border-strong text-muted w-full h-full text-base px-3 py-2 outline-hidden rounded'
           placeholder={t('Send a message')}
           value={message}
         />
         <div className='flex flex-row items-center gap-3 absolute right-8'>
-          <div className='h-10 bg-white/10 p-[0.5px]'></div>
-          <Icon icon='send' fill={true} onClick={sendMessage} styles='text-gray-300' />
+          <div className='h-10 bg-strong p-[0.5px]'></div>
+          <Icon icon='send' fill={true} onClick={sendMessage} styles='text-muted' />
         </div>
       </div>
     </div>
